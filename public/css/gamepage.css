@@ -1,0 +1,52 @@
+body {
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+}
+
+#input {
+    height: 28px;
+    border-style: none;
+}
+
+.fa-search {
+    position: absolute;
+    z-index: 1;
+    left: 27rem;
+    cursor: pointer;
+}
+
+::placeholder{
+    font-weight: lighter;
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+#row {
+    height:33rem!important;
+}
+
+.imgS {
+    height: 77vh;
+}
+
+#btn {
+    position: absolute;
+    z-index: 1;
+    margin-left: 35%;
+    margin-top: 50%;
+}
+
+.adImg {
+    height: 30vh;
+    width: 220px;
+}
+
+button {
+    position: absolute;
+    left: 33px;
+}

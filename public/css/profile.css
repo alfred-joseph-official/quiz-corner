@@ -1,0 +1,61 @@
+body {
+    background-image: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+}
+
+#input {
+    height: 28px;
+    border-style: none;
+}
+
+.fa-search {
+    position: absolute;
+    z-index: 1;
+    left: 27rem;
+    cursor: pointer;
+}
+
+::placeholder{
+    font-weight: lighter;
+}
+
+.dropdown {
+    cursor: pointer;
+}
+
+.navImg {
+    height: 25px;
+    width: 25px;
+}
+
+#row {
+    height:33rem!important;
+}
+
+.proCon {
+    height: 65vh!important;
+}
+
+li {
+    list-style: none;
+    margin-bottom: 15px;
+}
+
+#editDP {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    background-color: black;
+    filter: opacity(60%);
+    color: white;
+    width: 250px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#editDP:hover {
+    filter: opacity(100%);
+}
