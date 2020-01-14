@@ -17,7 +17,8 @@
     <nav class="navbar navbar-light">
         <a class="text-dark"><b>QuizCorner</b></a>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
+            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
+                aria-label="Search"><i class="fa fa-search"></i>
         </form>
         <a href="/login" class="btn btn-sm btn-outline-dark" data-toggle="modal"
             data-target="#exampleModal">Login/Register</a>
@@ -37,29 +38,58 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <div>
-                            <form class="form-group" action="/loginuser" method="POST">
-                             <div class="Username">
-                                <div class="form-group float-center p-1 d-inline-block">
-                                    <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn" placeholder="Username" name="usn" required
+                        <form class="form-group" action="/loginuser" method="POST">
+                            <div class="form-group">
+                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn"
+                                    placeholder="Username" name="usn" required
                                     oninvalid="this.setCustomValidity('Enter your Username')"
                                     oninput="setCustomValidity('')">
-                                </div> 
                             </div>
-                            <div class="pwd">
-                                <div class="form-group float-center p-1 d-inline-block">
-                                    <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" required
-                                        oninvalid="this.setCustomValidity('Enter your password!')"
+                            <div class="form-group">
+                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
+                                    name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
                                     oninput="setCustomValidity('')">
+                                <a class="offset-7 Fpass" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal2" href="forgot">Forgot Password?</a>
+                            </div>
+                            <div>
+                                <button type="submit" class="form-control btn w-50 offset-3 btn-success">Sign
+                                    in</button><br>
+                                <div class="font-weight-light text-center">
+                                    Not an user ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal1"> Sign up</a>
                                 </div>
                             </div>
-                                <button type="submit" class="btn btn-success">Sign in</button>
-                            </form>
-                            <div>
-                                dont have an account ? <a href="#"  data-toggle="modal" data-dismiss="modal" data-target="#exampleModal1"> sign up</a>
-                            </div>
-                        </div>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for forgot password --}}
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
+                    <div class="row mb-3">
+                    <input type="email" class="form-control w-75 col-6 offset-2 mr-2" name="" id="resInp" placeholder="Enter email">
+                    <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                    <div id="alert" class="alert alert-success alert-dismissible fade show" role="alert" hidden>
+                <strong>Reset link sent!</strong> Check your Email Address.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
                 </div>
             </div>
         </div>
@@ -78,43 +108,39 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <div>
-                            <form class="form-group" action="/signupuser" method="POST">
+                        <form class="form-group" action="/signupuser" method="POST">
                             <div class="Username">
-                                <div class="form-group float-center p-1 d-inline-block">
-                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn" placeholder="Username" name="usn" required
-                                    oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
-                                    oninput="setCustomValidity('')">
-                                </div> 
+                                <div class="form-group">
+                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn"
+                                        placeholder="Username" name="usn" required
+                                        oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
+                                        oninput="setCustomValidity('')">
+                                </div>
                             </div>
-                                <div class="form-group float-center p-1 d-inline-block">
-                                    <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
+                            <div class="form-group">
+                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                    class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
                                     oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
                                     oninput="setCustomValidity('')">
-                                </div>
-                                <div class="pwd">
-                                    <div class="form-group float-center p-1 d-inline-block">
-                                        <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" minlength="6" required
-                                            oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                            </div>
+                            <div class="pwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="pwd"
+                                        placeholder="Enter Password" name="pwd" minlength="6" required
+                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
                                         oninput="setCustomValidity('')">
-                                    </div>
                                 </div>
-                                <div class="cpwd">
-                                     <div class="form-group float-center p-1 d-inline-block">
-                                        <input type="password" class="form-control m-1" id="cpwd" placeholder="Re-enter Password" name="cpwd" required
-                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
-                                    </div>
+                            </div>
+                            <div class="cpwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="cpwd"
+                                        placeholder="Re-enter Password" name="cpwd" required
+                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
-                                {{!-- <input class="form-control mb-2" type="text" name="name" placeholder="name" required>
-                                <input class="form-control mb-2" type="text" name="usn" placeholder="Username"
-                                    required>
-                                <input class="form-control mb-2" type="password" name="pwd" placeholder="Password"
-                                    required>
-                                <input class="form-control mb-2" id="cfp" type="password" name="cpwd"
-                                    placeholder="Confirm Password" required> --}}
-                                <button class="btn btn-warning" type="submit" data-target="#exampleModal">Sign up</button>
-                            </form>
-                        </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" data-target="#exampleModal">Sign
+                                up</button>
+                        </form>
                     </div>
                 </div>
             </div>

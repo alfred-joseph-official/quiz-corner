@@ -15,6 +15,12 @@ body {
     font-weight: lighter;
 }
 
+.Fpass:hover {
+    text-decoration: none;
+    color:rgba(228, 42, 29, 0.945);
+    transition: 0.4s;
+}
+
 .fa-search {
     position: absolute;
     z-index: 1;
