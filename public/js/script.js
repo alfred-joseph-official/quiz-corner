@@ -5,18 +5,24 @@ function enabled() {
     document.getElementById('btnupdate').removeAttribute('disabled');
 
 }
+$('document').ready(function() {
+    $('#reset').click(function() {
 
-var email = $('#resInp').val()
+        var email = $('#resInp').val();
+        $.ajax({
+            type: "POST",
+            url: "/forgot",
+            data: { 'field': email },
+            success: function(response) {
+                // console.log(response);
+                console.log('success');
 
-$('#reset').click(function () {
-    $.ajax({
-        type: "POST",
-        url: "/forgot",
-        data: email,
-        success: function (response) {
-            $('#alert').show()
-        }
-    });
-})
+            },
+            error: function(response) {
+                // console.log(response);
+                console.log('error');
 
-
+            }
+        });
+    })
+});

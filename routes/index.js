@@ -68,8 +68,8 @@ routes.post('/loginuser', function(req, res) {
         if (err) {
             res.redirect('/')
         } else {
-            if (req.body.usn == result.username && req.body.pwd == result.password) {
-                req.session.user = result.username
+            if (req.body.usn == result.usn && req.body.pwd == result.pwd) {
+                req.session.user = result.usn
                 check = false
                 res.redirect('/profile')
             }
@@ -82,9 +82,14 @@ routes.get("/forgot", function(req, res) {
 });
 
 routes.post("/forgot", function(req, res) {
+    console.log(req.body.field);
+    console.log(req.body);
+
+
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
-            res.redirect('/');
+            // res.redirect('/');
+            res.status(400).end();
         } else {
             crypto.randomBytes(16, function(err, buffer) {
                 var token = buffer.toString('hex');
@@ -93,34 +98,40 @@ routes.post("/forgot", function(req, res) {
                     from: '"Quiz Corner " <no-reply@quiz-corner.com',
                     to: userObj.email,
                     subject: "Reset Password",
-                    text: 'Hello ' + userObj.usn + '! You have requested to reset your password. Click on the below link to reset your password.' + "\nhttp://localhost:3000/reset/token/" + token
+                    text: 'Hello ' + userObj.usn + '! You have requested to reset your password. Click on the below link to reset your password.' + "\nhttp://localhost:4500/reset/token/" + token
                 }
 
                 transporter.sendMail(mailOptions, function(mailErr, info) {
-                    if (mailErr) console.log(mailErr);
-                    else res.send('Message sent: ' + info.response);
-                })
-                var newStr = {};
-                newStr["expire_time"] = expire;
-                newStr["token"] = token;
-                var newValues = { $set: newStr };
-                DB.collection('ResetLinks').findOneAndUpdate({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, newValues, { returnOriginal: false }, function(err, resetObj) {
-                    if (err || !resetObj.value) {
-                        resetLink = {
-                            usn: userObj.usn,
-                            email: userObj.email,
-                            expire_time: expire,
-                            token: token
-                        }
-                        DB.collection('ResetLinks').insertOne(resetLink, function(err, result) {
-                            if (err) throw err;
-                            res.send("success!");
+                    if (mailErr) res.status(400).end();
+                    else {
+                        var newStr = {};
+                        newStr["expire_time"] = expire;
+                        newStr["token"] = token;
+                        var newValues = { $set: newStr };
+                        DB.collection('ResetLinks').findOneAndUpdate({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, newValues, { returnOriginal: false }, function(err, resetObj) {
+                            if (err || !resetObj.value) {
+                                resetLink = {
+                                    usn: userObj.usn,
+                                    email: userObj.email,
+                                    expire_time: expire,
+                                    token: token
+                                }
+                                DB.collection('ResetLinks').insertOne(resetLink, function(err, result) {
+                                    if (err) {
+                                        res.status(400).end();
+                                    } else {
+                                        res.status(200).end();
+                                        // res.send('Message sent: ' + info.response);
+                                    }
+                                });
+                            } else {
+                                //todo check for err
+                                res.status(200).end();
+                                // res.send('Message sent: ' + info.response);
+                            }
                         });
-                    } else {
-                        res.send("success!");
                     }
-                });
-
+                })
             });
         }
     });
