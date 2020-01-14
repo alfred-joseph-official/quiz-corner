@@ -71,8 +71,8 @@ routes.post('/loginuser', function(req, res) {
             if (req.body.usn == result.username && req.body.pwd == result.password) {
                 req.session.user = result.username
                 check = false
+                res.redirect('/profile')
             }
-            res.redirect('/profile')
         }
     })
 })
