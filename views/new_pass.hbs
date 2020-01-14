@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Reset Password</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="jumbotron">
+                    <form class="form-horizontal needs-validation" action="/pwd" method="POST">
+                      {{!-- <div class="pwd"> --}}
+                          <input type="text" name="usn" value={{this.usn}} hidden>
+                            <div class="form-group float-center p-1 d-inline-block">
+                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" minlength="6" required
+                                    oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                        {{!-- </div> --}}
+                        {{!-- <div class="cpwd"> --}}
+                            <div class="form-group float-center p-1 d-inline-block">
+                                <input type="password" class="form-control m-1" id="cpwd" placeholder="Re-enter Password" name="cpwd" required
+                                    oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'
+                                    oninput="setCustomValidity('')">
+                            </div>
+                        {{!-- </div> --}}
+                        <button class="btn btn-primary" type="submit">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
