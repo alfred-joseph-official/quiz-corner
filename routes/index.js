@@ -284,4 +284,8 @@ routes.get('/logout', function(req, res) {
     // res.render('homepage')
     res.redirect('/');
 })
+routes.get('/bond',function(req,res)
+{
+    res.render('bond.hbs')
+})
 module.exports = routes

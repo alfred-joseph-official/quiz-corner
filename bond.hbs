@@ -1,0 +1,55 @@
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Bond Meter</title>
+  </head>
+  <body class="bg-primary">
+    <div class="col-md-12 py-2">
+        <span class="badge badge-dark">Quiz Corner Rank</span>
+    </div>
+    <div class="col-md-6 offset-md-3 my-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="pt-3 text-center">Quiz Corner Bond Meter</h1>
+                <hr>
+            </div>
+            <div class="card-body">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>   
+
+    <script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'doughnut',
+
+        // The data for our dataset
+        data: {
+            labels: ["Friend 1","Friend 2 "],
+            datasets: [{
+                label: "Bond Meter",
+                backgroundColor: [ 'green', 'blue'],
+                borderColor: '#fff',
+                data: [5, 10],
+            }]
+        },
+
+        // Configuration options go here
+        options: {
+            circumference: 1 * Math.PI,
+            rotation: 1 * Math.PI,
+            cutoutPercentage: 90
+        }
+    });
+    </script>
+
+  </body>
+</html>
