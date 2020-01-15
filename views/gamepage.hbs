@@ -9,7 +9,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/gamepage.css">
+    <link rel="stylesheet" href="/css/gamepage.css">
     <title>Document</title>
 </head>
 
@@ -17,22 +17,23 @@
     <nav class="navbar navbar-light">
         <a class="text-dark"><b>QuizCorner</b></a>
         <form class="form-inline col-4 offset-2 mr-5">
-        <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
+            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
+                aria-label="Search"><i class="fa fa-search"></i>
         </form>
-        <div class="dropdown col-2">
-            <a class="dropdown-toggle offset-6" role="button" id="dropdownMenuLink"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                User
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" href="/profile">My Profile</a>
-                <a class="dropdown-item" href="#">Logout</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+        <div class="col-2">
+            <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
+                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                </button>
+                <div class="dropdown-menu">
+                    <input type="file" id="avatarpic" class="d-none">
+                    <a class="dropdown-item" id="avatarchange" href="#" onclick="opendialog()">Change Avatar</a>
+                    <a class="dropdown-item" href="/logout">Logout</a>
+                </div>
             </div>
         </div>
     </nav>
-    <br>
-
+    <br> <br>
     <div class="container">
         <div id="row" class="row">
             {{#if page}}
@@ -40,7 +41,31 @@
                 <a href="/gamestart" id="btn" class="btn rounded-pill btn-primary w-25 text-white">Start</a>
                <img src="https://www.chaostrophic.com/wp-content/uploads/2017/06/language1.jpg" class="d-block w-100 imgS" alt="...">   
             </div>
-              <div class="col-md-3 bg-white">
+            {{/if}}
+            {{#if gamestart}}
+                <div id="gamecenter" class="col-md-9 shadow-lg rounded">
+                    <div class="container">
+                        <br>
+                        <h4 id="quizName" class="text-center">How well do you know {{sessionuser}} ?</h4> <hr class="w-50">
+                        <br> <br>
+                        <h3 class="text-center"> Question 1.</h3>
+                    <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea accusantium exercitationem itaque facere doloremque expedita explicabo voluptas dolor reiciendis officia, fuga iure aliquid odit dignissimos mollitia consequatur minus nulla esse.
+                    </div>
+                    <br>
+                    <div class="row">
+                            <p class="bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-success text-white">A</span></p>
+                            <p class="bg-light col-4 shadow rounded p-3"><span class="p-2 rounded bg-danger text-white">B</span></p>
+                    </div>
+                     <div class="row">
+                            <p class="bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-warning text-white">C</span></p>
+                            <p class="bg-light col-4 shadow rounded p-3"><span class="p-2 rounded bg-info text-white">D</span></p>
+                    </div>
+                        <button id="submitAns" class="btn shadow text-white w-25 rounded-pill offset-4 mt-2">Submit</button>
+                </div>
+                </div>
+            {{/if}}
+             <div class="col-md-3 bg-white rounded">
                 <div class="container">
                     ads
                     <img class="adImg mt-1"
@@ -50,30 +75,6 @@
                         alt="">
                 </div>
             </div>
-            {{/if}}
-            {{#if gamestart}}
-                <div class="col-md-8 offset-2 bg-light shadow-lg rounded">
-                    <div class="container">
-                        <br>
-                        <h4 class="text-primary text-center">How well do you know User ?</h4> <hr class="w-50">
-                        <br> <br> <br>
-                        <h3 class="text-center"> Question 1.</h3>
-                    <div id="quesDiv" class="text-center font-weight-lighter mt-3 d-block">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea accusantium exercitationem itaque facere doloremque expedita explicabo voluptas dolor reiciendis officia, fuga iure aliquid odit dignissimos mollitia consequatur minus nulla esse.
-                    </div>
-                    <br>
-                    <div class="row">
-                            <p class="bg-warning col-4 offset-1">Option A</p>
-                            <p class="bg-warning col-4 offset-2">Option B</p>
-                    </div>
-                     <div class="row">
-                            <p class="bg-warning col-4 offset-1">Option C</p>
-                            <p class="bg-warning col-4 offset-2">Option D</p>
-                    </div>
-                        <button class="btn btn-success w-25 rounded-pill offset-4 mt-4">Submit</button>
-                </div>
-                </div>
-            {{/if}}
         </div>
     </div>
 

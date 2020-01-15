@@ -24,6 +24,7 @@ body {
 
 .dropdown {
     cursor: pointer;
+    left: 25%;
 }
 
 .navImg {
