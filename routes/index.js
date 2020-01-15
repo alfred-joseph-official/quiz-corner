@@ -6,7 +6,8 @@ var nodemailer = require("nodemailer");
 const jsonfile = require("jsonfile");
 
 const file = "games.json";
-var url = "mongodb://localhost:27017"
+//var url = "mongodb://localhost:27017"
+var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
 var serverSchema = {
