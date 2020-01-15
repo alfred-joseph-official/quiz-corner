@@ -13,6 +13,8 @@ var serverSchema = {
     first: true,
     timer: 0
 }
+var gameData = {};
+var curGameId = 0;
 
 mongoDB.MongoClient.connect(url, {
     useNewUrlParser: true,
@@ -202,30 +204,65 @@ routes.post("/pwd", function(req, res) {
     });
 });
 
-routes.get("/getques", function(req, res) {
-    var gameId = parseInt(req.query.id, 10);
-    var quesId = parseInt(req.query.ques) - 1;
-    DB.collection("games").findOne({ _id: gameId }, function(req, result) {
-        if (result) {
-            var obj = result.questions[quesId];
-            arr = [0, 1, 2, 3, 4];
-            for (i = arr.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                arr[i] = arr.splice(j, 1, arr[i])[0];
-            }
+routes.post("/getques", function(req, res) {
+    var gameId = parseInt(req.body.gameId, 10);
+    var quesId = parseInt(req.body.quesId) - 1;
+    var answer = req.body.answer;
+    if (Object.keys(gameData).length === 0 || curGameId !== gameId) {
+        curGameId = gameId;
+        DB.collection("games").findOne({ _id: gameId }, function(err, result) {
+            if (result) {
+                console.log("pinged DB");
 
-            var finalQues = {
-                "number": obj.number,
-                "question": obj.question,
-                "options": [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]],
-                "answer": obj.answer
-            }
+                // console.log(gameId);
+                // console.log(quesId);
+                // console.log(result.questions[quesId]);
 
-            res.json(finalQues);
-        } else {
-            throw err;
+                gameData = result;
+                var obj = result.questions[quesId];
+                arr = [0, 1, 2, 3, 4];
+                for (i = arr.length - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    arr[i] = arr.splice(j, 1, arr[i])[0];
+                }
+                var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
+                j = Math.floor(Math.random() * 3);
+
+                optArr.splice(j, 0, obj.answer);
+
+                var finalQues = {
+                    "number": obj.number,
+                    "question": obj.question,
+                    "options": optArr,
+                    "answer": j,
+                    "score": 0
+                }
+
+                res.json(finalQues);
+            } else {
+                throw err;
+            }
+        });
+    } else {
+        var obj = gameData.questions[quesId];
+        arr = [0, 1, 2, 3, 4];
+        for (i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            arr[i] = arr.splice(j, 1, arr[i])[0];
         }
-    });
+        var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
+        j = Math.floor(Math.random() * 3);
+
+        optArr.splice(j, 0, obj.answer);
+
+        var finalQues = {
+            "number": obj.number,
+            "question": obj.question,
+            "options": optArr,
+            "answer": j
+        }
+        res.json(finalQues);
+    }
 });
 
 routes.get('/game', function(req, res) {
@@ -284,8 +321,7 @@ routes.get('/logout', function(req, res) {
     // res.render('homepage')
     res.redirect('/');
 })
-routes.get('/bond',function(req,res)
-{
+routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })
 module.exports = routes
