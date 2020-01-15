@@ -3,9 +3,16 @@ var routes = express.Router()
 var mongoDB = require("mongodb")
 var crypto = require("crypto");
 var nodemailer = require("nodemailer");
+const jsonfile = require("jsonfile");
+
+const file = "games.json";
 var url = "mongodb://localhost:27017"
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
+var serverSchema = {
+    first: true,
+    timer: 0
+}
 
 mongoDB.MongoClient.connect(url, {
     useNewUrlParser: true,
@@ -15,6 +22,22 @@ mongoDB.MongoClient.connect(url, {
         console.log(err)
     } else {
         DB = server.db(dbNAME)
+        DB.collection("server").findOne({}, function(err, result) {
+            if (err) throw err;
+            else if (!result) {
+                DB.collection("server").insertOne(serverSchema, function(err, data) {});
+
+                importDb();
+
+            } else {
+                DB.collection("games").find({}).toArray(function(err, result) {
+                    if (err) throw err;
+                    else if (result.length > 0) {
+                        g_count = ++result.slice(-1)[0]._id;
+                    }
+                });
+            }
+        });
     }
 })
 
@@ -27,6 +50,27 @@ var transporter = nodemailer.createTransport({
         pass: 'jnef9820'
     }
 });
+
+function importDb() {
+    jsonfile.readFile(file, function(err, obj) {
+        if (err) throw err;
+        else {
+            // defQues = obj;
+            // console.log(obj);
+
+            // gameSchema["questions"] = obj;
+            // console.log(gameSchema.questions);
+
+            DB.collection("games").insertMany(obj, { ordered: true }, function(err, gameRes) {
+                if (err) throw err;
+                // g_count = ++defGames.slice(-1)[0]._id;
+                // console.log(gameRes);
+
+                g_count = 2;
+            });
+        }
+    });
+}
 
 routes.get('/', function(req, res) {
     //Todo Render only homepage
@@ -82,9 +126,6 @@ routes.get("/forgot", function(req, res) {
 });
 
 routes.post("/forgot", function(req, res) {
-    console.log(req.body.field);
-    console.log(req.body);
-
 
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
@@ -157,6 +198,32 @@ routes.post("/pwd", function(req, res) {
             DB.collection('Users').findOneAndUpdate({ usn: req.body.usn }, { $set: { pwd: req.body.pwd } }, { returnOriginal: false }, function(err, result) {
                 res.redirect("/");
             });
+        }
+    });
+});
+
+routes.get("/getques", function(req, res) {
+    var gameId = parseInt(req.query.id, 10);
+    var quesId = parseInt(req.query.ques) - 1;
+    DB.collection("games").findOne({ _id: gameId }, function(req, result) {
+        if (result) {
+            var obj = result.questions[quesId];
+            arr = [0, 1, 2, 3, 4];
+            for (i = arr.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                arr[i] = arr.splice(j, 1, arr[i])[0];
+            }
+
+            var finalQues = {
+                "number": obj.number,
+                "question": obj.question,
+                "options": [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]],
+                "answer": obj.answer
+            }
+
+            res.json(finalQues);
+        } else {
+            throw err;
         }
     });
 });
