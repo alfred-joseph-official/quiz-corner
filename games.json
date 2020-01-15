@@ -1,0 +1,204 @@
+[{
+    "_id": 1,
+    "name": "Game Name",
+    "description": "Proident eu reprehenderit aliquip non et eu eiusmod ipsum ea elit dolore non. Reprehenderit aliquip consectetur ipsum laboris in nulla ex eiusmod qui ea. Ad irure velit mollit velit fugiat eiusmod consectetur culpa pariatur adipisicing dolor nostrud ipsum eu. Proident aliqua deserunt consectetur laboris esse est sunt excepteur nostrud. Excepteur tempor velit velit tempor consectetur proident dolor elit voluptate id.",
+    "rules": "Aute eiusmod exercitation do dolore fugiat officia. Eiusmod minim ad consequat nisi nulla reprehenderit nulla.<br/>Fugiat sint irure irure elit deserunt ea culpa labore ut voluptate anim aliquip. Qui sunt qui proident ea ea cupidatat culpa non minim enim sit do esse.<br/>Dolor id commodo mollit reprehenderit cupidatat fugiat. Enim elit fugiat culpa voluptate ea ullamco quis ad dolor.<br/>Dolore quis qui sit elit. Irure commodo tempor Lorem quis labore dolor officia magna elit magna deserunt commodo. Nisi Lorem nostrud laborum nostrud nulla nisi dolor. Irure duis esse dolor consequat cupidatat incididunt cupidatat ut irure laborum consectetur enim.<br/>Ex dolor consequat elit culpa deserunt. Magna magna commodo eu elit deserunt id magna duis mollit aliqua esse magna esse. Esse sit aliqua ipsum nulla amet ex irure. Nulla sunt labore reprehenderit anim quis aute eiusmod deserunt exercitation elit. Commodo reprehenderit occaecat elit eiusmod incididunt dolor tempor incididunt excepteur nulla in. Consequat exercitation voluptate cillum cupidatat anim adipisicing laboris aute. Esse occaecat consectetur id elit incididunt dolore aute reprehenderit.",
+    "images": ["", ""],
+    "questions": [{
+            "_id": 1,
+            "number": 1,
+            "question": "Which chocolate do I love the most?:",
+            "options": [
+                "Kitkat",
+                "Dairy Milk",
+                "Five-star",
+                "Sneakers",
+                "Gems"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 2,
+            "number": 2,
+            "question": "Which is my favourite season ? ",
+            "options": [
+                "Fall",
+                "Winter",
+                "Spring",
+                "Summer",
+                "Monsoon"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 3,
+            "number": 3,
+            "question": "Pick a game I like ? ",
+            "options": [
+                "Chess",
+                "Cricket",
+                "Football",
+                "Basketball",
+                "Tennis"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 4,
+            "number": 4,
+            "question": "To me, LOVE is...",
+            "options": [
+                "Dead",
+                "Complex",
+                "Everything",
+                "Confusing",
+                "Worthwhile"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 5,
+            "number": 5,
+            "question": "Where would ankit like to go with his/her life partner?",
+            "options": [
+                "BALI",
+                "AUSTRALIA",
+                "SWITZERLAND",
+                "GREECE",
+                "PARIS"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 6,
+            "number": 6,
+            "question": "How would i like to call my partner?",
+            "options": [
+                "Babe",
+                "By Name",
+                "Pumpkin",
+                "Honey",
+                "I don't have a partner"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 7,
+            "number": 7,
+            "question": "What would make me most happy?",
+            "options": [
+                "More Sleep",
+                "Less Work",
+                "More time with Friends & Family",
+                "Travelling soemwhere away from home",
+                "More Wealth"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 8,
+            "number": 8,
+            "question": "Out of all these scenarios, how would I react at a party?",
+            "options": [
+                "I would sit down and observe everyone while eating the food",
+                "Dance along with people",
+                "Leave Early",
+                "Attempt to talk to people",
+                "Sing a song "
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 9,
+            "number": 9,
+            "question": "Which is my favourite color?",
+            "options": [
+                "PINK",
+                "BLUE",
+                "WHITE",
+                "RED",
+                "BLACK "
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 10,
+            "number": 10,
+            "question": "How do I show love?",
+            "options": [
+                "Through Words",
+                "Through Touch",
+                "Through Gifts",
+                "Through Things I do",
+                "I don't Know "
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 11,
+            "number": 11,
+            "question": "Which member of your friend group are you?",
+            "options": [
+                "The Leader",
+                "The Funny One",
+                "The Smart One",
+                "The Good One",
+                "The Creative One"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 12,
+            "number": 12,
+            "question": "What weather do I prefer?",
+            "options": [
+                "STORMY",
+                "SNOW",
+                "HOT",
+                "COOL",
+                "RAINY"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 13,
+            "number": 13,
+            "question": "What would i do with an unexpected income of $1000?",
+            "options": [
+                "Save It",
+                "Spend it Extravagantly",
+                "Spend it For Family",
+                "Eat at fancy Restaurants",
+                "Travel"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 14,
+            "number": 14,
+            "question": "What do i do to relax?",
+            "options": [
+                "Spend Time Outdoors",
+                "Relax on the couch",
+                "Have drinks with friends",
+                "Running",
+                "Video Games"
+            ],
+            "answer": ""
+        },
+        {
+            "_id": 15,
+            "number": 15,
+            "question": "What's my texting style?",
+            "options": [
+                "Short",
+                "Full sentences with correct Grammar",
+                "I just text as quickly as possible whatever",
+                "Emoji City",
+                "IDK I rarely Text"
+            ],
+            "answer": ""
+        }
+    ],
+    "topten": [-1]
+}]
