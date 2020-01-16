@@ -1,13 +1,13 @@
 body {
-    background-image: linear-gradient(to right, #434343 0%, black 100%);
+    background-image: linear-gradient(to left, #434343 0%, black 100%);
 }
 
 .navbar {
-    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+    background-image: linear-gradient(to left, #d7d2cc 0%, #304352 100%);
 }
 
 #input {
-    height: 28px;
+    height: 33px;
     border-style: none;
 }
 
