@@ -99,5 +99,10 @@ function fetchData() {
         });
     }
 }
+function setLink()
+{
+   
+
+}
 
 fetchData();
