@@ -86,7 +86,9 @@ routes.get('/', function(req, res) {
 })
 
 routes.get('/home', function(req, res) {
-    res.render("homepage");
+    res.render("homepage", {
+        loggedin: true
+    });
 });
 
 routes.post("/signupuser", function(req, res) {
@@ -118,7 +120,7 @@ routes.post('/loginuser', function(req, res) {
             if (req.body.usn == result.usn && req.body.pwd == result.pwd) {
                 req.session.user = result.usn
                 check = false
-                res.redirect('/profile')
+                res.redirect('/home')
             }
         }
     })
@@ -329,7 +331,14 @@ routes.get('/game', function(req, res) {
 
 routes.get('/gamestart', function(req, res) {
     res.render('gamepage', {
-        gamestart: true
+        gamestart: true,
+        sessionuser: req.session.user
+    })
+})
+
+routes.get('/result', function(req, res){
+    res.render('gamepage', {
+        result: true
     })
 })
 

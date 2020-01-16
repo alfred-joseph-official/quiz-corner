@@ -52,7 +52,8 @@ body {
     width: 220px;
 }
 
-#submitAns {
+#submitBtn {
+    display: none;
     position: absolute;
     left: 33px;
     background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
@@ -60,4 +61,58 @@ body {
 
 #gamecenter {
     background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    margin-right: 10px;
+}
+
+#resultcenter {
+    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
+    margin-right: 10px;
+}
+
+li {
+    background-color: transparent;
+    border: transparent;
+}
+
+.linkDiv { 
+    border: dashed 1px grey;
+}
+
+.shareLink {
+    font-size: small;
+    color: grey;
+}
+
+#uniqueLink {
+    border: solid 1px black;
+}
+
+#shareBtns {
+  position: relative;
+  left: 30%;
+  }
+
+.btn-fb {
+    background: #3B5998;
+    color: white;
+  }
+  
+  .btn-tw {
+    background: #55ACEE;
+    color: white;
+  }
+
+.options {
+    font-weight: bolder;
+    color: grey;
+    position: relative;
+    left: 20%;
+}
+
+.ans {
+    cursor: pointer;
+}
+
+.ans:hover {
+    border: solid 2px rgb(7, 182, 7);
 }

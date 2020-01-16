@@ -15,7 +15,7 @@
 
 <body>
     <nav class="navbar navbar-light">
-       <a href="/"><img src="/img/logo3.png" width="60px" height="35px" id="logo"></a>
+        <a href="/home"><img src="/img/logo3.png" width="60px" height="35px" id="logo"></a>
         <form class="form-inline col-4 offset-2 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
@@ -27,7 +27,7 @@
                 </button>
                 <div class="dropdown-menu">
                     <input type="file" id="avatarpic" class="d-none">
-                    <a class="dropdown-item" id="avatarchange" href="#" onclick="opendialog()">Change Avatar</a>
+                    <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </div>
@@ -37,35 +37,82 @@
     <div class="container">
         <div id="row" class="row">
             {{#if page}}
-            <div class="col-md-9">
+            <div class="col-md-9 rounded">
                 <a href="/gamestart" id="btn" class="btn rounded-pill btn-primary w-25 text-white">Start</a>
-               <img src="https://www.chaostrophic.com/wp-content/uploads/2017/06/language1.jpg" class="d-block w-100 imgS" alt="...">   
+                <img src="img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
             </div>
             {{/if}}
             {{#if gamestart}}
-                <div id="gamecenter" class="col-md-9 shadow-lg rounded">
-                    <div class="container">
-                        <br>
-                        <h4 id="quizName" class="text-center">How well do you know {{sessionuser}} ?</h4> <hr class="w-50">
-                        <br> <br>
-                        <h3 id="questno" class="text-center"> Question 1.</h3>
-                    <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ea accusantium exercitationem itaque facere doloremque expedita explicabo voluptas dolor reiciendis officia, fuga iure aliquid odit dignissimos mollitia consequatur minus nulla esse.
+            <div id="gamecenter" class="col-md-8 shadow-lg rounded">
+                <div class="container">
+                    <br>
+                    <h4 id="quizName" class="text-center text-secondary">Create your challenge {{sessionuser}}!</h4>
+                    <hr class="w-50">
+                    <br> <br>
+                    <div class="container rounded bg-light shadow col-8 p-4">
+                        <h3 id="questno" class="text-center text-secondary">Question 1.</h3>
+                        <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></div>
+                    </div>
+                    <br> <br>
+                    <div class="row">
+                        <div class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
+                                class="p-2 rounded bg-success text-white">A</span><small class="options"
+                                id="option-a"></small></div>
+                        <div class="ans bg-light col-4 shadow rounded p-3"><span
+                                class="p-2 rounded bg-danger text-white">B</span><small class="options"
+                                id="option-b"></small></div>
                     </div>
                     <br>
                     <div class="row">
-                            <p class="bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-success text-white">A</span><small id="option-a"></small></p>
-                            <p class="bg-light col-4 shadow rounded p-3"><span class="p-2 rounded bg-danger text-white">B</span><small id="option-b"></small></p>
+                        <div class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
+                                class="p-2 rounded bg-warning text-white d-inline">C</span><small class="options"
+                                id="option-c"></small></div>
+                        <div class="ans bg-light col-4 shadow rounded p-3"><span
+                                class="p-2 rounded bg-info text-white">D</span><small class="options"
+                                id="option-d"></small></div>
                     </div>
-                     <div class="row">
-                            <p class="bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-warning text-white d-inline">C</span><small id="option-c"></small></p>
-                            <p class="bg-light col-4 shadow rounded p-3"><span class="p-2 rounded bg-info text-white">D</span> <small id="option-d"></small></p>
-                    </div>
-                        <button id="submitAns" class="btn shadow text-white w-25 rounded-pill offset-4 mt-2" hidden>Submit</button>
                 </div>
-                </div>
+            </div>
             {{/if}}
-             <div class="col-md-3 bg-white rounded">
+            <div style="display:none" id="resultcenter" class="col-md-8 shadow-lg rounded">
+                <div class="container">
+                    <br>
+                    <h4 class="text-center text-secondary">Your Challenge is Ready!</h4><br>
+                    <div class="text-center rounded linkDiv col-6 py-2 offset-3 mt-2">
+                        <div class="shareLink"><b>Share this link with your friends</b></div>
+                        <input class="rounded-pill p-1 mt-2" type="text" name="uniqueLink" id="uniqueLink"
+                            placeholder="xyr23a7/quizcorner">
+                        <button type="button" style='font-size:16px' class="rounded-circle btn btn-outline-dark mb-1"
+                            data-container="body" data-toggle="popover" data-placement="top"
+                            data-content="Link copied!"><i class='fas fa-copy'></i></button>
+                    </div>
+                    <div class="container mt-3 text-center">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tab1">Bond</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tab2">Rankings</a>
+                            </li>
+                        </ul>
+                        <!-- Tabs -->
+                        <div class="tab-content">
+                            <div id="tab1" class="container tab-pane active"><br>
+                                <h3>Bond</h3>
+                            </div>
+                            <div id="tab2" class="container tab-pane fade"><br>
+                                <h3>Rankings</h3>
+                            </div>
+                        </div>
+                    </div><br><br><br><br>
+                    <div id="shareBtns" class="row col-8">
+                        <button type="button" class="btn btn-fb"><i class="fab fa-facebook-f pr-1"></i>Facebook share</button>
+                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter share</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 bg-white rounded">
                 <div class="container">
                     ads
                     <img class="adImg mt-1"
@@ -88,7 +135,7 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>

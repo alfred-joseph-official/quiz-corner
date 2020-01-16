@@ -7,7 +7,7 @@
     "questions": [{
             "_id": 1,
             "number": 1,
-            "question": "Which chocolate do I love the most?:",
+            "question": "Which chocolate do I love most ?",
             "options": [
                 "Kitkat",
                 "Dairy Milk",
@@ -59,26 +59,26 @@
         {
             "_id": 5,
             "number": 5,
-            "question": "Where would ankit like to go with his/her life partner?",
+            "question": "Where would I like to go with my life partner?",
             "options": [
-                "BALI",
-                "AUSTRALIA",
-                "SWITZERLAND",
-                "GREECE",
-                "PARIS"
+                "Bali",
+                "Australia",
+                "Switzerland",
+                "Greece",
+                "Paris"
             ],
             "answer": ""
         },
         {
             "_id": 6,
             "number": 6,
-            "question": "How would i like to call my partner?",
+            "question": "How would I like to call my partner?",
             "options": [
                 "Babe",
                 "By Name",
                 "Pumpkin",
                 "Honey",
-                "I don't have a partner"
+                "None"
             ],
             "answer": ""
         },
@@ -89,8 +89,8 @@
             "options": [
                 "More Sleep",
                 "Less Work",
-                "More time with Friends & Family",
-                "Travelling soemwhere away from home",
+                "Time with Friends",
+                "Travelling",
                 "More Wealth"
             ],
             "answer": ""
@@ -98,13 +98,13 @@
         {
             "_id": 8,
             "number": 8,
-            "question": "Out of all these scenarios, how would I react at a party?",
+            "question": "Where would I like to go in my vacation?",
             "options": [
-                "I would sit down and observe everyone while eating the food",
-                "Dance along with people",
-                "Leave Early",
-                "Attempt to talk to people",
-                "Sing a song "
+                "Beach",
+                "Hills",
+                "Desert",
+                "Safari",
+                "Foreign Country"
             ],
             "answer": ""
         },
@@ -113,11 +113,11 @@
             "number": 9,
             "question": "Which is my favourite color?",
             "options": [
-                "PINK",
-                "BLUE",
-                "WHITE",
-                "RED",
-                "BLACK "
+                "Pink",
+                "Blue",
+                "White",
+                "Red",
+                "Black "
             ],
             "answer": ""
         },
@@ -129,8 +129,8 @@
                 "Through Words",
                 "Through Touch",
                 "Through Gifts",
-                "Through Things I do",
-                "I don't Know "
+                "Through Actions",
+                "I don't Know"
             ],
             "answer": ""
         },
@@ -139,11 +139,11 @@
             "number": 11,
             "question": "Which member of your friend group are you?",
             "options": [
-                "The Leader",
-                "The Funny One",
-                "The Smart One",
-                "The Good One",
-                "The Creative One"
+                "Leader",
+                "Funny One",
+                "Smart One",
+                "Good One",
+                "Creative One"
             ],
             "answer": ""
         },
@@ -152,23 +152,23 @@
             "number": 12,
             "question": "What weather do I prefer?",
             "options": [
-                "STORMY",
-                "SNOW",
-                "HOT",
-                "COOL",
-                "RAINY"
+                "Rainy",
+                "Snowy",
+                "Summer",
+                "Winter",
+                "Stormy"
             ],
             "answer": ""
         },
         {
             "_id": 13,
             "number": 13,
-            "question": "What would i do with an unexpected income of $1000?",
+            "question": "What would I do with an unexpected income of $1000?",
             "options": [
                 "Save It",
-                "Spend it Extravagantly",
-                "Spend it For Family",
-                "Eat at fancy Restaurants",
+                "Donate",
+                "Spend on family",
+                "Gamble",
                 "Travel"
             ],
             "answer": ""
@@ -176,13 +176,13 @@
         {
             "_id": 14,
             "number": 14,
-            "question": "What do i do to relax?",
+            "question": "What do I do to relax?",
             "options": [
-                "Spend Time Outdoors",
-                "Relax on the couch",
-                "Have drinks with friends",
-                "Running",
-                "Video Games"
+                "Drive",
+                "Relax on couch",
+                "Watch TV",
+                "Sleep",
+                "Listen music"
             ],
             "answer": ""
         },
@@ -192,10 +192,10 @@
             "question": "What's my texting style?",
             "options": [
                 "Short",
-                "Full sentences with correct Grammar",
-                "I just text as quickly as possible whatever",
+                "Grammer Nazi",
+                "Whatever but fast",
                 "Emoji City",
-                "IDK I rarely Text"
+                "IDK, Normal"
             ],
             "answer": ""
         }
