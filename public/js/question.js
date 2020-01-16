@@ -4,6 +4,7 @@ var quesId = 1;
 var questNo, questDiv, optionsDiv = [];
 var ans;
 var flag = false;
+var data = [];
 
 $('document').ready(function() {
     questNo = $('#questno');
@@ -14,9 +15,7 @@ $('document').ready(function() {
     optionsDiv.push($('#option-d'));
     optionsDiv.forEach(function(item) {
         item.click(function() {
-            if (ans === optionsDiv.indexOf(item)) {
-                flag = true;
-            }
+            data.questions[quesId - 1].options[optionsDiv.indexOf(item)].is_answer = true;
             getNext();
         });
     });
@@ -30,26 +29,19 @@ function getNext() {
     if (quesId < 15) {
         quesId++;
         // url = "/getques/?id=" + gameId + "&ques=" + quesId;
-        fetchQuestion();
+        setData();
     } else {
-        showBondMeter();
+        // showBondMeter();
+        postData();
     }
 
 }
 
-function setData(data) {
-    questNo.text("Question " + data.number);
-    questDiv.text(data.question);
-    ans = data.answer;
-    // var answer = Math.floor(Math.random() * (3));
-    // optionsDiv[answer].text(data.answer);
-    // var j = 0;
+function setData() {
+    questNo.text("Question " + data.questions[quesId - 1].number);
+    questDiv.text(data.questions[quesId - 1].question);
     for (let i = 0; i < 4; i++) {
-        // if (i == answer) {
-        //     continue;
-        // }
-        // optionsDiv[i].text(data.options[j++]);
-        optionsDiv[i].text(data.options[i]);
+        optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
     }
 }
 
@@ -70,15 +62,14 @@ function setData(data) {
 //     });
 // }
 
-function fetchQuestion() {
+function postData() {
     $.ajax({
         type: "POST",
         url: "/getques",
-        data: { gameId: gameId, quesId: quesId, answer: flag },
+        data: { gameId: gameId, data: JSON.stringify(data) },
         success: function(response) {
             // console.log(response);
-            // console.log('success');
-            setData(response);
+            console.log('success');
         },
         error: function(response) {
             // console.log(response);
@@ -87,4 +78,25 @@ function fetchQuestion() {
     });
 }
 
-fetchQuestion();
+function fetchData() {
+    if (data.length > 0) setData();
+    else {
+        $.ajax({
+            type: "POST",
+            url: "/getques",
+            data: { gameId: gameId },
+            success: function(response) {
+                console.log(response);
+                // console.log('success');
+                data = response;
+                setData();
+            },
+            error: function(response) {
+                // console.log(response);
+                console.log('error');
+            }
+        });
+    }
+}
+
+fetchData();

@@ -7,7 +7,7 @@ const jsonfile = require("jsonfile");
 
 const file = "games.json";
 var url = "mongodb://localhost:27017"
-//var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
+    //var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
 var serverSchema = {
@@ -205,65 +205,120 @@ routes.post("/pwd", function(req, res) {
     });
 });
 
+function processData(result, flag) {
+    for (let x = 0; x < result.questions.length; x++) {
+        var obj = result.questions[x];
+        var arr = obj.options;
+        for (let i = arr.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            arr[i] = arr.splice(j, 1, arr[i])[0];
+            if (flag) arr[i] = { option: arr[i], is_answer: false }
+        }
+        if (flag) obj.options.shift();
+        result.questions[x].options = arr;
+    }
+    return result;
+}
+//1st user
 routes.post("/getques", function(req, res) {
-    var gameId = parseInt(req.body.gameId, 10);
-    var quesId = parseInt(req.body.quesId) - 1;
-    var answer = req.body.answer;
-    if (Object.keys(gameData).length === 0 || curGameId !== gameId) {
-        curGameId = gameId;
+    var gameId = parseInt(req.body.gameId);
+    // console.log(req.body.data);
+    if (req.body.data) {
+        var data = JSON.parse(req.body.data)
+        var gameObj = data;
+        crypto.randomBytes(16, function(err, buffer) {
+            var token = buffer.toString('hex');
+            gameObj["usn"] = req.session.user;
+            gameObj["token"] = token;
+            var newVal = { $set: { 'questions': gameObj.questions, 'token': token } }
+            DB.collection("Knowme").update({ "usn": req.session.user }, newVal, { upsert: true }, function(err, result) {
+                // console.log("pinged DB 1");
+                if (err) {
+                    res.status(400).end();
+                } else {
+                    res.status(200).end();
+                    // res.send('Message sent: ' + info.response);
+                }
+            });
+        });
+    } else if (!req.session.gameData) {
         DB.collection("games").findOne({ _id: gameId }, function(err, result) {
             if (result) {
-                console.log("pinged DB");
-
-                // console.log(gameId);
-                // console.log(quesId);
-                // console.log(result.questions[quesId]);
-
-                gameData = result;
-                var obj = result.questions[quesId];
-                arr = [0, 1, 2, 3, 4];
-                for (i = arr.length - 1; i > 0; i--) {
-                    var j = Math.floor(Math.random() * (i + 1));
-                    arr[i] = arr.splice(j, 1, arr[i])[0];
-                }
-                var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
-                j = Math.floor(Math.random() * 3);
-
-                optArr.splice(j, 0, obj.answer);
-
-                var finalQues = {
-                    "number": obj.number,
-                    "question": obj.question,
-                    "options": optArr,
-                    "answer": j,
-                    "score": 0
-                }
-
-                res.json(finalQues);
+                // console.log("pinged DB 2");
+                req.session.gameData = processData(result, true);
+                res.json(req.session.gameData);
             } else {
                 throw err;
             }
         });
     } else {
-        var obj = gameData.questions[quesId];
-        arr = [0, 1, 2, 3, 4];
-        for (i = arr.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            arr[i] = arr.splice(j, 1, arr[i])[0];
-        }
-        var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
-        j = Math.floor(Math.random() * 3);
-
-        optArr.splice(j, 0, obj.answer);
-
-        var finalQues = {
-            "number": obj.number,
-            "question": obj.question,
-            "options": optArr,
-            "answer": j
-        }
-        res.json(finalQues);
+        res.json(processData(req.session.gameData, false));
     }
+});
+
+// routes.post("/getques", function(req, res) {
+//     var gameId = parseInt(req.body.gameId, 10);
+//     var quesId = parseInt(req.body.quesId) - 1;
+//     var answer = req.body.answer;
+//     if (Object.keys(gameData).length === 0 || curGameId !== gameId) {
+//         curGameId = gameId;
+//         DB.collection("games").findOne({ _id: gameId }, function(err, result) {
+//             if (result) {
+//                 console.log("pinged DB");
+
+//                 // console.log(gameId);
+//                 // console.log(quesId);
+//                 // console.log(result.questions[quesId]);
+
+//                 gameData = result;
+//                 var obj = result.questions[quesId];
+//                 arr = [0, 1, 2, 3, 4];
+//                 for (i = arr.length - 1; i > 0; i--) {
+//                     var j = Math.floor(Math.random() * (i + 1));
+//                     arr[i] = arr.splice(j, 1, arr[i])[0];
+//                 }
+//                 var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
+//                 j = Math.floor(Math.random() * 3);
+
+//                 optArr.splice(j, 0, obj.answer);
+
+//                 var finalQues = {
+//                     "number": obj.number,
+//                     "question": obj.question,
+//                     "options": optArr,
+//                     "answer": j,
+//                     "score": 0
+//                 }
+
+//                 res.json(finalQues);
+//             } else {
+//                 throw err;
+//             }
+//         });
+//     } else {
+//         var obj = gameData.questions[quesId];
+//         arr = [0, 1, 2, 3, 4];
+//         for (i = arr.length - 1; i > 0; i--) {
+//             var j = Math.floor(Math.random() * (i + 1));
+//             arr[i] = arr.splice(j, 1, arr[i])[0];
+//         }
+//         var optArr = [obj.options[arr[0]], obj.options[arr[1]], obj.options[arr[2]]];
+//         j = Math.floor(Math.random() * 3);
+
+//         optArr.splice(j, 0, obj.answer);
+
+//         var finalQues = {
+//             "number": obj.number,
+//             "question": obj.question,
+//             "options": optArr,
+//             "answer": j
+//         }
+//         res.json(finalQues);
+//     }
+// });
+
+routes.get("/game/t/:t", function(req, res) {
+    // Unique ID ROUTE
 });
 
 routes.get('/game', function(req, res) {
@@ -297,6 +352,17 @@ routes.get("/profile", function(req, res) {
 
 })
 
+
+routes.get('/uuid', function(req, res) {
+    crypto.randomBytes(16, function(err, buffer) {
+            var token = buffer.toString('hex');
+            res.send(token);
+        }
+        // DB.collection('HWDYNM').insertOne(gameObj, function(err, result){
+
+        // });
+    );
+});
 
 routes.post("/updateprofile", function(req, res) {
     var pass = req.body.pass;
