@@ -80,6 +80,7 @@
                     <h4 class="text-center text-secondary">Your Challenge is Ready!</h4>
                     <div class="text-center rounded linkDiv col-6 py-2 offset-3 mt-2">
                         <div class="shareLink"><b>Share this link with your friends</b></div>
+                        
                         <input class="rounded-pill p-1 mt-2" type="text" name="uniqueLink" id="uniqueLink"
                             placeholder="xyr23a7/quizcorner">
                         <button type="button" style='font-size:16px' class="rounded-circle btn btn-outline-dark mb-1"
@@ -87,7 +88,7 @@
                             data-content="Link copied!"><i class='fas fa-copy'></i></button>
                     </div>
                     <div class="container mt-3">
-                        <table class="table table-hover table-dark rounded">
+                        <table class="table fade table-hover table-dark rounded">
                             <thead>
                                 <tr>
                                     <th scope="col">Rank</th>
@@ -137,13 +138,24 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <div id="shareBtns" class="row col-8 mb-3">
-                        <button type="button" class="btn btn-fb"><i class="fab fa-facebook-f pr-1"></i>Facebook
-                            share</button>
-                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter
-                            share</button>
+                    <!-- Load Facebook SDK for JavaScript -->
+                    <div id="fb-root"></div>
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1">
+                  
+                    </script>
+ 
+                    <div id="shareBtns" class="row col-8">
+                    
+                    
+                    <div class=" btn btn-fb" data-href="http://www.google.com" data-layout="button" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared"><button type="button" class="btn btn-fb" onclick="setLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</button></a></div>
+
+
+
+
+
+
+                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter share</button>
                     </div>
                 </div>
             </div>

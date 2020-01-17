@@ -21,6 +21,7 @@ $('document').ready(function () {
             getNext();
         });
     });
+    
 });
 
 function getNext() {
@@ -32,7 +33,9 @@ function getNext() {
         gameDiv.hide()
         endCard.fadeIn('slow')
         // showBondMeter();
+        
         postData();
+        
     }
 
 }
@@ -98,6 +101,16 @@ function fetchData() {
             }
         });
     }
+}
+function setLink()
+{
+   var x = document.querySelectorAll('.shared')   
+  
+   var link =document.getElementById('uniqueLink').value;    
+
+  var finalhref="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F"+ link +"%2F&amp;src=sdkpreparse" 
+  x[0].href = finalhref
+
 }
 
 fetchData();
