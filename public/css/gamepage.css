@@ -14,7 +14,7 @@ body {
 .fa-search {
     position: absolute;
     z-index: 1;
-    left: 27rem;
+    left: 90%;
     cursor: pointer;
 }
 
@@ -33,11 +33,11 @@ body {
 }
 
 #row {
-    height:33rem!important;
+    height:50%;
 }
 
 .imgS {
-    height: 67vh;
+    height: 100%!important;
 }
 
 #btn {
@@ -48,16 +48,10 @@ body {
 }
 
 .adImg {
-    height: 30vh;
-    width: 220px;
+    height: 30%;
+    width: 100%;
 }
 
-#submitBtn {
-    display: none;
-    position: absolute;
-    left: 33px;
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
-}
 
 #gamecenter {
     background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);

@@ -24,7 +24,7 @@ body {
 .fa-search {
     position: absolute;
     z-index: 1;
-    left: 27rem;
+    left: 90%;
     cursor: pointer;
 }
 
@@ -39,11 +39,11 @@ body {
 }
 
 #row {
-    height:33rem!important;
+    height:500px;
 }
 
 .imgS {
-    max-height: 55vh!important;
+    height: 400px;
 }
 
 .fa-play-circle-o {
@@ -68,8 +68,10 @@ body {
     }
 
 ol li img{
-    height: 12vh;
-    width: 152px;
+    position: relative;
+    bottom: 50px;
+    height: 85px;
+    width: 100%;
     transition: all .2s ease-in-out; 
 }
 
@@ -77,19 +79,8 @@ ol li img:hover{
     transform: scale(1.1); 
 }
 
-ol {
-    position: relative;
-    margin-bottom: 4rem;
-}
-
 .adImg {
-    height: 30vh;
-    width: 220px;
-}
-
-#toast {
-    position: relative;
-    bottom: 10%;
-    right: 20%;
+    height: 30%;
+    width: 100%;
 }
 

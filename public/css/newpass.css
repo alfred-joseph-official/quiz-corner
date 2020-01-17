@@ -14,7 +14,7 @@ body {
 .fa-search {
     position: absolute;
     z-index: 1;
-    left: 27rem;
+    left: 90%;
     cursor: pointer;
 }
 

@@ -44,8 +44,7 @@
         <div class="row">
             <div class="col-4 bg-white proCon">
                 <div class="m-5">
-                    <div id="editDP" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
-                    </div>
+                    <div id="editDP" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit</div>
                     <img src="https://sophosnews.files.wordpress.com/2013/08/facebook-silhouette_thumb.jpg"
                         height="250px" width="250px" alt="new pic">
                 </div>
@@ -59,54 +58,13 @@
                         </div>
                     </div>
                     <form action="updateprofile" method="POST">
-                        <div class="col d-flex flex-row form-group row">
-                            <div class="col-sm-2">Username</div>
-                            <div class="col-sm-10"><input type="text" value="{{username}}" name="username" id="username"
-                                    disabled></div>
+                            
+                    </form>
+                        <div class="row bg-danger">
+                            <h3 class="text-white mt-2 offset-5">Links</h3>
                         </div>
-                        <div class="col d-flex flex-row form-group row">
-                            <div class="col-sm-2">Password</div>
-                            <div class="col-sm-10"><input type="password" value="{{password}}" name="pass" id="password"
-                                    disabled></div>
-                        </div>
-                </div> <br>
-                <div class="col-12 border-top">
-                    <div class="col mt-3">
-                        <h5 class="text-dark">Contact Information</h5>
-                        <div class="col mt-3">
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Phone</div>
-                                <div class="col-sm-10"><input type="text" value="{{phone}}" name="phone" id="userphone"
-                                        disabled></div>
-                            </div>
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Email</div>
-                                <div class="col-sm-10 "><input type="text" value="{{email}}" name="email" id="useremail"
-                                        disabled></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-3">
-                        <h5 class="text-dark">Basic Information</h5>
-                        <div class="col mt-3">
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Birthday</div>
-                                <div class="col-sm-10"><input type="text" value="{{birthday}}" id="userbd" disabled>
-                                </div>
-                            </div>
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Gender</div>
-                                <div class="col-sm-10"><input type="text" value="{{gender}}" id="usergen" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success offset-1" id="btnupdate" disabled>Update</button>
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row bg-danger">
-            <h3 class="text-white mt-2 offset-5">Links</h3>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
