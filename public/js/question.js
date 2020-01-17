@@ -102,15 +102,25 @@ function fetchData() {
         });
     }
 }
-function setLink()
+function setFbLink()
 {
+    //facebook
    var x = document.querySelectorAll('.shared')   
   
    var link =document.getElementById('uniqueLink').value;    
 
   var finalhref="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F"+ link +"%2F&amp;src=sdkpreparse" 
   x[0].href = finalhref
+    //twitter
+    
 
+
+}
+function setTwLink()
+{
+    var link =document.getElementById('uniqueLink').value;    
+    var y = document.getElementById('twitterlink')
+    y.href = "https://twitter.com/intent/tweet?text="+link
 }
 
 fetchData();
