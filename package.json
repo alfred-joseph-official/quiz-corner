@@ -5,7 +5,7 @@
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "Start": "npm app.js"
+        "start": "npm app.js"
     },
     "author": "",
     "license": "ISC",
