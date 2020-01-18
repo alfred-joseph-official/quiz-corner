@@ -241,7 +241,7 @@ routes.post("/getques", function(req, res) {
                     res.status(200).end();
                     // res.send('Message sent: ' + info.response);
                 }
-            });
+            }); 
         });
     } else if (!req.session.gameData) {
         DB.collection("games").findOne({ _id: gameId }, function(err, result) {
