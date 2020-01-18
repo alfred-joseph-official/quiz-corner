@@ -6,6 +6,9 @@ var ans;
 var flag = false;
 var data = [];
 var score = 0;
+var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
+    fbShare2 = "%2F&amp;src=sdkpreparse",
+    twitterShare = "https://twitter.com/intent/tweet?text=";
 
 $('document').ready(function() {
     fetchData();
@@ -18,7 +21,6 @@ $('document').ready(function() {
     optionsDiv.push($('#option-b'));
     optionsDiv.push($('#option-c'));
     optionsDiv.push($('#option-d'));
-    optionsDiv
 
     var ans = [];
     ans.push($('#opd-a'));
@@ -61,16 +63,15 @@ function getNext() {
         gameDiv.hide()
         endCard.fadeIn('slow', function() {
             // //IMPORTANT DONT DELETE! BOND METER CODE!
-            // $('.bond-container').addClass('bond-meter-loaded');
-            // $('#percent').text(score + '/15').fadeIn('slow');
+            $('.bond-container').addClass('bond-meter-loaded');
+            $('#percent').text(score + '/15').fadeIn('slow');
         });
-        $('.bond-meter-show').each(function(item) {
-                item.click(function() {
-                    $('.bond-container').addClass('bond-meter-loaded');
-                    $('#percent').text(score + '/15').fadeIn('slow');
-                })
-            })
-            // showBondMeter();
+        // $('.bond-meter-show').each(function(item) {
+        //         item.click(function() {
+
+        //         })
+        //     })
+        // showBondMeter();
 
         if (data.player) postPlayerData();
         else postCreaterData();
@@ -114,8 +115,13 @@ function postCreaterData() {
         url: "/getques",
         data: { gameId: gameId, data: JSON.stringify(data) },
         success: function(response) {
-            // console.log(response);
+            console.log(response);
             $("#uniqueLink").val(response);
+            // console.log(fbshare1 + response + fbshare2);
+            // console.log(twitterShare + response);
+
+            // $('#fbs').attr('href', fbShare1 + response + fbShare2);
+            // $('#tws').attr('href', encodeURIComponent(twitterShare + response));
             console.log('success');
         },
         error: function(response) {

@@ -6,8 +6,8 @@ var nodemailer = require("nodemailer");
 const jsonfile = require("jsonfile");
 
 const file = "games.json";
-var url = "mongodb://localhost:27017"
-    //var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
+// var url = "mongodb://localhost:27017"
+var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
 var serverSchema = {
@@ -221,18 +221,18 @@ routes.post("/pwd", function(req, res) {
 });
 
 routes.get('/', function(req, res) {
-    //Todo Render only homepage
-    // if (req.session.user) {
-    //     res.render('profile')
-    // } else {
-    res.render('homepage')
-        // }
+        //Todo Render only homepage
+        // if (req.session.user) {
+        //     res.render('profile')
+        // } else {
+        res.render('homepage')
+            // }
 
-})
-routes.use(function(req, res, next) {
-    if (req.session.user) next();
-    else res.send("Please Login");
-});
+    })
+    // routes.use(function(req, res, next) {
+    //     if (req.session.user) next();
+    //     else res.send("Please Login");
+    // });
 
 routes.get('/home', function(req, res) {
     res.render("homepage");
