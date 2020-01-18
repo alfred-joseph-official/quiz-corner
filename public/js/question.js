@@ -7,6 +7,8 @@ var flag = false;
 var data = [];
 
 $('document').ready(function () {
+    fetchData();
+    resetSuccess = $('.alert');
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
     questNo = $('#questno');
@@ -15,14 +17,30 @@ $('document').ready(function () {
     optionsDiv.push($('#option-b'));
     optionsDiv.push($('#option-c'));
     optionsDiv.push($('#option-d'));
-    optionsDiv.forEach(function (item) {
+    // optionsDiv.forEach(function (item) {
+    //     item.click(function () {
+    //         data.questions[quesId - 1].options[optionsDiv.indexOf(item)].is_answer = true;
+    //         getNext();
+    //     });
+
+    // });
+    var ans = [];
+    ans.push($('#opd-a'));
+    ans.push($('#opd-b'));
+    ans.push($('#opd-c'));
+    ans.push($('#opd-d'));
+    
+    ans.forEach(function (item) {
         item.click(function () {
-            data.questions[quesId - 1].options[optionsDiv.indexOf(item)].is_answer = true;
+            data.questions[quesId - 1].options[ans.indexOf(item)].is_answer = true;
             getNext();
         });
+
     });
     
 });
+
+
 
 function getNext() {
     if (quesId < 15) {
@@ -123,4 +141,15 @@ function setTwLink()
     y.href = "https://twitter.com/intent/tweet?text="+link
 }
 
-fetchData();
+function copyLink(val){
+    $(val).select()
+    document.execCommand("copy");
+}
+
+$('#reset').click(function () {
+    $(".toast").toast("show")
+});
+
+function resetPass(){
+    resetSuccess.fadeIn('slow')
+}

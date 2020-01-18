@@ -15,7 +15,7 @@
 
 <body>
  <nav class="navbar navbar-light">
-       <a href="/home"><img src="/img/logo3.png" width="60px" height="35px" id="logo"></a>
+       <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
         <form class="form-inline col-4 offset-2 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
@@ -26,7 +26,7 @@
                     <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <input type="file" id="avatarpic" class="d-none">
+                   <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -37,7 +37,7 @@
     <br>
 
     <div class="container-fluid col-12">
-        <div class="jumbotron w-50 offset-3">
+        <div class="jumbotron w-50 offset-3 bg-light shadow">
             <h3 class="text-center"><small> Password Reset! Enter your new password.</small></h3>
             <form class="needs-validation" action="/pwd" method="POST"> 
             <div class="row offset-1">
@@ -58,8 +58,8 @@
                 <button class="btn btn-primary" type="submit">Confirm</button>
                 </div>
                 </div>
-                <div class="alert alert-success alert-dismissible fade show col-8 offset-2 mt-4" hidden>
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <div style="display:none" class="alert alert-success alert-dismissible show col-8 offset-2 mt-4">
+                    <button type="button" class="close" onclick="resetPass()" data-dismiss="alert">&times;</button>
                     <strong>Success!</strong> Please Login To Continue.
                 </div>
             </form>

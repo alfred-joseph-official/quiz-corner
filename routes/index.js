@@ -119,7 +119,7 @@ routes.post('/loginuser', function(req, res) {
         } else {
             if (req.body.usn == result.usn && req.body.pwd == result.pwd) {
                 req.session.user = result.usn
-                check = false
+                check = true
                 res.redirect('/home')
             }
         }
