@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,8 +19,11 @@
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
-        <form class="form-inline col-4 offset-2 mr-5">
+         <div class="row col-2">
+        <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+        </div>
+        <form class="form-inline col-4 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i id="fa-search" class="fa fa-search"></i>
         </form>
@@ -29,7 +33,6 @@
                     <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -94,9 +97,38 @@
                 <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3"
                     aria-hidden="true"></i>
             </h3>
-
         </div>
-    </div>
+    </div><br><br><br>
+
+
+    <footer class="footer">
+        <div class="w-100">
+            <br>
+            <h4 class="text-center text-white">About us</h4><br>
+            <div class="row">
+                <div class="col-4 border-right">
+                    <small class="text-white offset-3"><strong>Follow</strong></small>
+                    <div class="Slogin mt-2"><a href="#" class="sBtn fa fa-facebook"></a><a href="#"
+                            class="sBtn fa fa-google"></a><a href="#" class="sBtn fa fa-twitter"></a></div>
+                </div>
+                <div class="col-4 text-center border-right">
+                    <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
+                        so you can test your skills by challenging your family & friends or other users and rank top in
+                        our leader board.</small>
+                </div>
+                <div class="col-4 text-center">
+                    <small class="text-white">
+                        <p> Designed and Devloped at Attain University.</p>
+                        <p> Call us - 1-800-XXX-020-XXX </p>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
+            </strong></small></footer>
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
