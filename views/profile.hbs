@@ -18,19 +18,18 @@
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo3.png" width="60px" height="35px" id="logo"></a>
+        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
         <form class="form-inline col-4 offset-2 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search"></i>
+                aria-label="Search"><i id="fa-search" class="fa fa-search"></i>
         </form>
-
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
                     <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <input type="file" id="avatarpic" class="d-none">
+                    <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -42,71 +41,60 @@
     <br>
     <div class="container proCon w-75 bg-white shadow-lg">
         <div class="row">
-            <div class="col-4 bg-white proCon">
-                <div class="m-5">
+            <div class="col-4">
+                <div class="m-3">
                     <div id="editDP" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
                     </div>
-                    <img src="https://sophosnews.files.wordpress.com/2013/08/facebook-silhouette_thumb.jpg"
-                        height="250px" width="250px" alt="new pic">
+                    <img src="/img/profilepic.png" height="270px" width="250px" alt="new pic">
                 </div>
             </div>
-            <div class="col-8 mt-3">
+            <div id="infoDiv" class="col-8 mt-3 p-0">
                 <div class="col-12">
-                    <div class="mb-2 row">
-                        <div class="col-2 offset-10">
-                            <input type="button" onclick="enabled()" class="btn btn-sm btn-primary"
-                                value="Edit Profile">
-                        </div>
-                    </div>
+                    <h3><span class="font-weight-lighter">I'm </span> {{sessionuser}}</h3>
                     <form action="updateprofile" method="POST">
-                        <div class="col d-flex flex-row form-group row">
-                            <div class="col-sm-2">Username</div>
-                            <div class="col-sm-10"><input type="text" value="{{username}}" name="username" id="username"
-                                    disabled></div>
-                        </div>
-                        <div class="col d-flex flex-row form-group row">
-                            <div class="col-sm-2">Password</div>
-                            <div class="col-sm-10"><input type="password" value="{{password}}" name="pass" id="password"
-                                    disabled></div>
-                        </div>
-                </div> <br>
-                <div class="col-12 border-top">
-                    <div class="col mt-3">
-                        <h5 class="text-dark">Contact Information</h5>
-                        <div class="col mt-3">
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Phone</div>
-                                <div class="col-sm-10"><input type="text" value="{{phone}}" name="phone" id="userphone"
-                                        disabled></div>
-                            </div>
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Email</div>
-                                <div class="col-sm-10 "><input type="text" value="{{email}}" name="email" id="useremail"
-                                        disabled></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mt-3">
-                        <h5 class="text-dark">Basic Information</h5>
-                        <div class="col mt-3">
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Birthday</div>
-                                <div class="col-sm-10"><input type="text" value="{{birthday}}" id="userbd" disabled>
-                                </div>
-                            </div>
-                            <div class="col d-flex flex-row form-group row">
-                                <div class="col-sm-2">Gender</div>
-                                <div class="col-sm-10"><input type="text" value="{{gender}}" id="usergen" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-success offset-1" id="btnupdate" disabled>Update</button>
-                    </div>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td><b>Name</b></td>
+                                    <td class="text-secondary">Mukhtar Ahmad</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Password</b> </td>
+                                    <td class="text-secondary"><small>● ● ● ● ● ● ●</small> </td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Age</b> </td>
+                                    <td class="text-secondary">25</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Gender</b></td>
+                                    <td class="text-secondary">Male</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                </tr>
+                                <tr>
+                                    <td><b>E-mail</b> </td>
+                                    <td class="text-secondary">mukhtartheking1@gmail.com</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container col-9">
         <div class="row bg-danger">
-            <h3 class="text-white mt-2 offset-5">Links</h3>
+
+            <h3 class="text-white mt-2 offset-4"><i class="fa fa-facebook ml-3 mr-5" aria-hidden="true"></i><i
+                    class="fa fa-google-plus ml-3 mr-5" aria-hidden="true"></i>
+                <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3"
+                    aria-hidden="true"></i>
+            </h3>
+
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"

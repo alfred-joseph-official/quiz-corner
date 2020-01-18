@@ -8,6 +8,8 @@ var data = [];
 var score = 0;
 
 $('document').ready(function() {
+    fetchData();
+    resetSuccess = $('.alert');
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
     questNo = $('#questno');
@@ -16,18 +18,28 @@ $('document').ready(function() {
     optionsDiv.push($('#option-b'));
     optionsDiv.push($('#option-c'));
     optionsDiv.push($('#option-d'));
-    optionsDiv.forEach(function(item) {
+    optionsDiv
+
+    var ans = [];
+    ans.push($('#opd-a'));
+    ans.push($('#opd-b'));
+    ans.push($('#opd-c'));
+    ans.push($('#opd-d'));
+
+    ans.forEach(function(item) {
         item.click(function() {
             if (data.player === true) {
-                if (data.questions[quesId - 1].options[optionsDiv.indexOf(item)].is_answer === true) {
+                if (data.questions[quesId - 1].options[ans.indexOf(item)].is_answer === true) {
                     // showAnim();
                     score++;
                 }
-            } else data.questions[quesId - 1].options[optionsDiv.indexOf(item)].is_answer = true;
+            } else data.questions[quesId - 1].options[ans.indexOf(item)].is_answer = true;
             getNext();
         });
     });
 });
+
+
 
 function getNext() {
     if (quesId < 15) {
@@ -35,6 +47,7 @@ function getNext() {
         // url = "/getques/?id=" + gameId + "&ques=" + quesId;
         setData()
     } else {
+        //IMPORTANT DONT DELETE! BOND METER CODE!
         var bp = Math.round((score / 15) * .5 * 100) / 100;
 
         $("<style>")
@@ -47,15 +60,26 @@ function getNext() {
 
         gameDiv.hide()
         endCard.fadeIn('slow', function() {
-            $('.bond-container').addClass('bond-meter-loaded');
-            $('#percent').text(score + '/15').fadeIn('slow');
+            // //IMPORTANT DONT DELETE! BOND METER CODE!
+            // $('.bond-container').addClass('bond-meter-loaded');
+            // $('#percent').text(score + '/15').fadeIn('slow');
         });
-        // showBondMeter();
+        $('.bond-meter-show').each(function(item) {
+                item.click(function() {
+                    $('.bond-container').addClass('bond-meter-loaded');
+                    $('#percent').text(score + '/15').fadeIn('slow');
+                })
+            })
+            // showBondMeter();
 
         if (data.player) postPlayerData();
         else postCreaterData();
     }
 
+}
+
+function remBondAnim() {
+    $('.bond-container').removeClass('bond-meter-loaded');
 }
 
 
@@ -139,4 +163,35 @@ function fetchData() {
     }
 }
 
-fetchData();
+function setFbLink() {
+    //facebook
+    var x = document.querySelectorAll('.shared')
+
+    var link = document.getElementById('uniqueLink').value;
+
+    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F" + link + "%2F&amp;src=sdkpreparse"
+    x[0].href = finalhref
+        //twitter
+
+
+
+}
+
+function setTwLink() {
+    var link = document.getElementById('uniqueLink').value;
+    var y = document.getElementById('twitterlink')
+    y.href = "https://twitter.com/intent/tweet?text=" + link
+}
+
+function copyLink(val) {
+    $(val).select()
+    document.execCommand("copy");
+}
+
+$('#reset').click(function() {
+    $(".toast").toast("show")
+});
+
+function resetPass() {
+    resetSuccess.fadeIn('slow')
+}

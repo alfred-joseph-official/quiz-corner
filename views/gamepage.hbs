@@ -15,7 +15,7 @@
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo3.png" width="60px" height="35px" id="logo"></a>
+        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
         <form class="form-inline col-4 offset-2 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
@@ -23,10 +23,10 @@
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <input type="file" id="avatarpic" class="d-none">
+                    <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -37,13 +37,13 @@
     <div class="container">
         <div id="row" class="row">
             {{#if page}}
-            <div class="col-md-9 rounded">
+            <div class="col-md-8 rounded shadow bg-light">
                 <a href="/gamestart" id="btn" class="btn rounded-pill btn-primary w-25 text-white">Start</a>
                 <img src="img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
             </div>
             {{/if}}
             {{#if gamestart}}
-            <div id="gamecenter" class="col-md-8 shadow-lg rounded">
+            <div id="gamecenter" class="col-md-8 shadow rounded bg-light">
                 <div class="container">
                     <br>
                     <h4 id="quizName" class="text-center text-secondary">Create your challenge {{sessionuser}}!</h4>
@@ -55,74 +55,111 @@
                     </div>
                     <br> <br>
                     <div class="row">
-                        <div class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
+                        <div id="opd-a" class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
                                 class="p-2 rounded bg-success text-white">A</span><small class="options"
                                 id="option-a"></small></div>
-                        <div class="ans bg-light col-4 shadow rounded p-3"><span
+                        <div id="opd-b" class="ans bg-light col-4 shadow rounded p-3"><span
                                 class="p-2 rounded bg-danger text-white">B</span><small class="options"
                                 id="option-b"></small></div>
                     </div>
                     <br>
                     <div class="row">
-                        <div class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
+                        <div id="opd-c" class="ans bg-light col-4 shadow rounded offset-2 mr-3 p-3"><span
                                 class="p-2 rounded bg-warning text-white d-inline">C</span><small class="options"
                                 id="option-c"></small></div>
-                        <div class="ans bg-light col-4 shadow rounded p-3"><span
+                        <div id="opd-d" class="ans bg-light col-4 shadow rounded p-3"><span
                                 class="p-2 rounded bg-info text-white">D</span><small class="options"
                                 id="option-d"></small></div>
                     </div>
                 </div>
             </div>
             {{/if}}
-            <div style="display:none" id="resultcenter" class="col-md-8 shadow-lg rounded">
+            <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
                 <div class="container">
                     <br>
-                    <h4 class="text-center text-secondary">Your Challenge is Ready!</h4><br>
+                    <h4 class="text-center text-secondary">Your Challenge is Ready!</h4>
                     <div class="text-center rounded linkDiv col-6 py-2 offset-3 mt-2">
                         <div class="shareLink"><b>Share this link with your friends</b></div>
-                        <input class="rounded-pill p-1 mt-2" type="text" name="uniqueLink" id="uniqueLink"
-                            placeholder="xyr23a7/quizcorner">
-                        <button type="button" style='font-size:16px' class="rounded-circle btn btn-outline-dark mb-1"
+                        
+                        <input class="rounded-pill p-1 mt-2 text-muted" type="text" value="asdfg123" name="uniqueLink" id="uniqueLink" readonly>
+                        <button type="button" style='font-size:16px' onclick="copyLink('#uniqueLink')" class="rounded-circle btn btn-outline-dark mb-1"
                             data-container="body" data-toggle="popover" data-placement="top"
                             data-content="Link copied!"><i class='fas fa-copy'></i></button>
                     </div>
-                    <div class="container mt-3 text-center">
-                        <!-- Nav tabs -->
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tab1">Bond</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tab2">Rankings</a>
-                            </li>
-                        </ul>
-                        <!-- Tabs -->
-                        <div class="tab-content">
-                            <div id="tab1" class="container tab-pane active"><br>
-                                {{!-- <h3>Bond</h3> --}}
-                                <div style="position: relative;">
-                                    <div class="bond-container">
-                                        <div class="semi-a"></div>
-                                        <div class="semi-b"></div>
-                                        <div class="semi-c"></div>
-                                        <div class="semi-data">
-                                            <h1 id="percent">50%</h1>
+                    {{!-- Tabbed Bond --}}
+                 
+                    {{!-- MOdal Bond --}}
+                    <!-- Load Facebook SDK for JavaScript -->
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
+                    <div id="shareBtns" class="row col-8 mt-2">
+                    <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb" onclick="setFbLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</a></div>
+                    <div data-href="http://www.google.com" data-layout="button" data-size="large"><a class="btn btn-tw " id="twitterlink" target="_blank" href="" onclick="setTwLink()" data-size="large"><i class="fab fa-twitter pr-1"></i>Twitter share</a></div>
+                    </div>
+
+                    <div class="container mt-3">
+                        <table class="table table-hover table-dark rounded">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Rank</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Score</th>
+                                    <th scope="col">Bond</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Mukhtar</td>
+                                    <td>14</td>
+                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal">View</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Alfred</td>
+                                    <td>12</td>
+                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal">View</button></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Amrit</td>
+                                    <td>10</td>
+                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Bond Meter</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="remBondAnim()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" style="width: 400px; height:250px;">
+                                        <div style="position: relative;">
+                                        <div class="bond-container">
+                                            <div class="semi-a"></div>
+                                            <div class="semi-b"></div>
+                                            <div class="semi-c"></div>
+                                            <div class="semi-data">
+                                                <h1 id="percent">50%</h1>
+                                            </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab2" class="container tab-pane fade"><br>
-                                <h3>Rankings</h3>
-                            </div>
                         </div>
-                    </div><br><br><br><br>
-                    <div id="shareBtns" class="row col-8">
-                        <button type="button" class="btn btn-fb"><i class="fab fa-facebook-f pr-1"></i>Facebook share</button>
-                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter share</button>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 bg-white rounded">
+            <div class="col-md-3 bg-light shadow rounded ml-1">
                 <div class="container">
                     ads
                     <img class="adImg mt-1"

@@ -377,7 +377,8 @@ routes.get('/game', function(req, res) {
 routes.get('/gamestart', function(req, res) {
     res.render('gamepage', {
         gamestart: true,
-        sessionuser: req.session.user
+        sessionuser: req.session.user,
+
     })
 })
 

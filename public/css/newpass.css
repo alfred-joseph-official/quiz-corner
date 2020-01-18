@@ -1,9 +1,11 @@
 body {
-    background-image: linear-gradient(to left, #434343 0%, black 100%);
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: hidden;
+    height: 100vh!important;
 }
 
 .navbar {
-    background-image: linear-gradient(to left, #d7d2cc 0%, #304352 100%);
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 
 #input {
@@ -14,7 +16,7 @@ body {
 .fa-search {
     position: absolute;
     z-index: 1;
-    left: 27rem;
+    left: 90%;
     cursor: pointer;
 }
 

@@ -1,9 +1,11 @@
 body {
-    background-image: linear-gradient(to left, #434343 0%, black 100%);
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: hidden;
+    height: 100vh!important;
 }
 
 .navbar {
-    background-image: linear-gradient(to left, #d7d2cc 0%, #304352 100%);
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 
 #input {
@@ -14,7 +16,7 @@ body {
 .fa-search {
     position: absolute;
     z-index: 1;
-    left: 27rem;
+    left: 90%;
     cursor: pointer;
 }
 
@@ -33,11 +35,11 @@ body {
 }
 
 #row {
-    height: 33rem!important;
+    height: 50%;
 }
 
 .imgS {
-    height: 67vh;
+    height: 100%!important;
 }
 
 #btn {
@@ -48,30 +50,16 @@ body {
 }
 
 .adImg {
-    height: 30vh;
-    width: 220px;
-}
-
-#submitBtn {
-    display: none;
-    position: absolute;
-    left: 33px;
-    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%);
+    height: 30%;
+    width: 100%;
 }
 
 #gamecenter {
-    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
     margin-right: 10px;
 }
 
 #resultcenter {
-    background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);
     margin-right: 10px;
-}
-
-li {
-    background-color: transparent;
-    border: transparent;
 }
 
 .linkDiv {
@@ -92,14 +80,22 @@ li {
     left: 30%;
 }
 
+.btn-fb:hover {
+    color: white;
+}
+
+.btn-tw:hover {
+    color: white;
+}
+
 .btn-fb {
     background: #3B5998;
-    color: white;
+    color: rgb(224, 224, 224);
 }
 
 .btn-tw {
     background: #55ACEE;
-    color: white;
+    color: rgb(224, 224, 224);
 }
 
 .options {
@@ -117,6 +113,9 @@ li {
     border: solid 2px rgb(7, 182, 7);
 }
 
+
+/* Bond meter code Dont delete */
+
 .bond-container {
     width: 400px;
     height: 200px;
@@ -125,7 +124,7 @@ li {
     left: 50%;
     overflow: hidden;
     text-align: center;
-    transform: translate(-50%, 0);
+    transform: translate(-33.33%, 0);
 }
 
 .semi-a {
@@ -165,7 +164,8 @@ li {
 }
 
 
-/* .bond-container:active .semi-c {
+/* Dont need this. Can delete
+ .bond-container:active .semi-c {
     transform: rotate(.5turn);
 } */
 
@@ -173,6 +173,9 @@ li {
 /* .bond-meter-loaded .semi-c {
     transform: rotate(.5turn);
 } */
+
+
+/* Bond meter code Dont delete */
 
 .bond-container:hover .semi-data {
     color: rgba(255, 255, 255, 1);
@@ -192,9 +195,11 @@ li {
     transition: all 1s ease-out;
 }
 
+
+/*
 #shareBtns {
     transform: translate(0, 300%);
-}
+} */
 
 
 /* @keyframes rotate {
