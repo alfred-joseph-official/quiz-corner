@@ -1,5 +1,6 @@
 body {
     background-image: linear-gradient(to left, #434343 0%, black 100%);
+    overflow: hidden;
 }
 
 .navbar {
@@ -86,14 +87,22 @@ li {
   left: 30%;
   }
 
+.btn-fb:hover {
+    color: white;
+}
+
+.btn-tw:hover {
+    color: white;
+}
+
 .btn-fb {
     background: #3B5998;
-    color: white;
+    color: rgb(224, 224, 224);
   }
   
   .btn-tw {
     background: #55ACEE;
-    color: white;
+    color: rgb(224, 224, 224);
   }
 
 .options {

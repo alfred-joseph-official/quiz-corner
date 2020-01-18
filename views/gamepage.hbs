@@ -23,10 +23,9 @@
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <input type="file" id="avatarpic" class="d-none">
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -87,8 +86,16 @@
                             data-container="body" data-toggle="popover" data-placement="top"
                             data-content="Link copied!"><i class='fas fa-copy'></i></button>
                     </div>
+
+                    <!-- Load Facebook SDK for JavaScript -->
+                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
+                    <div id="shareBtns" class="row col-8 mt-2">
+                    <div data-href="http://www.google.com" data-layout="button" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb" onclick="setLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</a></div>
+                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter share</button>
+                    </div>
+
                     <div class="container mt-3">
-                        <table class="table fade table-hover table-dark rounded">
+                        <table class="table table-hover table-dark rounded">
                             <thead>
                                 <tr>
                                     <th scope="col">Rank</th>
@@ -139,24 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Load Facebook SDK for JavaScript -->
-                    <div id="fb-root"></div>
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1">
-                  
-                    </script>
- 
-                    <div id="shareBtns" class="row col-8">
                     
-                    
-                    <div class=" btn btn-fb" data-href="http://www.google.com" data-layout="button" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared"><button type="button" class="btn btn-fb" onclick="setLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</button></a></div>
-
-
-
-
-
-
-                        <button type="button" class="btn btn-tw"><i class="fab fa-twitter pr-1"></i>Twitter share</button>
-                    </div>
                 </div>
             </div>
             <div class="col-md-3 bg-white rounded">

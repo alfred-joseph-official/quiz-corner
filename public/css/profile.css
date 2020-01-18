@@ -1,5 +1,6 @@
 body {
     background-image: linear-gradient(to left, #434343 0%, black 100%);
+    overflow: hidden;
 }
 
 .navbar {
@@ -11,7 +12,7 @@ body {
     border-style: none;
 }
 
-.fa-search {
+#fa-search {
     position: absolute;
     z-index: 1;
     left: 90%;
@@ -33,22 +34,32 @@ body {
 }
 
 #row {
-    height:33rem!important;
+    height:70%;
 }
 
 .proCon {
-    height: 65vh!important;
+    height: 100%!important;
+    padding: 2%;
 }
 
-li {
-    list-style: none;
-    margin-bottom: 15px;
+#EditBtn {
+    position: relative;
+    float: right;
+}
+
+#infoDiv {
+    position: relative;
+    right: 3%;
+}
+
+.fa {
+    cursor: pointer;
 }
 
 #editDP {
     position: absolute;
-    z-index: 1;
-    top: 50%;
+    z-index: 3;
+    bottom: 5%;
     background-color: black;
     filter: opacity(60%);
     color: white;
