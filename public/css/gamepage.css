@@ -18,7 +18,7 @@ body {
     cursor: pointer;
 }
 
-::placeholder{
+::placeholder {
     font-weight: lighter;
 }
 
@@ -33,7 +33,7 @@ body {
 }
 
 #row {
-    height:33rem!important;
+    height: 33rem!important;
 }
 
 .imgS {
@@ -74,7 +74,7 @@ li {
     border: transparent;
 }
 
-.linkDiv { 
+.linkDiv {
     border: dashed 1px grey;
 }
 
@@ -88,19 +88,19 @@ li {
 }
 
 #shareBtns {
-  position: relative;
-  left: 30%;
-  }
+    position: relative;
+    left: 30%;
+}
 
 .btn-fb {
     background: #3B5998;
     color: white;
-  }
-  
-  .btn-tw {
+}
+
+.btn-tw {
     background: #55ACEE;
     color: white;
-  }
+}
 
 .options {
     font-weight: bolder;
@@ -116,3 +116,101 @@ li {
 .ans:hover {
     border: solid 2px rgb(7, 182, 7);
 }
+
+.bond-container {
+    width: 400px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    overflow: hidden;
+    text-align: center;
+    transform: translate(-50%, 0);
+}
+
+.semi-a {
+    z-index: 1;
+    position: absolute;
+    background-color: rgba(255, 255, 255, .2);
+    width: 400px;
+    height: 200px;
+    top: 0;
+    border-radius: 250px 250px 0px 0px;
+}
+
+.semi-b {
+    z-index: 3;
+    position: absolute;
+    background-color: #222;
+    width: 250px;
+    height: 125px;
+    top: 75px;
+    margin-left: 75px;
+    margin-right: auto;
+    border-radius: 250px 250px 0px 0px;
+}
+
+.semi-c {
+    z-index: 2;
+    position: absolute;
+    background-color: #5664F9;
+    width: 400px;
+    height: 200px;
+    top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0px 0px 200px 200px;
+    transform-origin: center top;
+    transition: all 3s ease-in-out;
+}
+
+
+/* .bond-container:active .semi-c {
+    transform: rotate(.5turn);
+} */
+
+
+/* .bond-meter-loaded .semi-c {
+    transform: rotate(.5turn);
+} */
+
+.bond-container:hover .semi-data {
+    color: rgba(255, 255, 255, 1);
+}
+
+.semi-data {
+    z-index: 4;
+    color: rgba(255, 255, 255, .2);
+    font-size: 1.5em;
+    line-height: 25px;
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 1s ease-out;
+}
+
+#shareBtns {
+    transform: translate(0, 300%);
+}
+
+
+/* @keyframes rotate {
+    0% {
+        background: red;
+    }
+    25% {
+        background: blue;
+    }
+    50% {
+        background: yellow;
+    }
+    75% {
+        background: green;
+    }
+    100% {
+        background: red;
+    }
+} */

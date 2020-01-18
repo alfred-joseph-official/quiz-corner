@@ -75,28 +75,39 @@ function importDb() {
     });
 }
 
-routes.get('/', function(req, res) {
-    //Todo Render only homepage
-    // if (req.session.user) {
-    //     res.render('profile')
-    // } else {
-    res.render('homepage')
-        // }
 
-})
+var genRandomString = function(length) {
+    return crypto.randomBytes(Math.ceil(length / 2))
+        .toString('hex')
+        .slice(0, length);
+};
+var sha512 = function(password, salt) {
+    var hash = crypto.createHmac('sha512', salt);
+    hash.update(password);
+    var value = hash.digest('hex');
+    return {
+        slt: salt,
+        pwd: value
+    };
+};
 
-routes.get('/home', function(req, res) {
-    res.render("homepage", {
-        loggedin: true
-    });
-});
+function saltHashPassword(userpassword) {
+    var slt = genRandomString(16);
+    var passwordData = sha512(userpassword, slt);
+    return {
+        slt: passwordData.slt,
+        pwd: passwordData.pwd
+    }
+}
 
 routes.post("/signupuser", function(req, res) {
+    var pwdObj = saltHashPassword(req.body.pwd.trim());
     var data = {
         name: "",
         usn: req.body.usn,
         email: req.body.email,
-        pwd: req.body.pwd,
+        pwd: pwdObj.pwd,
+        slt: pwdObj.slt,
         dp: "",
         age: "",
         top_score: [],
@@ -112,19 +123,21 @@ routes.post("/signupuser", function(req, res) {
 
 
 routes.post('/loginuser', function(req, res) {
-
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
             res.redirect('/')
         } else {
-            if (req.body.usn == result.usn && req.body.pwd == result.pwd) {
+            if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
-                check = false
-                res.redirect('/home')
+                res.render("homepage", {
+                    loggedin: true
+                });
+            } else {
+                res.render('homepage');
             }
         }
     })
-})
+});
 
 routes.get("/forgot", function(req, res) {
     res.render("forgot");
@@ -207,6 +220,24 @@ routes.post("/pwd", function(req, res) {
     });
 });
 
+routes.get('/', function(req, res) {
+    //Todo Render only homepage
+    // if (req.session.user) {
+    //     res.render('profile')
+    // } else {
+    res.render('homepage')
+        // }
+
+})
+routes.use(function(req, res, next) {
+    if (req.session.user) next();
+    else res.send("Please Login");
+});
+
+routes.get('/home', function(req, res) {
+    res.render("homepage");
+});
+
 function processData(result, flag) {
     for (let x = 0; x < result.questions.length; x++) {
         var obj = result.questions[x];
@@ -223,6 +254,7 @@ function processData(result, flag) {
 }
 //1st user
 routes.post("/getques", function(req, res) {
+    var url = "http://localhost:4500/";
     var gameId = parseInt(req.body.gameId);
     // console.log(req.body.data);
     if (req.body.data) {
@@ -238,11 +270,12 @@ routes.post("/getques", function(req, res) {
                 if (err) {
                     res.status(400).end();
                 } else {
-                    res.status(200).end();
-                    // res.send('Message sent: ' + info.response);
+                    res.status(200);
+                    res.send(url + "uniq/" + "?game_id=1&t=" + token);
                 }
             });
         });
+        req.session.gameData = null;
     } else if (!req.session.gameData) {
         DB.collection("games").findOne({ _id: gameId }, function(err, result) {
             if (result) {
@@ -319,8 +352,20 @@ routes.post("/getques", function(req, res) {
 //     }
 // });
 
-routes.get("/game/t/:t", function(req, res) {
-    // Unique ID ROUTE
+routes.get("/uniq", function(req, res) {
+    if (req.query.game_id) {
+        if (req.query.t) {
+            DB.collection('Knowme').findOne({ token: req.query.t }, function(err, result) {
+                if (err) res.status(400).end();
+                // console.log(result);
+                result['player'] = true;
+                req.session.gameData = result;
+                res.redirect("/gamestart");
+            });
+        } else {
+            res.redirect('/game');
+        }
+    }
 });
 
 routes.get('/game', function(req, res) {
@@ -336,11 +381,20 @@ routes.get('/gamestart', function(req, res) {
     })
 })
 
-routes.get('/result', function(req, res){
+routes.get('/result', function(req, res) {
     res.render('gamepage', {
         result: true
     })
 })
+
+// routes.post('/result', function(req, res) {
+//     var usn = req.session.user;
+//     var newVal = { $set: { scores: [{ usn: usn, score: req.body.score }] } };
+//     DB.collection('Knowme').findOneAndUpdate({ token: req.body.token }, )
+//     res.render('gamepage', {
+//         result: true
+//     });
+// })
 
 routes.get("/profile", function(req, res) {
     if (req.session.user) {
