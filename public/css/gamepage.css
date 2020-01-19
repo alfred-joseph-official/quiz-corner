@@ -20,7 +20,7 @@ body {
     cursor: pointer;
 }
 
-::placeholder{
+::placeholder {
     font-weight: lighter;
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 #row {
-    height:50%;
+    height: 50%;
 }
 
 .imgS {
@@ -60,7 +60,6 @@ body {
     width: 100%;
 }
 
-
 #gamecenter {
     margin-right: 10px;
 }
@@ -69,7 +68,7 @@ body {
     margin-right: 10px;
 }
 
-.linkDiv { 
+.linkDiv {
     border: dashed 1px grey;
 }
 
@@ -83,9 +82,9 @@ body {
 }
 
 #shareBtns {
-  position: relative;
-  left: 30%;
-  }
+    position: relative;
+    left: 30%;
+}
 
 .btn-fb:hover {
     color: white;
@@ -98,12 +97,12 @@ body {
 .btn-fb {
     background: #3B5998;
     color: rgb(224, 224, 224);
-  }
-  
-  .btn-tw {
+}
+
+.btn-tw {
     background: #55ACEE;
     color: rgb(224, 224, 224);
-  }
+}
 
 .options {
     font-weight: bolder;
@@ -166,3 +165,178 @@ body {
     height: 30%;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
+
+
+.dark-mode {
+    background-image: linear-gradient(to left, #434343 0%, black 100%);
+  }
+
+/* toggle button to dark mode */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    top: 5px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 17px;
+    left: 2px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: black
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px black
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+
+/* Bond meter code Dont delete */
+
+.bond-container {
+    width: 400px;
+    height: 200px;
+    position: relative;
+    top: 5%;
+    left: 40%;
+    overflow: hidden;
+    text-align: center;
+    transform: translate(-33.33%, 0);
+}
+
+.semi-a {
+    z-index: 1;
+    position: absolute;
+    background-color: rgba(255, 255, 255, .2);
+    width: 400px;
+    height: 200px;
+    top: 0;
+    border-radius: 250px 250px 0px 0px;
+}
+
+.semi-b {
+    z-index: 3;
+    position: absolute;
+    background-color: #222;
+    width: 250px;
+    height: 125px;
+    top: 75px;
+    margin-left: 75px;
+    margin-right: auto;
+    border-radius: 250px 250px 0px 0px;
+}
+
+.semi-c {
+    z-index: 2;
+    position: absolute;
+    background-color: #5664F9;
+    width: 400px;
+    height: 200px;
+    top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 0px 0px 200px 200px;
+    transform-origin: center top;
+    transition: all 3s ease-in-out;
+}
+
+
+/* Dont need this. Can delete
+ .bond-container:active .semi-c {
+    transform: rotate(.5turn);
+} */
+
+
+/* .bond-meter-loaded .semi-c {
+    transform: rotate(.5turn);
+} */
+
+
+/* Bond meter code Dont delete */
+
+.bond-container:hover .semi-data {
+    color: rgba(255, 255, 255, 1);
+}
+
+.semi-data {
+    z-index: 4;
+    color: rgba(255, 255, 255, .2);
+    font-size: 1.5em;
+    line-height: 25px;
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 1s ease-out;
+}
+
+
+/*
+#shareBtns {
+    transform: translate(0, 300%);
+} */
+
+
+/* @keyframes rotate {
+    0% {
+        background: red;
+    }
+    25% {
+        background: blue;
+    }
+    50% {
+        background: yellow;
+    }
+    75% {
+        background: green;
+    }
+    100% {
+        background: red;
+    }
+} */
