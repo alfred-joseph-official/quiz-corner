@@ -175,14 +175,14 @@ function setFbLink() {
     var link = document.getElementById('uniqueLink').value;
     var finallink = encodeURIComponent(link);
 
-    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + finallink + "&amp;src=sdkpreparse"
+    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + finallink + "&amp;src=sdkpreparse";
     x[0].href = finalhref
 }
 
 function setTwLink() {
     var link = encodeURIComponent(document.getElementById('uniqueLink').value);
     var y = document.getElementById('twitterlink')
-    y.href = "https://twitter.com/intent/tweet?text=" + link
+    y.href = "https://twitter.com/intent/tweet?text=" + link;
 }
 
 function copyLink(val) {
