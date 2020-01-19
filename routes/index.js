@@ -237,10 +237,10 @@ routes.get('/logout', function(req, res) {
     res.redirect('/');
 })
 
-// routes.use(function(req, res, next) {
-//     if (req.session.user) next();
-//     else res.send("Please Login");
-// });
+routes.use(function(req, res, next) {
+    if (req.session.user) next();
+    else res.send("Please Login");
+});
 
 routes.get('/home', function(req, res) {
     res.render("homepage");
@@ -457,4 +457,8 @@ routes.post("/updateprofile", function(req, res) {
 routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })
+
+routes.get('*', function(req, res) {
+    res.render("404");
+});
 module.exports = routes
