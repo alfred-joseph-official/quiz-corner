@@ -138,7 +138,7 @@ routes.post('/loginuser', function(req, res) {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
                 res.render("homepage", {
-                    loggedin: true
+                    loggedin: true , imglink:result.dp
                 });
             } else {
                 res.render('homepage');
