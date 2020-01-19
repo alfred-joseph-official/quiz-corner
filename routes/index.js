@@ -4,10 +4,17 @@ var mongoDB = require("mongodb")
 var crypto = require("crypto");
 var nodemailer = require("nodemailer");
 const jsonfile = require("jsonfile");
-
+var fileupload = require('express-fileupload')
+var cloudinary = require('cloudinary').v2;
+routes.use(fileupload({useTempFiles:true}))
+cloudinary.config({ 
+    cloud_name: 'codingamrit', 
+    api_key: '597849612625256', 
+    api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg' 
+  });
 const file = "games.json";
-var url = "mongodb://localhost:27017"
-    //var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
+//var url = "mongodb://localhost:27017"
+var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
 var serverSchema = {
@@ -344,13 +351,16 @@ routes.get('/result', function(req, res){
 })
 
 routes.get("/profile", function(req, res) {
+    var imgsrc = ''
     if (req.session.user) {
-        DB.collection('Users').findOne({ username: req.session.user }, function(err, result) {
+        DB.collection('Users').findOne({ usn: req.session.user }, function(err, result) {
             if (err) {
                 res.redirect('/')
                 console.log("hi")
             } else {
-                res.render("profile", { username: 'Amrit', password: 'password', phone: '12345678', address: 'city', email: 'amrit@gmail.com', birthday: '00/00/00', gender: 'Male', sessionuser: req.session.user })
+                //console.log(result)
+               // console.log(req.session.user)
+                res.render("profile", { name: result.name, password: result.pwd, phone: '12345678', address: 'city', email: result.email,age:result.age, birthday: '00/00/00', gender: result.gender, sessionuser: req.session.user,imglink:result.dp})
             }
         })
     } else {
@@ -376,20 +386,104 @@ routes.get('/uuid', function(req, res) {
 
 routes.post("/updateprofile", function(req, res) {
     var pass = req.body.pass;
-    var userphone = req.body.phone;
-    var useraddress = req.body.address;
-    var user = req.session.user
-    var filterstatement = { 'name': req.body.user }
-    var updatestatement = { $set: { password: req.body.pass } }
-    DB.collection('Users').findOneAndUpdate({ "name": req.session.user }, { $set: { "password": pass } }, function(err, result) {
+    var user = req.session.user   
+   
+   if(req.files)
+   {
+       var dp = req.files.profilepic
+       var pid = req.session.user
+       cloudinary.uploader.destroy(pid,function(err,result){
+          if(!err)
+          {
+            cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid},function(err,result)
+            {
+             if(!err)
+             {
+                 //console.log(result)
+                 DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
+                     if (err) {
+                         //res.redirect('/')
+                         console.log(err)
+                     } else {
+                         
+                         res.redirect('/profile')
+                     }
+                 })
+             }
+             else{
+                 console.log(err)
+             }
+               
+            })
+          }
+       })
+       
+   }
+   if(req.body.name)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
         if (err) {
             //res.redirect('/')
             console.log(err)
         } else {
-            console.log(result)
+           
             res.redirect('/profile')
         }
     })
+   }
+   if(req.body.age)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
+          
+            res.redirect('/profile')
+        }
+    })
+   }
+   if(req.body.gender)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
+           
+            res.redirect('/profile')
+        }
+    })
+   }
+   if(req.body.pwd)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd": req.body.pwd } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
+           
+            res.redirect('/profile')
+        }
+    })
+   }
+   if(req.body.email)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
+           
+            res.redirect('/profile')
+        }
+    })
+   }
 })
 
 routes.get('/logout', function(req, res) {
