@@ -15,8 +15,8 @@ cloudinary.config({
 const file = "games.json";
 //var url = "mongodb://localhost:27017"
 // var url = "mongodb://localhost:27017"
-var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
-var dbNAME = "quiz-corner-attainu"
+var url = process.env.MONGO_ATLAS;
+var dbNAME = process.env.DB_NAME;
 var DB = ''
 var serverSchema = {
     first: true,
@@ -57,8 +57,8 @@ var transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: "quiz.corner.attainu@gmail.com",
-        pass: 'jnef9820'
+        user: process.env.I_MAIL,
+        pass: process.env.P_MAIL
     }
 });
 
@@ -135,6 +135,7 @@ routes.post('/loginuser', function(req, res) {
         if (err) {
             res.redirect('/')
         } else {
+            // try {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
                 res.render("homepage", {
@@ -144,6 +145,9 @@ routes.post('/loginuser', function(req, res) {
                 res.render('homepage');
             }
         }
+        // } catch (err) {
+        //     res.redirect('/');
+        // }
     })
 });
 
@@ -165,7 +169,7 @@ routes.post("/forgot", function(req, res) {
                     from: '"Quiz Corner " <no-reply@quiz-corner.com',
                     to: userObj.email,
                     subject: "Reset Password",
-                    text: 'Hello ' + userObj.usn + '! You have requested to reset your password. Click on the below link to reset your password.' + "\nhttp://localhost:4500/reset/token/" + token
+                    text: 'Hello ' + userObj.usn + '! You have requested to reset your password. Click on the below link to reset your password.\n' + process.env.DOMAIN + "reset/token/" + token
                 }
 
                 transporter.sendMail(mailOptions, function(mailErr, info) {
@@ -229,18 +233,26 @@ routes.post("/pwd", function(req, res) {
 });
 
 routes.get('/', function(req, res) {
-        //Todo Render only homepage
-        // if (req.session.user) {
-        //     res.render('profile')
-        // } else {
-        res.render('homepage')
-            // }
+    //Todo Render only homepage
+    // if (req.session.user) {
+    //     res.render('profile')
+    // } else {
+    res.render('homepage')
+        // }
 
-    })
-    // routes.use(function(req, res, next) {
-    //     if (req.session.user) next();
-    //     else res.send("Please Login");
-    // });
+})
+
+routes.get('/logout', function(req, res) {
+    req.session.destroy();
+    //Changes 14.01.2020 02:05 - AJ
+    // res.render('homepage')
+    res.redirect('/');
+})
+
+routes.use(function(req, res, next) {
+    if (req.session.user) next();
+    else res.send("Please Login");
+});
 
 routes.get('/home', function(req, res) {
     res.render("homepage");
@@ -262,7 +274,7 @@ function processData(result, flag) {
 }
 //1st user
 routes.post("/getques", function(req, res) {
-    var url = "http://localhost:4500/";
+    var url = process.env.DOMAIN;
     var gameId = parseInt(req.body.gameId);
     // console.log(req.body.data);
     if (req.body.data) {
@@ -547,13 +559,11 @@ routes.post("/updateprofile", function(req, res) {
    }
 })
 
-routes.get('/logout', function(req, res) {
-    req.session.destroy();
-    //Changes 14.01.2020 02:05 - AJ
-    // res.render('homepage')
-    res.redirect('/');
-})
 routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })
+
+routes.get('*', function(req, res) {
+    res.render("404");
+});
 module.exports = routes

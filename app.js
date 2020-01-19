@@ -1,6 +1,7 @@
 const express = require('express')
 var hbs = require('express-handlebars')
 var bodyParser = require("body-parser");
+require('dotenv').config();
 
 var session = require("express-session");
 
@@ -24,4 +25,4 @@ app.use(session({
 app.use(express.static('public'))
 app.use('/', require('./routes/index'))
 
-app.listen(4500, console.log('Server Started'))
+app.listen(process.env.PORT, console.log('Listening on ' + process.env.PORT));
