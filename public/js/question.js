@@ -173,19 +173,14 @@ function setFbLink() {
     var x = document.querySelectorAll('.shared')
 
     var link = document.getElementById('uniqueLink').value;
-    var data_href = encodeURIComponent(link)
-    var href = encodeURIComponent(link);
-    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + link + "&amp;src=sdkpreparse";
-    x[0].href = finalhref;
+    var finallink = encodeURIComponent(link);
 
-        //twitter
-
-
-
+    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + finallink + "&amp;src=sdkpreparse"
+    x[0].href = finalhref
 }
 
 function setTwLink() {
-    var link =encodeURIComponent(document.getElementById('uniqueLink').value);
+    var link = encodeURIComponent(document.getElementById('uniqueLink').value);
     var y = document.getElementById('twitterlink')
     y.href = "https://twitter.com/intent/tweet?text=" + link
 }
