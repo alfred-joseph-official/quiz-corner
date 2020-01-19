@@ -175,7 +175,7 @@ function setFbLink() {
     var link = document.getElementById('uniqueLink').value;
     var data_href = encodeURIComponent(link)
     var href = encodeURIComponent(link);
-    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + link + "amp;src=sdkpreparse";
+    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + link + "&amp;src=sdkpreparse";
     x[0].href = finalhref;
 
         //twitter
