@@ -127,6 +127,7 @@ routes.post('/loginuser', function(req, res) {
         if (err) {
             res.redirect('/')
         } else {
+            // try {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
                 res.render("homepage", {
@@ -136,6 +137,9 @@ routes.post('/loginuser', function(req, res) {
                 res.render('homepage');
             }
         }
+        // } catch (err) {
+        //     res.redirect('/');
+        // }
     })
 });
 
