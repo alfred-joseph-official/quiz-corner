@@ -78,8 +78,6 @@ body {
 #editDP:hover {
     filter: opacity(100%);
 }
-<<<<<<< HEAD
-=======
 
 .Slogin{
     position: relative;
@@ -127,4 +125,3 @@ body {
     height: 30%;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
->>>>>>> 2a9f1550cb06619391860bc3c7d1647f507e5fef
