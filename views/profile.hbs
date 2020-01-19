@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,18 +19,20 @@
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
-        <form class="form-inline col-4 offset-2 mr-5">
+         <div class="row col-2">
+        <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+        </div>
+        <form class="form-inline col-4 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i id="fa-search" class="fa fa-search"></i>
         </form>
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src={{imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -42,45 +45,49 @@
     <div class="container proCon w-75 bg-white shadow-lg">
         <div class="row">
             <div class="col-4">
-                <div class="m-3">
-                    <div id="editDP" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
+                <div class="m-3 ">
+                    <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
                     </div>
-                    <img src="/img/profilepic.png" height="270px" width="250px" alt="new pic">
+                    
+                    <img src={{imglink}} height="270px" width="250px" alt="new pic">
                 </div>
             </div>
             <div id="infoDiv" class="col-8 mt-3 p-0">
                 <div class="col-12">
                     <h3><span class="font-weight-lighter">I'm </span> {{sessionuser}}</h3>
-                    <form action="updateprofile" method="POST">
+                    <form action="/updateprofile" method="POST" enctype="multipart/form-data">
                         <table class="table">
                             <tbody>
                                 <tr>
                                     <td><b>Name</b></td>
-                                    <td class="text-secondary">Mukhtar Ahmad</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                    <td class="text-secondary"><small>{{name}}</small></td>                                   
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" id="inputname"  data-toggle="modal" data-target="#inputnamemodal"></i></td>
                                 </tr>
                                 <tr>
                                     <td><b>Password</b> </td>
-                                    <td class="text-secondary"><small>● ● ● ● ● ● ●</small> </td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                    <td class="text-secondary"><small>{{password}}</small> </td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputpassmodal"></i></td>
                                 </tr>
                                 <tr>
                                     <td><b>Age</b> </td>
-                                    <td class="text-secondary">25</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                    <td class="text-secondary">{{age}}</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputagemodal"></i></td>
                                 </tr>
                                 <tr>
                                     <td><b>Gender</b></td>
-                                    <td class="text-secondary">Male</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                    <td class="text-secondary">{{gender}}</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputgendermodal"></i></td>
                                 </tr>
                                 <tr>
                                     <td><b>E-mail</b> </td>
-                                    <td class="text-secondary">mukhtartheking1@gmail.com</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+                                    <td class="text-secondary">{{email}}</td>
+                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputmailmodal"></i></td>
                                 </tr>
+                               
                             </tbody>
                         </table>
+                        <input type="file" name="profilepic" id="profilepicid" hidden="true">
+                        <button type="submit" id="updatebtn" hidden=true>Update</button>
                     </form>
                 </div>
             </div>
@@ -94,9 +101,178 @@
                 <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3"
                     aria-hidden="true"></i>
             </h3>
+        </div>
+    </div><br><br><br>
 
+
+    <footer class="footer">
+        <div class="w-100">
+            <br>
+            <h4 class="text-center text-white">About us</h4><br>
+            <div class="row">
+                <div class="col-4 border-right">
+                    <small class="text-white offset-3"><strong>Follow</strong></small>
+                    <div class="Slogin mt-2"><a href="#" class="sBtn fa fa-facebook"></a><a href="#"
+                            class="sBtn fa fa-google"></a><a href="#" class="sBtn fa fa-twitter"></a></div>
+                </div>
+                <div class="col-4 text-center border-right">
+                    <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
+                        so you can test your skills by challenging your family & friends or other users and rank top in
+                        our leader board.</small>
+                </div>
+                <div class="col-4 text-center">
+                    <small class="text-white">
+                        <p> Designed and Devloped at Attain University.</p>
+                        <p> Call us - 1-800-XXX-020-XXX </p>
+                    </small>
+                </div>
+            </div>
         </div>
     </div>
+
+{{!-- input name --}}
+    <div class="modal" id="inputnamemodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Enter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="updateprofile" method="post">
+            <div class="form-group">
+                <input type="text" name="name"  class="form-control">
+            </div>
+            <button type="" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+{{!-- input pass --}}
+   <div class="modal" id="inputpassmodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Enter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="updateprofile" method="post">
+            <div class="pwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="pwd"
+                                        placeholder="Enter Password" name="pwd" minlength="6" required
+                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="cpwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="cpwd"
+                                        placeholder="Re-enter Password" name="cpwd" required
+                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                                </div>
+                            </div>
+            <button type="" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+{{!-- input age --}}
+ <div class="modal" id="inputagemodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Enter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="updateprofile" method="post">
+            <div class="form-group">
+                <input type="text" name="age"  class="form-control">
+            </div>
+            <button type="" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+{{!-- input gender --}}
+ <div class="modal" id="inputgendermodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Enter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="updateprofile" method="post">
+            <div class="form-group">
+                <input type="text" name="gender"  class="form-control">
+            </div>
+            <button type="" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+{{!-- inputmail --}}
+<div class="modal" id="inputmailmodal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please Enter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="updateprofile" method="post">
+            <div class="form-group">
+                <input type="text" name="email"  class="form-control">
+            </div>
+            <button type="" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            
+        </form>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+    </footer>
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
+            </strong></small></footer>
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

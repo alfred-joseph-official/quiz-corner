@@ -6,6 +6,7 @@ function enabled() {
 
 }
 $('document').ready(function() {
+   
     $('#reset').click(function() {
 
         var email = $('#resInp').val();
@@ -26,3 +27,13 @@ $('document').ready(function() {
         });
     })
 });
+
+function setProfilePic()
+{
+        $('#profilepicid').click();
+        $('#profilepicid').on('change',function()
+        {
+            $('#updatebtn').click();
+        })   
+     
+}

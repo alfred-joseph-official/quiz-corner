@@ -2,37 +2,173 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/gamepage.css">
     <title>Quiz Corner</title>
 </head>
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
-        <form class="form-inline col-4 offset-2 mr-5">
+        <div class="row col-2">
+            <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+            {{#if sessionuser}}
+            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+            {{/if}}
+        </div>
+        <form class="form-inline col-4">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
         </form>
+        <div>
+            <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
+            <label class="switch">
+                <input onclick="darkMode()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        {{#if loggedin}}
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle navImg">
+                    <img src={{imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/home">Home</a>
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
             </div>
         </div>
+        {{else}}
+        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal"
+            data-target="#exampleModal">Login/Register</a>
+        {{/if}}
     </nav>
+
+    {{!-- modal for login --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog w-25" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form class="form-group" action="/loginuser" method="POST">
+                            <div class="form-group">
+                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn"
+                                    placeholder="Username" name="usn" required
+                                    oninvalid="this.setCustomValidity('Enter your Username')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
+                                    name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
+                                    oninput="setCustomValidity('')">
+                                <a class="offset-7 Fpass" data-toggle="modal" data-dismiss="modal"
+                                    data-target="#exampleModal2" href="forgot">Forgot Password?</a>
+                            </div>
+                            <div>
+                                <button type="submit" class="form-control btn w-50 offset-3 btn-success">Sign
+                                    in</button><br>
+                                <div class="font-weight-light text-center">
+                                    Not an user ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal1"> Sign up</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for forgot password --}}
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
+                    <div class="row mb-3">
+                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
+                            placeholder="Username / Email" required>
+                        <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for signup --}}
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog w-25" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form class="form-group" action="/signupuser" method="POST">
+                            <div class="Username">
+                                <div class="form-group">
+                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn"
+                                        placeholder="Username" name="usn" required
+                                        oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
+                                        oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                    class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
+                                    oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <div class="pwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="pwd"
+                                        placeholder="Enter Password" name="pwd" minlength="6" required
+                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                                        oninput="setCustomValidity('')">
+                                </div>
+                            </div>
+                            <div class="cpwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="cpwd"
+                                        placeholder="Re-enter Password" name="cpwd" required
+                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" data-target="#exampleModal">Sign
+                                up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <br><br>
     <div class="container">
         <div id="row" class="row">
@@ -46,8 +182,13 @@
             <div id="gamecenter" class="col-md-8 shadow rounded bg-light">
                 <div class="container">
                     <br>
+                    {{#if secondUser}}
+                    <h4 id="quizName" class="text-center text-secondary">How well do you know {{sessionuser}}?</h4>
+                    <hr class="w-50">
+                    {{else}}
                     <h4 id="quizName" class="text-center text-secondary">Create your challenge {{sessionuser}}!</h4>
                     <hr class="w-50">
+                    {{/if}}
                     <br> <br>
                     <div class="container rounded bg-light shadow col-8 p-4">
                         <h3 id="questno" class="text-center text-secondary">Question 1.</h3>
@@ -74,26 +215,97 @@
                 </div>
             </div>
             {{/if}}
+            {{#if secondUser}}
+            <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
+                <div class="container"><br>
+                    <h3 class="text-center text-secondary mb-4"><strong>Your Result!</strong></h3>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                role="tab" aria-controls="nav-home" aria-selected="true">Bond</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                role="tab" aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <div style="position: relative;">
+                                <div class="bond-container">
+                                    <div class="semi-a"></div>
+                                    <div class="semi-b"></div>
+                                    <div class="semi-c"></div>
+                                    <div class="semi-data">
+                                        <h1 id="percent">50%</h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="container mt-3">
+                                <table class="table table-hover table-dark rounded">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Rank</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>Mukhtar</td>
+                                            <td>14</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Alfred</td>
+                                            <td>12</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>Amrit</td>
+                                            <td>10</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-secondary mt-3"><strong>Did you like the game?</strong></div>
+                        <a href="#" data-toggle="modal" data-target="#exampleModal"
+                            class="btn btn-danger w-50 mt-2 text-white">Create your own
+                            challenge</a></div>
+                </div>
+            </div>
+            {{else}}
             <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
                 <div class="container">
                     <br>
                     <h4 class="text-center text-secondary">Your Challenge is Ready!</h4>
                     <div class="text-center rounded linkDiv col-6 py-2 offset-3 mt-2">
                         <div class="shareLink"><b>Share this link with your friends</b></div>
-                        
-                        <input class="rounded-pill p-1 mt-2 text-muted" type="text" name="uniqueLink" placeholder="website/xxxxxx" id="uniqueLink" readonly>
-                        <button type="button" style='font-size:16px' onclick="copyLink('#uniqueLink')" class="rounded-circle btn btn-outline-dark mb-1"
-                            data-container="body" data-toggle="popover" data-placement="top"
-                            data-content="Link copied!"><i class='fas fa-copy'></i></button>
+
+                        <input class="rounded-pill p-1 mt-2 text-muted" type="text" name="uniqueLink"
+                            placeholder="website/xxxxxx" id="uniqueLink" readonly>
+                        <button type="button" style='font-size:16px' onclick="copyLink('#uniqueLink')"
+                            class="rounded-circle btn btn-outline-dark mb-1" data-container="body" data-toggle="popover"
+                            data-placement="top" data-content="Link copied!"><i class='fas fa-copy'></i></button>
                     </div>
                     {{!-- Tabbed Bond --}}
-                 
+
                     {{!-- MOdal Bond --}}
                     <!-- Load Facebook SDK for JavaScript -->
-                    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
+                    <script async defer crossorigin="anonymous"
+                        src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
                     <div id="shareBtns" class="row col-8 mt-2">
-                    <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb" onclick="setFbLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</a></div>
-                    <div data-href="http://www.google.com" data-layout="button" data-size="large"><a class="btn btn-tw " id="twitterlink" target="_blank" href="" onclick="setTwLink()" data-size="large"><i class="fab fa-twitter pr-1"></i>Twitter share</a></div>
+                        <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a
+                                target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb"
+                                onclick="setFbLink()"><i class="fab fa-facebook-f pr-1"></i>Facebook share</a></div>
+                        <div data-href="http://www.google.com" data-layout="button" data-size="large"><a
+                                class="btn btn-tw " id="twitterlink" target="_blank" href="" onclick="setTwLink()"
+                                data-size="large"><i class="fab fa-twitter pr-1"></i>Twitter share</a></div>
                     </div>
 
                     <div class="container mt-3">
@@ -103,7 +315,6 @@
                                     <th scope="col">Rank</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Score</th>
-                                    <th scope="col">Bond</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,54 +322,24 @@
                                     <th scope="row">1</th>
                                     <td>Mukhtar</td>
                                     <td>14</td>
-                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#exampleModal">View</button></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
                                     <td>Alfred</td>
                                     <td>12</td>
-                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#exampleModal">View</button></td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
                                     <td>Amrit</td>
                                     <td>10</td>
-                                    <td><button class="btn btn-secondary bond-meter-show" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#exampleModal">View</button></td>
                                 </tr>
                             </tbody>
                         </table>
 
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Bond Meter</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="remBondAnim()">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body" style="width: 400px; height:250px;">
-                                        <div style="position: relative;">
-                                        <div class="bond-container">
-                                            <div class="semi-a"></div>
-                                            <div class="semi-b"></div>
-                                            <div class="semi-c"></div>
-                                            <div class="semi-data">
-                                                <h1 id="percent">50%</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+            {{/if}}
             <div class="col-md-3 bg-light shadow rounded ml-1">
                 <div class="container">
                     ads
@@ -170,7 +351,35 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div><br><br><br>
+
+
+    <footer class="footer">
+        <div class="w-100">
+            <br>
+            <h4 class="text-center text-white">About us</h4><br>
+            <div class="row">
+                <div class="col-4 border-right">
+                    <small class="text-white offset-3"><strong>Follow</strong></small>
+                    <div class="Slogin mt-2"><a href="#" class="sBtn fa fa-facebook"></a><a href="#"
+                            class="sBtn fa fa-google"></a><a href="#" class="sBtn fa fa-twitter"></a></div>
+                </div>
+                <div class="col-4 text-center border-right">
+                    <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
+                        so you can test your skills by challenging your family & friends or other users and rank top in
+                        our leader board.</small>
+                </div>
+                <div class="col-4 text-center">
+                    <small class="text-white">
+                        <p> Designed and Devloped at Attain University.</p>
+                        <p> Call us - 1-800-XXX-020-XXX </p>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
+            </strong></small></footer>
 
 
 
@@ -178,17 +387,15 @@
 
 
 
-
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
     <script src="/js/question.js"></script>
 </body>
 

@@ -42,7 +42,6 @@ $('document').ready(function() {
 });
 
 
-
 function getNext() {
     if (quesId < 15) {
         quesId++;
@@ -201,3 +200,8 @@ $('#reset').click(function() {
 function resetPass() {
     resetSuccess.fadeIn('slow')
 }
+
+function darkMode() {
+    var element = document.body;
+    element.classList.toggle("dark-mode");
+ }

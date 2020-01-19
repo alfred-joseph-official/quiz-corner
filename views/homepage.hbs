@@ -8,26 +8,37 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/homepage.css">
-    <title>Welcome</title>
+    <title>Welcome to Quiz Corner</title>
 </head>
 
 <body>
     <nav class="navbar navbar-light">
-        <a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
+        <div class="row col-2">
+            <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+        </div>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
+            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
         </form>
+        <div>
+        <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
+        <label class="switch">
+            <input onclick="darkMode()" type="checkbox">
+            <span class="slider round"></span>
+        </label>
+        </div>
+
         {{#if loggedin}}
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src="{{imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <input type="file" id="avatarpic" class="d-none">
                     <a class="dropdown-item" href="/profile">My Profile</a>
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -220,7 +231,7 @@
                 <h5 style="font-family: gill sans;" class="text-dark">Game Name</h5>
             </div>
             <div class="row">
-                <p class="text-secondary font-weight-lighter col-8">Lorem ipsum dolor, sit amet consectetur adipisicing
+                <p class="text-secondary font-weight-light col-8">Lorem ipsum dolor, sit amet consectetur adipisicing
                     elit. Repellat eligendi, quaerat similique perferendis optio expedita qui. Ut odio doloribus
                     reprehenderit perferendis numquam ducimus aspernatur reiciendis dolor. Omnis magni distinctio
                     suscipit!</p>
@@ -265,7 +276,8 @@
             </div>
         </div>
     </footer>
-    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved. </strong></small></footer>
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
+            </strong></small></footer>
 
 
 
