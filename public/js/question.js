@@ -114,14 +114,14 @@ function postCreaterData() {
         url: "/getques",
         data: { gameId: gameId, data: JSON.stringify(data) },
         success: function(response) {
-            console.log(response);
+            // console.log(response);
             $("#uniqueLink").val(response);
             // console.log(fbshare1 + response + fbshare2);
             // console.log(twitterShare + response);
 
             // $('#fbs').attr('href', fbShare1 + response + fbShare2);
             // $('#tws').attr('href', encodeURIComponent(twitterShare + response));
-            console.log('success');
+            // console.log('success');
         },
         error: function(response) {
             // console.log(response);
@@ -155,7 +155,7 @@ function fetchData() {
             url: "/getques",
             data: { gameId: gameId },
             success: function(response) {
-                console.log(response);
+                // console.log(response);
                 // console.log('success');
                 data = response;
                 setData();
@@ -204,4 +204,4 @@ function resetPass() {
 function darkMode() {
     var element = document.body;
     element.classList.toggle("dark-mode");
- }
+}
