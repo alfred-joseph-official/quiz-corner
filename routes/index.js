@@ -13,11 +13,8 @@ cloudinary.config({
     api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg' 
   });
 const file = "games.json";
-<<<<<<< HEAD
 //var url = "mongodb://localhost:27017"
-=======
 // var url = "mongodb://localhost:27017"
->>>>>>> 2a9f1550cb06619391860bc3c7d1647f507e5fef
 var url = 'mongodb+srv://admin:admin@quiz-corner-nt3rg.mongodb.net/test?retryWrites=true&w=majority';
 var dbNAME = "quiz-corner-attainu"
 var DB = ''
@@ -422,7 +419,7 @@ routes.get("/profile", function(req, res) {
             } else {
                 //console.log(result)
                // console.log(req.session.user)
-                res.render("profile", { name: result.name, password: result.pwd, phone: '12345678', address: 'city', email: result.email,age:result.age, birthday: '00/00/00', gender: result.gender, sessionuser: req.session.user,imglink:result.dp})
+                res.render("profile", { name: result.name, password: '*****', phone: '12345678', address: 'city', email: result.email,age:result.age, birthday: '00/00/00', gender: result.gender, sessionuser: req.session.user,imglink:result.dp})
             }
         })
     } else {
@@ -454,6 +451,7 @@ routes.post("/updateprofile", function(req, res) {
    {
        var dp = req.files.profilepic
        var pid = req.session.user
+       
        cloudinary.uploader.destroy(pid,function(err,result){
           if(!err)
           {
@@ -522,8 +520,9 @@ routes.post("/updateprofile", function(req, res) {
    }
    if(req.body.pwd)
    {
+    var pwdObj = saltHashPassword(req.body.pwd.trim());
        //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd": req.body.pwd } }, function(err, result) {
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
         if (err) {
             //res.redirect('/')
             console.log(err)
