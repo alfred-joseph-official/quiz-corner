@@ -21,7 +21,7 @@
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
         </div>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
+            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
                 aria-label="Search"><i class="fa fa-search"></i>
         </form>
         <div>
@@ -36,7 +36,7 @@
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src="{{imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile">My Profile</a>
