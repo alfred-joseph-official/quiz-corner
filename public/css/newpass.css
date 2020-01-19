@@ -1,10 +1,11 @@
 body {
-    background-image: linear-gradient(to left, #434343 0%, black 100%);
-    overflow: hidden;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: hidden;
+    height: 100vh!important;
 }
 
 .navbar {
-    background-image: linear-gradient(to left, #d7d2cc 0%, #304352 100%);
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 
 #input {
@@ -28,7 +29,60 @@ body {
     left: 25%;
 }
 
+#homeBtn {
+    text-decoration: none;
+    color:white;
+    transition: 0.2s;
+}
+
 .navImg {
     height: 25px;
     width: 25px;
+}
+
+.Slogin{
+    position: relative;
+    left: 23%;
+}
+
+.sBtn {
+    padding: 10px;
+    font-size: 20px;
+    width: 10%;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 4px;
+    border: 2px solid blanchedalmond;
+    border-radius: 50%;
+    filter: brightness(80%);
+}
+
+.sBtn:hover {
+    opacity: 0.5;
+    transition: all 0.4s;
+    text-decoration: none!important;
+    color: white!important;
+}
+
+.fa-facebook {
+    color: white;
+}
+
+.fa-twitter {
+    color: white;
+}
+
+.fa-google {
+    color: white;
+}
+
+.ul2 {
+    list-style: none;
+    color: blanchedalmond;
+    font-weight: bold;
+} 
+
+.footer {
+    height: 30%;
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }

@@ -1,10 +1,11 @@
 body {
-    background-image: linear-gradient(to left, #434343 0%, black 100%);
-    overflow: hidden;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: hidden;
+    height: 120vh!important;
 }
 
 .navbar {
-    background-image: linear-gradient(to left, #d7d2cc 0%, #304352 100%);
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 }
 
 #input {
@@ -20,6 +21,12 @@ body {
     text-decoration: none;
     color:rgba(228, 42, 29, 0.945);
     transition: 0.4s;
+}
+
+#homeBtn {
+    text-decoration: none;
+    color:white;
+    transition: 0.2s;
 }
 
 .fa-search {
@@ -52,13 +59,13 @@ body {
 }
 
 .imgS {
-    height: 400px;
+    height: 370px;
 }
 
 .fa-play-circle-o {
     color: white;
     position: absolute;
-    margin-left: 41%;
+    margin-left: 38%;
     margin-top: 13%;
     z-index: 3;
     font-size:200px;
@@ -78,7 +85,7 @@ body {
 
 ol li img{
     position: relative;
-    bottom: 50px;
+    bottom: 60px;
     height: 85px;
     width: 100%;
     transition: all .2s ease-in-out; 
@@ -93,3 +100,124 @@ ol li img:hover{
     width: 100%;
 }
 
+.toast {
+    position: absolute;
+    z-index: 5;
+    left: 50px;
+    bottom:30px;
+    background:rgb(75, 75, 75)
+}
+
+.Slogin{
+    position: relative;
+    left: 23%;
+}
+
+.sBtn {
+    padding: 10px;
+    font-size: 20px;
+    width: 10%;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 4px;
+    border: 2px solid blanchedalmond;
+    border-radius: 50%;
+    filter: brightness(80%);
+}
+
+.sBtn:hover {
+    opacity: 0.5;
+    transition: all 0.4s;
+    text-decoration: none!important;
+    color: white!important;
+}
+
+.fa-facebook {
+    color: white;
+}
+
+.fa-twitter {
+    color: white;
+}
+
+.fa-google {
+    color: white;
+}
+
+.ul2 {
+    list-style: none;
+    color: blanchedalmond;
+    font-weight: bold;
+} 
+
+.footer {
+    height: 30%;
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+}
+
+.dark-mode {
+    background-image: linear-gradient(to left, #434343 0%, black 100%);
+  }
+
+/* toggle button to dark mode */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    top: 5px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 17px;
+    left: 2px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: black
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px black
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
