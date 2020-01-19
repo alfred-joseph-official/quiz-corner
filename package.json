@@ -10,11 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
-<<<<<<< HEAD
     "cloudinary": "^1.18.1",
-=======
     "bootstrap4-toggle": "^3.6.1",
->>>>>>> 2a9f1550cb06619391860bc3c7d1647f507e5fef
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6",
     "express-handlebars": "^3.1.0",
