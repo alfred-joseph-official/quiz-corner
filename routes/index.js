@@ -131,27 +131,32 @@ routes.post("/signupuser", function(req, res) {
 
 
 routes.post('/loginuser', function(req, res) {
-    DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
-        if (err) {
+    DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) 
+    {
+        if (err) 
+        {
+            
             res.redirect('/')
-        } else {
-            // try {
-            if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
-                req.session.user = result.usn
-                var obj = {
-                    'user': result.usn,
-                    'loggedin': true,
-                    'imglink': result.dp
-                };
-                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
-            } else {
-                res.redirect('/');
+        } else
+        {
+            
+            if(result){
+                if (  sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
+                    req.session.user = result.usn
+                    res.render("homepage", {
+                        loggedin: true , imglink:result.dp
+                    });
+                } else {
+                    res.render('homepage');
+                }
             }
+            else{
+                res.render('homepage')
+            }
+            
         }
-        // } catch (err) {
-        //     res.redirect('/');
-        // }
     })
+
 });
 
 routes.get("/forgot", function(req, res) {
@@ -495,86 +500,86 @@ routes.get('/uuid', function(req, res) {
 });
 routes.post("/updateprofile", function(req, res) {    
    
-    if(req.files)
-    {
-        var dp = req.files.profilepic
-        var pid = req.session.user
-        
+   if(req.files)
+   {
+       var dp = req.files.profilepic
+       var pid = req.session.user
        
-             cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid,overwrite:true},function(err,result)
+      
+            cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid,overwrite:true},function(err,result)
+            {
+             if(!err)
              {
-              if(!err)
-              {
-                 
-                  //console.log(result)
-                  DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
-                      if (!err) {
-                         res.redirect('/profile')
-                         
-                      } 
-                  })
-              }
-              
                 
-             })
+                 //console.log(result)
+                 DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
+                     if (!err) {
+                        res.redirect('/profile')
+                        
+                     } 
+                 })
+             }
+             
+               
+            })
+          
+       
+   }
+   if(req.body.name)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
+        if (!err) {
+            res.redirect('/profile')
+        }
+    })
+   }
+   if(req.body.age)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
+        if (!err) {
+            res.redirect('/profile')
+        } 
+    })
+   }
+   if(req.body.gender)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
+        if (!err) {
+            res.redirect('/profile')
+        } 
+    })
+   }
+   if(req.body.pwd)
+   {
+    var pwdObj = saltHashPassword(req.body.pwd.trim());
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
            
-        
-    }
-    if(req.body.name)
-    {
-        //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         }
-     })
-    }
-    if(req.body.age)
-    {
-        //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         } 
-     })
-    }
-    if(req.body.gender)
-    {
-        //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         } 
-     })
-    }
-    if(req.body.pwd)
-    {
-     var pwdObj = saltHashPassword(req.body.pwd.trim());
-        //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
-         if (err) {
-             //res.redirect('/')
-             console.log(err)
-         } else {
-            
-             res.redirect('/profile')
-         }
-     })
-    }
-    if(req.body.email)
-    {
-        //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
-         if (err) {
-             //res.redirect('/')
-             console.log(err)
-         } else {
-            
-             res.redirect('/profile')
-         }
-     })
-    }
- })
+            res.redirect('/profile')
+        }
+    })
+   }
+   if(req.body.email)
+   {
+       //console.log(req.body.name)
+       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
+        if (err) {
+            //res.redirect('/')
+            console.log(err)
+        } else {
+           
+            res.redirect('/profile')
+        }
+    })
+   }
+})
 routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })
@@ -584,4 +589,35 @@ routes.get('*', function(req, res) {
         user: req.signedCookies['user']
     });
 });
+routes.get('/autocomplete',function(req,res)
+{    
+    //var result=['Quiz','Snake','Ludo']
+// DB.collection('Games').find({title:{$regex:new RegExp(req.query["term"]),$options:'i'}},function(err,data)
+DB.collection('Games').find({"title":{$regex:new RegExp(req.query["term"]),$options:'i'}}).toArray(function(err,data)
+    {
+        if(!err)
+        {
+           // console.log(data)
+            var result =[]
+        
+        
+         for(var i = 0 ; i <data.length;i++)
+         {
+             result.push(data[i].title)
+         }
+            
+            
+         res.json(result)
+         
+        }
+        else
+        {
+            console.log(err)
+        }
+    }
+    )
+   // res.json(result)
+})
+
+
 module.exports = routes
