@@ -20,8 +20,8 @@
 <body>
     <nav class="navbar navbar-light">
          <div class="row col-2">
-        <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+        <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
         </div>
         <form class="form-inline col-4 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
@@ -30,7 +30,7 @@
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src={{imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src={{user.imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile">My Profile</a>
@@ -49,7 +49,7 @@
                     <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
                     </div>
                     
-                    <img src={{imglink}} height="270px" width="250px" alt="new pic">
+                    <img src={{user.imglink}} height="270px" width="250px" alt="new pic">
                 </div>
             </div>
             <div id="infoDiv" class="col-8 mt-3 p-0">

@@ -6,12 +6,12 @@ var nodemailer = require("nodemailer");
 const jsonfile = require("jsonfile");
 var fileupload = require('express-fileupload')
 var cloudinary = require('cloudinary').v2;
-routes.use(fileupload({useTempFiles:true}))
-cloudinary.config({ 
-    cloud_name: 'codingamrit', 
-    api_key: '597849612625256', 
-    api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg' 
-  });
+routes.use(fileupload({ useTempFiles: true }))
+cloudinary.config({
+    cloud_name: 'codingamrit',
+    api_key: '597849612625256',
+    api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg'
+});
 const file = "games.json";
 //var url = "mongodb://localhost:27017"
 // var url = "mongodb://localhost:27017"
@@ -124,7 +124,7 @@ routes.post("/signupuser", function(req, res) {
     DB.collection('Users').insertOne(data, function(err, result) {
         if (err) console.log("error2")
         else {
-            res.redirect('/?registered=true')
+            res.redirect('/');
         }
     })
 })
@@ -138,11 +138,14 @@ routes.post('/loginuser', function(req, res) {
             // try {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
-                res.render("homepage", {
-                    loggedin: true , imglink:result.dp
-                });
+                var obj = {
+                    'user': result.usn,
+                    'loggedin': true,
+                    'imglink': result.dp
+                };
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
             } else {
-                res.render('homepage');
+                res.redirect('/');
             }
         }
         // } catch (err) {
@@ -233,30 +236,45 @@ routes.post("/pwd", function(req, res) {
 });
 
 routes.get('/', function(req, res) {
+    // console.log(req.signedCookies);
+
     //Todo Render only homepage
     // if (req.session.user) {
     //     res.render('profile')
     // } else {
-    res.render('homepage')
-        // }
+    res.render("homepage", {
+        user: req.signedCookies['user']
+    });
+    // }
 
 })
 
 routes.get('/logout', function(req, res) {
     req.session.destroy();
+    res.cookie('user', "", { signed: true, maxAge: Date.now() });
     //Changes 14.01.2020 02:05 - AJ
     // res.render('homepage')
     res.redirect('/');
 })
 
 routes.use(function(req, res, next) {
-    if (req.session.user) next();
-    else res.send("Please Login");
+    if (req.session.user && req.signedCookies)
+        if (req.session.user === req.signedCookies['user'].user) next();
+        else {
+            res.cookie('user', "", { signed: true, maxAge: Date.now() });
+            res.send("Please Login");
+        }
+    else {
+        res.cookie('user', "", { signed: true, maxAge: Date.now() });
+        res.send("Please Login");
+    }
 });
 
-routes.get('/home', function(req, res) {
-    res.render("homepage");
-});
+// routes.get('/home', function(req, res) {
+//     res.render("homepage", {
+//         user: req.signedCookies['user']
+//     });
+// });
 
 function processData(result, flag) {
     for (let x = 0; x < result.questions.length; x++) {
@@ -381,6 +399,7 @@ routes.get("/uniq", function(req, res) {
                 result['player'] = true;
                 req.session.gameData = result;
                 res.render("gamepage", {
+                    user: req.signedCookies['user'],
                     secondUser: true,
                     gamestart: true,
                     sessionuser: req.session.user,
@@ -394,12 +413,14 @@ routes.get("/uniq", function(req, res) {
 
 routes.get('/game', function(req, res) {
     res.render('gamepage', {
+        user: req.signedCookies['user'],
         page: true
     })
 })
 
 routes.get('/gamestart', function(req, res) {
     res.render('gamepage', {
+        user: req.signedCookies['user'],
         gamestart: true,
         sessionuser: req.session.user,
 
@@ -408,6 +429,7 @@ routes.get('/gamestart', function(req, res) {
 
 routes.get('/result', function(req, res) {
     res.render('gamepage', {
+        user: req.signedCookies['user'],
         result: true
     })
 })
@@ -427,11 +449,28 @@ routes.get("/profile", function(req, res) {
         DB.collection('Users').findOne({ usn: req.session.user }, function(err, result) {
             if (err) {
                 res.redirect('/')
-                console.log("hi")
             } else {
+                var obj = {
+                    'user': result.usn,
+                    'loggedin': true,
+                    'imglink': result.dp
+                };
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 });
                 //console.log(result)
-               // console.log(req.session.user)
-                res.render("profile", { name: result.name, password: '*****', phone: '12345678', address: 'city', email: result.email,age:result.age, birthday: '00/00/00', gender: result.gender, sessionuser: req.session.user,imglink:result.dp})
+                // console.log(req.session.user)
+                res.render("profile", {
+                    user: obj,
+                    name: result.name,
+                    password: '*****',
+                    phone: '12345678',
+                    address: 'city',
+                    email: result.email,
+                    age: result.age,
+                    birthday: '00/00/00',
+                    gender: result.gender,
+                    sessionuser: req.session.user,
+                    imglink: result.dp
+                })
             }
         })
     } else {
@@ -457,106 +496,96 @@ routes.get('/uuid', function(req, res) {
 
 routes.post("/updateprofile", function(req, res) {
     var pass = req.body.pass;
-    var user = req.session.user   
-   
-   if(req.files)
-   {
-       var dp = req.files.profilepic
-       var pid = req.session.user
-       
-       cloudinary.uploader.destroy(pid,function(err,result){
-          if(!err)
-          {
-            cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid},function(err,result)
-            {
-             if(!err)
-             {
-                 //console.log(result)
-                 DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
-                     if (err) {
-                         //res.redirect('/')
-                         console.log(err)
-                     } else {
-                         
-                         res.redirect('/profile')
-                     }
-                 })
-             }
-             else{
-                 console.log(err)
-             }
-               
-            })
-          }
-       })
-       
-   }
-   if(req.body.name)
-   {
-       //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
-            res.redirect('/profile')
-        }
-    })
-   }
-   if(req.body.age)
-   {
-       //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-          
-            res.redirect('/profile')
-        }
-    })
-   }
-   if(req.body.gender)
-   {
-       //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
-            res.redirect('/profile')
-        }
-    })
-   }
-   if(req.body.pwd)
-   {
-    var pwdObj = saltHashPassword(req.body.pwd.trim());
-       //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
-            res.redirect('/profile')
-        }
-    })
-   }
-   if(req.body.email)
-   {
-       //console.log(req.body.name)
-       DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
-        if (err) {
-            //res.redirect('/')
-            console.log(err)
-        } else {
-           
-            res.redirect('/profile')
-        }
-    })
-   }
+    var user = req.session.user
+
+    if (req.files) {
+        var dp = req.files.profilepic
+        var pid = req.session.user
+
+        cloudinary.uploader.destroy(pid, function(err, result) {
+            if (!err) {
+                cloudinary.uploader.upload(dp.tempFilePath, { public_id: pid }, function(err, result) {
+                    if (!err) {
+                        //console.log(result)
+                        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
+                            if (err) {
+                                //res.redirect('/')
+                                console.log(err)
+                            } else {
+
+                                res.redirect('/profile')
+                            }
+                        })
+                    } else {
+                        console.log(err)
+                    }
+
+                })
+            }
+        })
+
+    }
+    if (req.body.name) {
+        //console.log(req.body.name)
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
+    }
+    if (req.body.age) {
+        //console.log(req.body.name)
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
+    }
+    if (req.body.gender) {
+        //console.log(req.body.name)
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
+    }
+    if (req.body.pwd) {
+        var pwdObj = saltHashPassword(req.body.pwd.trim());
+        //console.log(req.body.name)
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd": pwdObj.pwd, "slt": pwdObj.slt } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
+    }
+    if (req.body.email) {
+        //console.log(req.body.name)
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
+    }
 })
 
 routes.get('/bond', function(req, res) {
@@ -564,6 +593,8 @@ routes.get('/bond', function(req, res) {
 })
 
 routes.get('*', function(req, res) {
-    res.render("404");
+    res.render("404", {
+        user: req.signedCookies['user']
+    });
 });
 module.exports = routes

@@ -1,6 +1,7 @@
 const express = require('express')
 var hbs = require('express-handlebars')
 var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 require('dotenv').config();
 
 var session = require("express-session");
@@ -11,8 +12,11 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({
     extended: false
 }))
+
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
 app.use(session({
-    secret: "qwertyuiopasdfghjkl",
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {

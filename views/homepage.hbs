@@ -17,8 +17,8 @@
 <body>
     <nav class="navbar navbar-light">
         <div class="row col-2">
-            <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
+            <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
         </div>
         <form class="form-inline col-4">
             <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
@@ -32,11 +32,11 @@
         </label>
         </div>
 
-        {{#if loggedin}}
+        {{#if user.loggedin}}
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="{{imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile">My Profile</a>
