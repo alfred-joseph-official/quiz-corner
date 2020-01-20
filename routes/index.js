@@ -62,6 +62,8 @@ var transporter = nodemailer.createTransport({
     }
 });
 
+const dDP = "https://res.cloudinary.com/dpkcwayz1/image/upload/v1579511047/sitedata/profile/dp/default.png";
+
 function importDb() {
     jsonfile.readFile(file, function(err, obj) {
         if (err) throw err;
@@ -116,7 +118,7 @@ routes.post("/signupuser", function(req, res) {
         email: req.body.email,
         pwd: pwdObj.pwd,
         slt: pwdObj.slt,
-        dp: "",
+        dp: dDP,
         age: "",
         top_score: [],
         fb_auth: ""
@@ -462,11 +464,8 @@ routes.get("/profile", function(req, res) {
                     user: obj,
                     name: result.name,
                     password: '*****',
-                    phone: '12345678',
-                    address: 'city',
                     email: result.email,
                     age: result.age,
-                    birthday: '00/00/00',
                     gender: result.gender,
                     sessionuser: req.session.user,
                     imglink: result.dp
