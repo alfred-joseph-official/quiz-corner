@@ -492,101 +492,88 @@ routes.get('/uuid', function(req, res) {
         // });
     );
 });
-
-routes.post("/updateprofile", function(req, res) {
-    var pass = req.body.pass;
-    var user = req.session.user
-
-    if (req.files) {
+routes.post("/updateprofile", function(req, res) {    
+   
+    if(req.files)
+    {
         var dp = req.files.profilepic
         var pid = req.session.user
-
-        cloudinary.uploader.destroy(pid, function(err, result) {
-            if (!err) {
-                cloudinary.uploader.upload(dp.tempFilePath, { public_id: pid }, function(err, result) {
-                    if (!err) {
-                        //console.log(result)
-                        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
-                            if (err) {
-                                //res.redirect('/')
-                                console.log(err)
-                            } else {
-
-                                res.redirect('/profile')
-                            }
-                        })
-                    } else {
-                        console.log(err)
-                    }
-
-                })
-            }
-        })
-
+        
+       
+             cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid,overwrite:true},function(err,result)
+             {
+              if(!err)
+              {
+                 
+                  //console.log(result)
+                  DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
+                      if (!err) {
+                         res.redirect('/profile')
+                         
+                      } 
+                  })
+              }
+              
+                
+             })
+           
+        
     }
-    if (req.body.name) {
+    if(req.body.name)
+    {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
-            if (err) {
-                //res.redirect('/')
-                console.log(err)
-            } else {
-
-                res.redirect('/profile')
-            }
-        })
+         if (!err) {
+             res.redirect('/profile')
+         }
+     })
     }
-    if (req.body.age) {
+    if(req.body.age)
+    {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
-            if (err) {
-                //res.redirect('/')
-                console.log(err)
-            } else {
-
-                res.redirect('/profile')
-            }
-        })
+         if (!err) {
+             res.redirect('/profile')
+         } 
+     })
     }
-    if (req.body.gender) {
+    if(req.body.gender)
+    {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
-            if (err) {
-                //res.redirect('/')
-                console.log(err)
-            } else {
-
-                res.redirect('/profile')
-            }
-        })
+         if (!err) {
+             res.redirect('/profile')
+         } 
+     })
     }
-    if (req.body.pwd) {
-        var pwdObj = saltHashPassword(req.body.pwd.trim());
+    if(req.body.pwd)
+    {
+     var pwdObj = saltHashPassword(req.body.pwd.trim());
         //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd": pwdObj.pwd, "slt": pwdObj.slt } }, function(err, result) {
-            if (err) {
-                //res.redirect('/')
-                console.log(err)
-            } else {
-
-                res.redirect('/profile')
-            }
-        })
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
+         if (err) {
+             //res.redirect('/')
+             console.log(err)
+         } else {
+            
+             res.redirect('/profile')
+         }
+     })
     }
-    if (req.body.email) {
+    if(req.body.email)
+    {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
-            if (err) {
-                //res.redirect('/')
-                console.log(err)
-            } else {
-
-                res.redirect('/profile')
-            }
-        })
+         if (err) {
+             //res.redirect('/')
+             console.log(err)
+         } else {
+            
+             res.redirect('/profile')
+         }
+     })
     }
-})
-
+ })
 routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })

@@ -13,15 +13,15 @@
     <link rel="stylesheet" href="/css/profile.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="/js/script.js"></script>
-
+    
     <title>Quiz Corner Profile</title>
 </head>
 
 <body>
     <nav class="navbar navbar-light">
          <div class="row col-2">
-        <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
+        <div><a href="/home"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
+        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/home">Home</a></div>
         </div>
         <form class="form-inline col-4 mr-5">
             <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
@@ -30,7 +30,7 @@
         <div class="col-2">
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src={{user.imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
+                    <img src={{imglink}} alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile">My Profile</a>
@@ -46,10 +46,10 @@
         <div class="row">
             <div class="col-4">
                 <div class="m-3 ">
-                    <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1">&#xf030;</i>Edit
+                    <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1 ">&#xf030;</i>Edit
                     </div>
                     
-                    <img src={{user.imglink}} height="270px" width="250px" alt="new pic">
+                    <img src={{imglink}} height="270px" width="250px" alt="new pic" class="centerimg img-fluid img-thumbnail">
                 </div>
             </div>
             <div id="infoDiv" class="col-8 mt-3 p-0">
@@ -135,7 +135,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Please Enter</h5>
+        <h5 class="modal-title">Please Enter Your Name</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -143,8 +143,11 @@
       <div class="modal-body">
         <form action="updateprofile" method="post">
             <div class="form-group">
-                <input type="text" name="name"  class="form-control">
-            </div>
+                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="name"
+                                        placeholder="Enter your name" name="name" minlength="3" required
+                                        oninvalid="this.setCustomValidity('Name should have minimum 3 characters!')"
+                                        oninput="setCustomValidity('')">
+                                </div>
             <button type="" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             
@@ -160,7 +163,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Please Enter</h5>
+        <h5 class="modal-title">Please Enter Your Password</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -198,7 +201,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Please Enter</h5>
+        <h5 class="modal-title">Please Enter Your Age</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -206,7 +209,7 @@
       <div class="modal-body">
         <form action="updateprofile" method="post">
             <div class="form-group">
-                <input type="text" name="age"  class="form-control">
+                <input type="text" name="age" placeholder="Enter your age"  class="form-control">
             </div>
             <button type="" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -223,7 +226,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Please Enter</h5>
+        <h5 class="modal-title">Please Select Gender</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -231,7 +234,7 @@
       <div class="modal-body">
         <form action="updateprofile" method="post">
             <div class="form-group">
-                <input type="text" name="gender"  class="form-control">
+                <input type="text" name="gender" placeholder="select gender" class="form-control">
             </div>
             <button type="" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -248,16 +251,19 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Please Enter</h5>
+        <h5 class="modal-title">Please enter your email</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="email"  class="form-control">
-            </div>
+           <div class="form-group">
+                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                    class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
+                                    oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
+                                    oninput="setCustomValidity('')">
+                            </div>
             <button type="" class="btn btn-primary">Save</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             
