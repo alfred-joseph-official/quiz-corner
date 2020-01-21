@@ -1,7 +1,7 @@
-var gameId = 1;
+var gameId = 2;
 var quesId = 1;
 // var url = "/getques/?id=" + gameId + "&ques=" + quesId;
-var questNo, questDiv, optionsDiv = [];
+var questDiv, optionsDiv = [];
 var ans;
 var flag = false;
 var data = [];
@@ -11,17 +11,18 @@ var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
     twitterShare = "https://twitter.com/intent/tweet?text=";
 
 $('document').ready(function() {
-    fetchData();
+    gameId = parseInt($('#game_id').val());
     resetSuccess = $('.alert');
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
-    questNo = $('#questno');
+        // questNo = $('#questno');
     questDiv = $('#quesDiv');
     optionsDiv.push($('#option-a'));
     optionsDiv.push($('#option-b'));
     optionsDiv.push($('#option-c'));
     optionsDiv.push($('#option-d'));
 
+    fetchData();
     var ans = [];
     ans.push($('#opd-a'));
     ans.push($('#opd-b'));
@@ -30,12 +31,9 @@ $('document').ready(function() {
 
     ans.forEach(function(item) {
         item.click(function() {
-            if (data.player === true) {
-                if (data.questions[quesId - 1].options[ans.indexOf(item)].is_answer === true) {
-                    // showAnim();
-                    score++;
-                }
-            } else data.questions[quesId - 1].options[ans.indexOf(item)].is_answer = true;
+            if (data.questions[quesId - 1].options[ans.indexOf(item)].is_answer === true)
+            // showAnim();
+                score++;
             getNext();
         });
     });
@@ -72,8 +70,7 @@ function getNext() {
         //     })
         // showBondMeter();
 
-        if (data.player) postPlayerData();
-        else postCreaterData();
+        postPlayerData();
     }
 
 }
@@ -84,8 +81,9 @@ function remBondAnim() {
 
 
 function setData() {
-    questNo.text("Question " + data.questions[quesId - 1].number + ".");
-    questDiv.text(data.questions[quesId - 1].question);
+    // questNo.text("Question " + data.questions[quesId - 1].number + ".");
+
+    questDiv.attr('src', data.questions[quesId - 1].question);
     for (let i = 0; i < 4; i++) {
         optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
     }
@@ -108,33 +106,11 @@ function setData() {
 //     });
 // }
 
-function postCreaterData() {
-    $.ajax({
-        type: "POST",
-        url: "/getques",
-        data: { gameId: gameId, data: JSON.stringify(data) },
-        success: function(response) {
-            // console.log(response);
-            $("#uniqueLink").val(response);
-            // console.log(fbshare1 + response + fbshare2);
-            // console.log(twitterShare + response);
-
-            // $('#fbs').attr('href', fbShare1 + response + fbShare2);
-            // $('#tws').attr('href', encodeURIComponent(twitterShare + response));
-            // console.log('success');
-        },
-        error: function(response) {
-            // console.log(response);
-            console.log('error');
-        }
-    });
-}
-
 function postPlayerData() {
     $.ajax({
         type: "POST",
-        url: "/result",
-        data: { gameId: gameId, token: data.token, score: score },
+        url: "/img_quiz",
+        data: { gameId: gameId, score: score },
         success: function(response) {
             // console.log(response);
             // $("#uniqueLink").val(response);
@@ -155,7 +131,7 @@ function fetchData() {
             url: "/getques",
             data: { gameId: gameId },
             success: function(response) {
-                // console.log(response);
+                console.log(response);
                 // console.log('success');
                 data = response;
                 setData();

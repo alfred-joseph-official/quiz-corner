@@ -1,112 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/newpass.css">
-    <title>Reset Password</title>
-</head>
-
-<body>
- <nav class="navbar navbar-light">
-        <div class="row col-2">
-        <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-        <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
-        </div>
-        <form class="form-inline col-4 offset-2 mr-5">
-            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search"></i>
-        </form>
-        <div class="col-2">
-            <div class="dropdown">
-                <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="/img/profilepicsmall.png" alt="profilepicture" class="rounded-circle img-fluid navImg">
-                </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile">My Profile</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div>
+<div class="container-fluid col-12">
+    <div class="jumbotron w-50 offset-3 bg-light shadow">
+        <h3 class="text-center"><small> Password Reset! Enter your new password.</small></h3>
+        <form class="needs-validation" action="/pwd" method="POST"> 
+        <div class="row offset-1">
+            <input type="text" name="usn" value={{this.usn}} hidden>
+        <div class="m-2">
+                <input type="password" class="form-control" id="pwd" placeholder="New Password" name="pwd"
+                    minlength="6" required
+                    oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                    oninput="setCustomValidity('')">
             </div>
-        </div>
-    </nav>
-    <br>
-    <br>
-
-    <div class="container-fluid col-12">
-        <div class="jumbotron w-50 offset-3 bg-light shadow">
-            <h3 class="text-center"><small> Password Reset! Enter your new password.</small></h3>
-            <form class="needs-validation" action="/pwd" method="POST"> 
-            <div class="row offset-1">
-                <input type="text" name="usn" value={{this.usn}} hidden>
             <div class="m-2">
-                    <input type="password" class="form-control" id="pwd" placeholder="New Password" name="pwd"
-                        minlength="6" required
-                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
-                        oninput="setCustomValidity('')">
-                </div>
-                <div class="m-2">
-                    <input type="password" class="form-control" id="cpwd" placeholder="Confirm Password"
-                        name="cpwd" required
-                        oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'
-                        oninput="setCustomValidity('')">
-                </div>
-                <div class="m-2">
-                <button class="btn btn-primary" type="submit">Confirm</button>
-                </div>
-                </div>
-                <div style="display:none" class="alert alert-success alert-dismissible show col-8 offset-2 mt-4">
-                    <button type="button" class="close" onclick="resetPass()" data-dismiss="alert">&times;</button>
-                    <strong>Success!</strong> Please Login To Continue.
-                </div>
-            </form>
-        </div>
-    </div><br><br><br>
-
-
-
-    <footer class="footer">
-        <div class="w-100">
-            <br>
-            <h4 class="text-center text-white">About us</h4><br>
-            <div class="row">
-                <div class="col-4 border-right">
-                    <small class="text-white offset-3"><strong>Follow</strong></small>
-                    <div class="Slogin mt-2"><a href="#" class="sBtn fa fa-facebook"></a><a href="#"
-                            class="sBtn fa fa-google"></a><a href="#" class="sBtn fa fa-twitter"></a></div>
-                </div>
-                <div class="col-4 text-center border-right">
-                    <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
-                        so you can test your skills by challenging your family & friends or other users and rank top in
-                        our leader board.</small>
-                </div>
-                <div class="col-4 text-center">
-                    <small class="text-white">
-                        <p> Designed and Devloped at Attain University.</p>
-                        <p> Call us - 1-800-XXX-020-XXX </p>
-                    </small>
-                </div>
+                <input type="password" class="form-control" id="cpwd" placeholder="Confirm Password"
+                    name="cpwd" required
+                    oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'
+                    oninput="setCustomValidity('')">
             </div>
-        </div>
-    </footer>
-    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
-            </strong></small></footer>
-
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="/js/script.js"></script>
-</body>
-</html>
+            <div class="m-2">
+            <button class="btn btn-primary" type="submit">Confirm</button>
+            </div>
+            </div>
+            <div style="display:none" class="alert alert-success alert-dismissible show col-8 offset-2 mt-4">
+                <button type="button" class="close" onclick="resetPass()" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> Please Login To Continue.
+            </div>
+        </form>
+    </div>
+</div><br><br><br>

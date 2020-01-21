@@ -222,7 +222,7 @@ routes.get("/reset/token/:t", function(req, res) {
             //delete resetObj from db
             res.send("Link Expired!");
         } else {
-            res.render('new_pass', { usn: resetObj.usn });
+            res.render('new_pass', { layout: 'no_ad', pp: false, usn: resetObj.usn });
         }
     });
 });
@@ -244,7 +244,8 @@ routes.get('/', function(req, res) {
     // if (req.session.user) {
     //     res.render('profile')
     // } else {
-    res.render("homepage", {
+    res.render('homepage', {
+        layout: "homepage",
         user: req.signedCookies['user']
     });
     // }
@@ -292,10 +293,44 @@ function processData(result, flag) {
     }
     return result;
 }
+
+function randQuestionPool(result) {
+    let i = result.questions.length
+    let tempArr = [];
+    let quesArr = [];
+    let x = 0;
+    while (x < 15) {
+        var j = Math.floor(Math.random() * i);
+        if (tempArr.includes(j)) {
+            continue;
+        }
+        tempArr.push(j);
+        quesArr.push(result.questions[j]);
+        x++;
+    }
+    result.questions = quesArr;
+    return result;
+}
+
+function fetchImgQuiz(gameId, req, res) {
+    DB.collection("games").findOne({ _id: gameId }, function(err, result) {
+        if (result) {
+            // console.log("pinged DB 2");
+            req.session.gameData = randQuestionPool(result);
+            res.json(req.session.gameData);
+        } else {
+            throw err;
+        }
+    });
+}
+
 //1st user
 routes.post("/getques", function(req, res) {
     var url = process.env.DOMAIN;
     var gameId = parseInt(req.body.gameId);
+    if (gameId == 2 || gameId == 3) {
+        fetchImgQuiz(gameId, req, res);
+    } else
     // console.log(req.body.data);
     if (req.body.data) {
         var data = JSON.parse(req.body.data)
@@ -331,6 +366,10 @@ routes.post("/getques", function(req, res) {
     }
 });
 
+routes.post('/img_quiz', function(req, res) {
+    req.session.gameData = false;
+    res.status(200).end();
+});
 // routes.post("/getques", function(req, res) {
 //     var gameId = parseInt(req.body.gameId, 10);
 //     var quesId = parseInt(req.body.quesId) - 1;
@@ -400,7 +439,7 @@ routes.get("/uniq", function(req, res) {
                 // console.log(result);
                 result['player'] = true;
                 req.session.gameData = result;
-                res.render("gamepage", {
+                res.render("bond_it", {
                     user: req.signedCookies['user'],
                     secondUser: true,
                     gamestart: true,
@@ -412,22 +451,67 @@ routes.get("/uniq", function(req, res) {
         }
     }
 });
-
+//Original
+// routes.get('/game', function(req, res) {
+//     res.render('gamepage', {
+//         user: req.signedCookies['user'],
+//         page: true
+//     })
+// })
+// routes.get('/game', function(req, res) {
+//     res.render('game_main', {
+//         title: 'game_main',
+//         layout: 'gameintro',
+//         user: req.signedCookies['user'],
+//     })
+// });
 routes.get('/game', function(req, res) {
-    res.render('gamepage', {
+    let gameId = 1;
+    let img = "/img/Bondit.jpeg"
+    if (parseInt(req.query.game_id) == 2) {
+        gameId = 2;
+        img = "/img/Flagup.jpeg"
+    } else if (parseInt(req.query.game_id) == 3) {
+        gameId = 3;
+        img = "/img/Iconic.jpeg"
+    } else gameId = 1;
+    res.render('gameintro', {
         user: req.signedCookies['user'],
-        page: true
+        gameId: gameId,
+        img: img
     })
-})
+});
 
+//Original
+// routes.get('/gamestart', function(req, res) {
+//     res.render('gamepage', {
+//         user: req.signedCookies['user'],
+//         gamestart: true,
+//         sessionuser: req.session.user,
+
+//     })
+// })
 routes.get('/gamestart', function(req, res) {
-    res.render('gamepage', {
-        user: req.signedCookies['user'],
-        gamestart: true,
-        sessionuser: req.session.user,
-
-    })
-})
+    if (parseInt(req.query.game_id) == 2) {
+        res.render('img_quiz', {
+            user: req.signedCookies['user'],
+            ques: "Which Country Flag Is This ?",
+            quizG: true,
+            gameId: req.query.game_id
+        });
+    } else if (parseInt(req.query.game_id) == 3) {
+        res.render('img_quiz', {
+            user: req.signedCookies['user'],
+            ques: "Can You Identify The Logo?",
+            quizG: true,
+            gameId: req.query.game_id
+        });
+    } else
+        res.render('bond_it', {
+            user: req.signedCookies['user'],
+            gameId: req.query.game_id
+        })
+});
 
 routes.get('/result', function(req, res) {
     res.render('gamepage', {
@@ -460,7 +544,9 @@ routes.get("/profile", function(req, res) {
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 });
                 //console.log(result)
                 // console.log(req.session.user)
-                res.render("profile", {
+                res.render('profile', {
+                    layout: "no_ad",
+                    pp: true,
                     user: obj,
                     name: result.name,
                     password: '*****',
@@ -492,94 +578,87 @@ routes.get('/uuid', function(req, res) {
         // });
     );
 });
-routes.post("/updateprofile", function(req, res) {    
-   
-    if(req.files)
-    {
+routes.post("/updateprofile", function(req, res) {
+
+    if (req.files) {
         var dp = req.files.profilepic
         var pid = req.session.user
-        
-       
-             cloudinary.uploader.upload(dp.tempFilePath,{public_id:pid,overwrite:true},function(err,result)
-             {
-              if(!err)
-              {
-                 
-                  //console.log(result)
-                  DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
-                      if (!err) {
-                         res.redirect('/profile')
-                         
-                      } 
-                  })
-              }
-              
-                
-             })
-           
-        
+
+
+        cloudinary.uploader.upload(dp.tempFilePath, { public_id: pid, overwrite: true }, function(err, result) {
+            if (!err) {
+
+                //console.log(result)
+                DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
+                    if (!err) {
+                        res.redirect('/profile')
+
+                    }
+                })
+            }
+
+
+        })
+
+
     }
-    if(req.body.name)
-    {
+    if (req.body.name) {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         }
-     })
+            if (!err) {
+                res.redirect('/profile')
+            }
+        })
     }
-    if(req.body.age)
-    {
+    if (req.body.age) {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "age": req.body.age } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         } 
-     })
+            if (!err) {
+                res.redirect('/profile')
+            }
+        })
     }
-    if(req.body.gender)
-    {
+    if (req.body.gender) {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "gender": req.body.gender } }, function(err, result) {
-         if (!err) {
-             res.redirect('/profile')
-         } 
-     })
+            if (!err) {
+                res.redirect('/profile')
+            }
+        })
     }
-    if(req.body.pwd)
-    {
-     var pwdObj = saltHashPassword(req.body.pwd.trim());
+    if (req.body.pwd) {
+        var pwdObj = saltHashPassword(req.body.pwd.trim());
         //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd":pwdObj.pwd,"slt":pwdObj.slt } }, function(err, result) {
-         if (err) {
-             //res.redirect('/')
-             console.log(err)
-         } else {
-            
-             res.redirect('/profile')
-         }
-     })
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "pwd": pwdObj.pwd, "slt": pwdObj.slt } }, function(err, result) {
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
     }
-    if(req.body.email)
-    {
+    if (req.body.email) {
         //console.log(req.body.name)
         DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "email": req.body.email } }, function(err, result) {
-         if (err) {
-             //res.redirect('/')
-             console.log(err)
-         } else {
-            
-             res.redirect('/profile')
-         }
-     })
+            if (err) {
+                //res.redirect('/')
+                console.log(err)
+            } else {
+
+                res.redirect('/profile')
+            }
+        })
     }
- })
+})
 routes.get('/bond', function(req, res) {
     res.render('bond.hbs')
 })
 
 routes.get('*', function(req, res) {
     res.render("404", {
+        layout: 'no_ad',
         user: req.signedCookies['user']
     });
 });

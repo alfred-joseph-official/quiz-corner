@@ -13,20 +13,20 @@ body {
     border-style: none;
 }
 
-#fa-search {
+.fa-search {
     position: absolute;
     z-index: 1;
     left: 90%;
     cursor: pointer;
 }
 
-::placeholder{
+::placeholder {
     font-weight: lighter;
 }
 
 #homeBtn {
     text-decoration: none;
-    color:white;
+    color: white;
     transition: 0.2s;
 }
 
@@ -41,7 +41,7 @@ body {
 }
 
 #row {
-    height:70%;
+    height: 70%;
 }
 
 .proCon {
@@ -79,7 +79,7 @@ body {
     filter: opacity(100%);
 }
 
-.Slogin{
+.Slogin {
     position: relative;
     left: 23%;
 }
@@ -119,14 +119,15 @@ body {
     list-style: none;
     color: blanchedalmond;
     font-weight: bold;
-} 
+}
 
 .footer {
     height: 30%;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
+
 .centerimg {
     height: 250px;
     width: 250px;
     object-fit: noner;
-  }
+}

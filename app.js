@@ -7,7 +7,7 @@ require('dotenv').config();
 var session = require("express-session");
 
 var app = express()
-app.engine('hbs', hbs({ defaultLayout: false, extname: '.hbs' }));
+app.engine('hbs', hbs({ defaultLayout: 'game_main', extname: '.hbs' }));
 app.set('view engine', 'hbs');
 app.use(bodyParser.urlencoded({
     extended: false
