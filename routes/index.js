@@ -135,25 +135,27 @@ routes.post("/signupuser", function(req, res) {
 routes.post('/loginuser', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
+
             res.redirect('/')
         } else {
-            // try {
-            if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
-                req.session.user = result.usn
-                var obj = {
-                    'user': result.usn,
-                    'loggedin': true,
-                    'imglink': result.dp
-                };
-                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
+
+            if (result) {
+                if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
+                    req.session.user = result.usn
+                    res.render("homepage", {
+                        loggedin: true,
+                        imglink: result.dp
+                    });
+                } else {
+                    res.render('homepage');
+                }
             } else {
-                res.redirect('/');
+                res.render('homepage')
             }
+
         }
-        // } catch (err) {
-        //     res.redirect('/');
-        // }
     })
+
 });
 
 routes.get("/forgot", function(req, res) {
@@ -662,4 +664,28 @@ routes.get('*', function(req, res) {
         user: req.signedCookies['user']
     });
 });
+routes.get('/autocomplete', function(req, res) {
+    //var result=['Quiz','Snake','Ludo']
+    // DB.collection('Games').find({title:{$regex:new RegExp(req.query["term"]),$options:'i'}},function(err,data)
+    DB.collection('Games').find({ "title": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
+            if (!err) {
+                // console.log(data)
+                var result = []
+
+
+                for (var i = 0; i < data.length; i++) {
+                    result.push(data[i].title)
+                }
+
+
+                res.json(result)
+
+            } else {
+                console.log(err)
+            }
+        })
+        // res.json(result)
+})
+
+
 module.exports = routes
