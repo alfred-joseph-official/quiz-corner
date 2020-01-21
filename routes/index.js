@@ -137,23 +137,24 @@ routes.post('/loginuser', function(req, res) {
         if (err) {
 
             res.redirect('/')
-        } else {
-
-            if (result) {
-                if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
-                    req.session.user = result.usn
-                    res.render("homepage", {
-                        loggedin: true,
-                        imglink: result.dp
-                    });
-                } else {
-                    res.render('homepage');
-                }
+        } else if (result) {
+            if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
+                req.session.user = result.usn
+                var obj = {
+                    'user': result.usn,
+                    'loggedin': true,
+                    'imglink': result.dp
+                };
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
             } else {
-                res.render('homepage')
+                //TODO validations
+                res.redirect('/');
             }
-
+        } else {
+            //TODO Validations
+            res.redirect('/');
         }
+
     })
 
 });
