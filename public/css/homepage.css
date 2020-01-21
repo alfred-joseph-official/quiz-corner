@@ -221,3 +221,15 @@ ol li img:hover{
   .slider.round:before {
     border-radius: 50%;
   }
+  #myProgress {
+    width: 100%;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  }
+  
+  #myBar {
+      
+    width: 0%;
+    height: 5px;
+    background-color: rgb(245, 105, 112);
+   
+  }

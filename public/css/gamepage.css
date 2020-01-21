@@ -340,3 +340,14 @@ body {
         background: red;
     }
 } */
+.averageScore {
+    background-color: orange;
+}
+
+.goodScore {
+    background-color: yellow;
+}
+
+.greatScore {
+    background-color: green;
+}
