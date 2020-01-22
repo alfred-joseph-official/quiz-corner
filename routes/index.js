@@ -469,15 +469,30 @@ routes.get("/uniq", function(req, res) {
 //     })
 // });
 routes.get('/game', function(req, res) {
-    let gameId = 1;
-    let img = "/img/Bondit.jpeg"
-    if (parseInt(req.query.game_id) == 2) {
-        gameId = 2;
-        img = "/img/Flagup.jpeg"
-    } else if (parseInt(req.query.game_id) == 3) {
-        gameId = 3;
-        img = "/img/Iconic.jpeg"
-    } else gameId = 1;
+    let gaemId, img;
+    switch (parseInt(req.query.game_id)) {
+        case 1:
+            gameId = 1;
+            img = "/img/Bondit.jpeg"
+            break;
+        case 2:
+            gameId = 2;
+            img = "/img/Flagup.jpeg"
+            break;
+        case 3:
+            gameId = 3;
+            img = "/img/Iconic.jpeg"
+            break;
+        case 4:
+            gameId = 4;
+            img = "/img/Colorista.jpeg"
+            break;
+        default:
+            gameId = 1;
+            img = "/img/Bondit.jpeg"
+            break;
+    }
+
     res.render('gameintro', {
         user: req.signedCookies['user'],
         gameId: gameId,
@@ -495,25 +510,43 @@ routes.get('/game', function(req, res) {
 //     })
 // })
 routes.get('/gamestart', function(req, res) {
-    if (parseInt(req.query.game_id) == 2) {
-        res.render('img_quiz', {
-            user: req.signedCookies['user'],
-            ques: "Which Country Flag Is This ?",
-            quizG: true,
-            gameId: req.query.game_id
-        });
-    } else if (parseInt(req.query.game_id) == 3) {
-        res.render('img_quiz', {
-            user: req.signedCookies['user'],
-            ques: "Can You Identify The Logo?",
-            quizG: true,
-            gameId: req.query.game_id
-        });
-    } else
-        res.render('bond_it', {
-            user: req.signedCookies['user'],
-            gameId: req.query.game_id
-        })
+    switch (parseInt(req.query.game_id)) {
+        case 1:
+            res.render('bond_it', {
+                user: req.signedCookies['user'],
+                gameId: req.query.game_id
+            });
+            break;
+        case 2:
+            res.render('img_quiz', {
+                user: req.signedCookies['user'],
+                ques: "Which Country Flag Is This ?",
+                imgQ: true,
+                gameId: req.query.game_id
+            });
+            break;
+        case 3:
+            res.render('img_quiz', {
+                user: req.signedCookies['user'],
+                ques: "Can You Identify The Logo?",
+                imgQ: true,
+                gameId: req.query.game_id
+            });
+            break;
+        case 4:
+            res.render('colorista', {
+                user: req.signedCookies['user'],
+                clr: true,
+                gameId: req.query.game_id
+            });
+            break;
+        default:
+            res.render('bond_it', {
+                user: req.signedCookies['user'],
+                gameId: req.query.game_id
+            });
+            break;
+    }
 });
 
 routes.get('/result', function(req, res) {
