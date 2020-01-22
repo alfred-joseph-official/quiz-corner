@@ -717,6 +717,7 @@ routes.post('/gotogame',function(req,res)
         var referer = req.header('Referer')
         res.redirect(referer)
     }
+    
 })
 
 module.exports = routes
