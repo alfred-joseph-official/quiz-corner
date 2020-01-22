@@ -40,7 +40,18 @@ body {
     width: 25px;
 }
 
+#myProgress {
+    width: 100%;
+    background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  }
+  
+  #myBar {
+    height: 5px;
+    background-color:rgba(255, 67, 67, 0.986);
+  }
+
 .Slogin{
+    width: 0;
     position: relative;
     left: 23%;
 }

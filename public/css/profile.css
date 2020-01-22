@@ -79,6 +79,14 @@ body {
     filter: opacity(100%);
 }
 
+.toast {
+    position: absolute;
+    z-index: 5;
+    left: 50px;
+    bottom:30px;
+    background:rgb(75, 75, 75)
+}
+
 .Slogin {
     position: relative;
     left: 23%;

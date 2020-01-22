@@ -131,7 +131,6 @@ routes.post("/signupuser", function(req, res) {
     })
 })
 
-
 routes.post('/loginuser', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
@@ -148,11 +147,11 @@ routes.post('/loginuser', function(req, res) {
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
             } else {
                 //TODO validations
-                res.redirect('/');
+                res.redirect('/?loginfailed=true');
             }
         } else {
             //TODO Validations
-            res.redirect('/');
+            res.redirect('/?loginfailed=true');
         }
 
     })
@@ -247,11 +246,19 @@ routes.get('/', function(req, res) {
     // if (req.session.user) {
     //     res.render('profile')
     // } else {
-    res.render('homepage', {
+        if(req.session.user){
+              res.render('homepage', {
         layout: "homepage",
-        user: req.signedCookies['user']
+        user: req.signedCookies['user'],
     });
-    // }
+        }
+
+        else {
+            res.render('homepage', {
+                layout: "homepage"
+        })
+  
+    }
 
 })
 
@@ -268,11 +275,11 @@ routes.use(function(req, res, next) {
         if (req.session.user === req.signedCookies['user'].user) next();
         else {
             res.cookie('user', "", { signed: true, maxAge: Date.now() });
-            res.send("Please Login");
+            res.redirect('/');
         }
     else {
         res.cookie('user', "", { signed: true, maxAge: Date.now() });
-        res.send("Please Login");
+        res.redirect("/");
     }
 });
 
@@ -330,6 +337,7 @@ function fetchImgQuiz(gameId, req, res) {
 //1st user
 routes.post("/getques", function(req, res) {
     var url = process.env.DOMAIN;
+    // var url = 'http://localhost:58686/'
     var gameId = parseInt(req.body.gameId);
     if (gameId == 2 || gameId == 3) {
         fetchImgQuiz(gameId, req, res);
@@ -445,8 +453,6 @@ routes.get("/uniq", function(req, res) {
                 res.render("bond_it", {
                     user: req.signedCookies['user'],
                     secondUser: true,
-                    gamestart: true,
-                    sessionuser: req.session.user,
                 });
             });
         } else {

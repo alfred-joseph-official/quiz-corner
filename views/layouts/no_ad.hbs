@@ -11,14 +11,14 @@
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {{#if pp}}
-        <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/profile.css">
     {{else}}
-        <link rel="stylesheet" href="/css/newpass.css">
+    <link rel="stylesheet" href="/css/newpass.css">
     {{/if}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script src="/js/script.js"></script>
-    
+
+
     <title>Quiz Corner Profile</title>
 </head>
 
@@ -26,11 +26,11 @@
     <nav class="navbar navbar-light">
         <div class="row col-2">
             <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
+            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/" onclick="move()">Home</a></div>
         </div>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search"></i>
+            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"
+                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
         </form>
         {{!-- <div>
         <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
@@ -41,22 +41,26 @@
         </div> --}}
 
         {{#if user.loggedin}}
-        <div class="col-2">
-            <div class="dropdown">
-                <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
-                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
-                </button>
-                {{!-- <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile">My Profile</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
-                </div> --}}
+         <div class="col-2">
+            <div class="dropdown row">
+                <span class="ml-5 mt-2 text-white"><i>{{user.user}}</i></span>
+                <a type="button" class="btn dropdown-toggle ml-1" data-toggle="dropdown">
+                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg border border-light">
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
+                    <a class="dropdown-item" href="/logout" onclick="move()">Logout</a>
+                </div>
             </div>
         </div>
         {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal"
-            data-target="#exampleModal">Login/Register</a>
+        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
+                class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
         {{/if}}
     </nav>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
     <br>
 
     {{!-- modal for login --}}
@@ -64,11 +68,12 @@
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="modal-body">
                     <div class="container">
@@ -83,19 +88,25 @@
                                 <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
                                     name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
                                     oninput="setCustomValidity('')">
-                                <a class="offset-7 Fpass" data-toggle="modal" data-dismiss="modal"
-                                    data-target="#exampleModal2" href="forgot">Forgot Password?</a>
+                                <small><a class="ml-2 Fpass" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
                             </div>
                             <div>
-                                <button type="submit" class="form-control btn w-50 offset-3 btn-success">Sign
+                                <button type="submit" id='signInBtn'
+                                    class="form-control btn w-50 offset-3 btn-success">Sign
                                     in</button><br>
-                                <div class="font-weight-light text-center">
-                                    Not an user ? <a href="#" data-toggle="modal" data-dismiss="modal"
-                                        data-target="#exampleModal1"> Sign up</a>
-                                </div>
+                                <small>
+                                    <div class="font-weight-light text-center mt-3">
+                                        Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal1"> Sign up</a>
+                                    </div>
+                                </small>
                             </div>
                         </form>
                     </div>
+                    {{!-- <div class="alert alert-danger" role="alert" style="display: none;">
+                        Incorrect Email Id or Password!
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -125,12 +136,36 @@
     </div>
 
     {{!-- modal for signup --}}
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
+                    <div class="row mb-3">
+                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
+                            placeholder="Username / Email" required>
+                        <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for signup --}}
     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -167,7 +202,8 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit" data-target="#exampleModal">Sign
+                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal"
+                                data-target="#exampleModal">Sign
                                 up</button>
                         </form>
                     </div>
@@ -179,6 +215,20 @@
     <br>
     <br>
     {{{body}}}
+    <div class="toast w-25" data-delay="3000">
+        <div class="toast-header text-white bg-transparent">
+            <strong class="mr-auto">Quiz Corner</strong>
+            <small>just now</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body text-white">
+            Profile Updated!
+        </div>
+    </div>
+    </div>
+    </div>
     <footer class="footer">
         <div class="w-100">
             <br>
@@ -202,49 +252,49 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
 
-{{!-- input name --}}
-    <div class="modal" id="inputnamemodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please Enter Your Name</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="name"
-                                        placeholder="Enter your name" name="name" minlength="3" required
-                                        oninvalid="this.setCustomValidity('Name should have minimum 3 characters!')"
-                                        oninput="setCustomValidity('')">
-                                </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-{{!-- input pass --}}
-   <div class="modal" id="inputpassmodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please Enter Your Password</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="pwd">
+        {{!-- input name --}}
+        <div class="modal" id="inputnamemodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please Enter Your Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="updateprofile" method="post">
+                            <div class="form-group">
+                                <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="name"
+                                    placeholder="Enter your name" name="name" minlength="3" required
+                                    oninvalid="this.setCustomValidity('Name should have minimum 3 characters!')"
+                                    oninput="setCustomValidity('')">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-save">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        {{!-- input pass --}}
+        <div class="modal" id="inputpassmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please Enter Your Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="updateprofile" method="post">
+                            <div class="pwd">
                                 <div class="form-group">
                                     <input type="password" class="form-control m-1" id="pwd"
                                         placeholder="Enter Password" name="pwd" minlength="6" required
@@ -259,95 +309,104 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
+                            <button type="button" class="btn btn-primary btn-save">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-{{!-- input age --}}
- <div class="modal" id="inputagemodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please Enter Your Age</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="age" placeholder="Enter your age"  class="form-control">
+                        </form>
+                    </div>
+
+                </div>
             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-{{!-- input gender --}}
- <div class="modal" id="inputgendermodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please Select Gender</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="gender" placeholder="select gender" class="form-control">
+
+        </div>
+
+        {{!-- input age --}}
+        <div class="modal" id="inputagemodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please Enter Your Age</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="updateprofile" method="post">
+                            <div class="form-group">
+                                <input type="text" name="age" placeholder="Enter your age" class="form-control">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-save">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </form>
+                    </div>
+
+                </div>
             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
-{{!-- inputmail --}}
-<div class="modal" id="inputmailmodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please enter your email</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-           <div class="form-group">
+
+        </div>
+        {{!-- input gender --}}
+        <div class="modal" id="inputgendermodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please Select Gender</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="updateprofile" method="post">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">Select</label>
+                                    </div>
+                                    <select class="custom-select" id="inputGroupSelect01">
+                                        <option value="2">Male</option>
+                                        <option value="3">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-save">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        {{!-- inputmail --}}
+        <div class="modal" id="inputmailmodal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Please enter your email</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="updateprofile" method="post">
+                            <div class="form-group">
                                 <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
                                     class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
                                     oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
                                     oninput="setCustomValidity('')">
                             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
+                            <button type="button" class="btn btn-primary btn-save">Save</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
     </footer>
     <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
             </strong></small></footer>
@@ -362,6 +421,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
