@@ -40,9 +40,9 @@ function setProfilePic()
      
 }
 
-$('.btn-save').click(function() {
-    $(".toast").toast("show")
-});
+// $('.btn-save').click(function() {
+//     $(".toast").toast("show")
+// });
 
 var i = 0;
 function move() {
@@ -78,3 +78,9 @@ $('#searchbtn').click(function()
 {
     $('#submitbtn').click()
 })
+
+
+
+
+
+
