@@ -674,14 +674,14 @@ routes.get('*', function(req, res) {
 routes.get('/autocomplete', function(req, res) {
     //var result=['Quiz','Snake','Ludo']
     // DB.collection('Games').find({title:{$regex:new RegExp(req.query["term"]),$options:'i'}},function(err,data)
-    DB.collection('Games').find({ "title": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
+    DB.collection('games').find({ "name": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
             if (!err) {
                 // console.log(data)
                 var result = []
 
 
                 for (var i = 0; i < data.length; i++) {
-                    result.push(data[i].title)
+                    result.push(data[i].name)
                 }
 
 
@@ -693,6 +693,30 @@ routes.get('/autocomplete', function(req, res) {
         })
         // res.json(result)
 })
-
+routes.post('/gotogame',function(req,res)
+{
+    console.log('I was called')
+    //console.log(req.header('Referer'))
+    if(req.body.game == 'Bond It')
+    {
+        res.redirect('game/?game_id=1')
+    }
+    if(req.body.game == "Flag Up")
+    {
+        res.redirect('game/?game_id=2')
+    }
+    if(req.body.game == "Iconic")
+    {
+        res.redirect('game/?game_id=3')
+    }
+    if(req.body.game == "Colorista")
+    {
+        res.redirect('game/?game_id=4')
+    }
+    else{
+        var referer = req.header('Referer')
+        res.redirect(referer)
+    }
+})
 
 module.exports = routes

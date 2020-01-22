@@ -61,5 +61,18 @@ function move() {
       }
     }
   }
-}
+} 
+$( function() {  
+  var availableGames = [
+    "Bond It", "Flag Up","Iconic", "Colorista"
+  ];
+  
+  $( "#searchgameinput" ).autocomplete({
+    source:availableGames
+  })
+} );
 
+$('#searchbtn').click(function()
+{
+    $('#submitbtn').click()
+})
