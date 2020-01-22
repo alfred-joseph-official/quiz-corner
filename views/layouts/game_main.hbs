@@ -2,20 +2,21 @@
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/gamepage.css">
- 
+
     <title>Quiz Corner</title>
 </head>
 
 <body>
+    <input type="text" id="game_id" value="{{gameId}}" hidden>
     <nav class="navbar navbar-light">
         <div class="row col-2">
             <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
@@ -23,10 +24,10 @@
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/" onclick="move()">Home</a></div>
             {{/if}}
         </div>
-       <form class="form-inline col-4" autocomplete="off" action="/gotogame" method="POST">
-            <input  class="form-control w-100" type="search" id="searchgameinput" name="game"  placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search" id="searchbtn"></i>
-                <button id="submitbtn"  type="submit" hidden ></button>
+        <form class="form-inline col-4" autocomplete="off" action="/gotogame" method="POST">
+            <input class="form-control w-100" type="search" id="searchgameinput" name="game"
+                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search" id="searchbtn"></i>
+            <button id="submitbtn" type="submit" hidden></button>
 
         </form>
         {{!-- <div>
@@ -42,7 +43,8 @@
             <div class="dropdown row">
                 <span class="ml-3 mt-2 text-white"><i>{{user.user}}</i></span>
                 <a type="button" class="btn dropdown-toggle ml-1" data-toggle="dropdown">
-                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg border border-light">
+                    <img src="{{user.imglink}}" alt="profilepicture"
+                        class="rounded-circle img-fluid navImg border border-light">
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
@@ -51,13 +53,13 @@
             </div>
         </div>
         {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal"
-            data-target="#exampleModal"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
+        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
+                class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
         {{/if}}
     </nav>
     <div id="myProgress">
-  <div id="myBar"></div>
-</div>
+        <div id="myBar"></div>
+    </div>
 
     {{!-- modal for login --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -65,7 +67,8 @@
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
@@ -84,16 +87,18 @@
                                     name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
                                     oninput="setCustomValidity('')">
                                 <small><a class="ml-2 Fpass" data-toggle="modal" data-dismiss="modal"
-                                    data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
+                                        data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
                             </div>
                             <div>
                                 <button type="submit" id='signInBtn'
                                     class="form-control btn w-50 offset-3 btn-success">Sign
                                     in</button><br>
-                                <small><div class="font-weight-light text-center mt-3">
-                                    Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
-                                        data-target="#exampleModal1"> Sign up</a>
-                                </div></small>
+                                <small>
+                                    <div class="font-weight-light text-center mt-3">
+                                        Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal1"> Sign up</a>
+                                    </div>
+                                </small>
                             </div>
                         </form>
                     </div>
@@ -134,7 +139,8 @@
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Sign up</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -171,7 +177,8 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal" data-target="#exampleModal">Sign
+                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal"
+                                data-target="#exampleModal">Sign
                                 up</button>
                         </form>
                     </div>
@@ -180,7 +187,7 @@
         </div>
     </div>
 
-<br><br>
+    <br><br>
     <div class="container">
         <div id="row" class="row">
             {{{body}}}
@@ -195,7 +202,14 @@
                 </div>
             </div>
         </div>
-    </div><br><br><br>
+    </div><br>
+
+    <div class="offset-1 col-7">
+        <strong><h2 class="ml-3" id="GameName"></h2></strong>
+        <p class="font-weight-light ml-3" id="GameInfo"></p>
+        <p id="Rules" class="ml-3"></p>
+    </div>
+    <br>
 
 
     <footer class="footer">
@@ -225,27 +239,27 @@
     <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
             </strong></small></footer>
 
-     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>   
-            <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-         <script src="/js/script.js"></script>
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/script.js"></script>
+      {{!-- <script src="/js/question.js"></script> --}}
     {{#if quizG}}
     <script src="/js/img_quiz.js"></script>
     {{else}}
-    <script src="/js/question.js"></script>
+  <script src="/js/question.js"></script>
     {{/if}}
 
 
 </body>
 
 </html>
- 

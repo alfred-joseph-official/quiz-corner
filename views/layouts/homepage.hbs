@@ -11,7 +11,6 @@
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/homepage.css">
- 
     <title>Welcome to Quiz Corner</title>
 </head>
 
@@ -49,7 +48,7 @@
             </div>
         </div>
         {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
+        <a href="/login" id="modalBtn" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
                 class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
         {{/if}}
     </nav>
@@ -302,16 +301,8 @@
                     </ol>
                 </div>
             </div>
-            <br>
-            <div class="row">
-                <h5 style="font-family: gill sans;" class="text-dark">Game Name</h5>
-            </div>
-            <div class="row">
-                <p class="text-secondary font-weight-light col-8">Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Repellat eligendi, quaerat similique perferendis optio expedita qui. Ut odio doloribus
-                    reprehenderit perferendis numquam ducimus aspernatur reiciendis dolor. Omnis magni distinctio
-                    suscipit!</p>
-            </div>
+            <br><br>
+            
             <div class="toast w-25" data-delay="3000">
                 <div class="toast-header text-white bg-transparent">
                     <strong class="mr-auto">Quiz Corner</strong>
@@ -370,7 +361,7 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
-    <script src="/js/question.js"></script>
+    <script src="/js/homepage.js"></script>
 </body>
 
 </html>

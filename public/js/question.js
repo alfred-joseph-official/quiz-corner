@@ -12,7 +12,6 @@ var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
 
 $('document').ready(function() {
     fetchData();
-    resetSuccess = $('.alert');
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
     questNo = $('#questno');
@@ -69,7 +68,7 @@ function getNext() {
             }
             if(score>3){
                 $('.semi-c').addClass('averageScore')
-                $('#resultinfo').text(' Average!').css('color',' rgb(245, 123, 9)')
+                $('#resultinfo').text(' Average!').css('color',' (245, 123, 9)')
             }
 
              if(score>7){
@@ -210,18 +209,6 @@ function setTwLink() {
 function copyLink(val) {
     $(val).select()
     document.execCommand("copy");
-}
-
-$('#reset').click(function() {
-    $(".toast").toast("show")
-});
-
-$('.btn-save').click(function() {
-    $(".toast").toast("show")
-});
-
-function resetPass() {
-    resetSuccess.fadeIn('slow')
 }
 
 function darkMode() {

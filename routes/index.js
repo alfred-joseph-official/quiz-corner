@@ -270,6 +270,24 @@ routes.get('/logout', function(req, res) {
     res.redirect('/');
 })
 
+routes.post('/getgames', function (req, res) { 
+    DB.collection("games").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        var array1 = []
+        var obj = {}
+        result.forEach(item => {
+            obj['_id'] = item._id,
+            obj['name'] = item.name,
+            obj['info'] = item.description,
+            obj['rules'] = item.rules,
+            obj['images'] = item.images
+            array1.push(obj)
+            obj = {}
+        }); 
+        res.json(array1)
+      });
+ })
+
 routes.use(function(req, res, next) {
     if (req.session.user && req.signedCookies)
         if (req.session.user === req.signedCookies['user'].user) next();
@@ -336,8 +354,8 @@ function fetchImgQuiz(gameId, req, res) {
 
 //1st user
 routes.post("/getques", function(req, res) {
-    var url = process.env.DOMAIN;
-    // var url = 'http://localhost:58686/'
+    // var url = process.env.DOMAIN;
+    var url = 'http://localhost:58686/'
     var gameId = parseInt(req.body.gameId);
     if (gameId == 2 || gameId == 3) {
         fetchImgQuiz(gameId, req, res);

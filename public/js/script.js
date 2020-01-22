@@ -7,6 +7,11 @@ function enabled() {
 }
 $('document').ready(function() {
 
+  $('#btn').on('click',function(){
+    $('#row').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationend',function(){
+        $(this).removeClass('animated slideInLeft');
+    });
+})
   
    
     $('#reset').click(function() {
@@ -78,3 +83,4 @@ $('#searchbtn').click(function()
 {
     $('#submitbtn').click()
 })
+
