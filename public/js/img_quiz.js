@@ -132,7 +132,9 @@ function fetchData() {
             data: { gameId: gameId },
             success: function(response) {
                 console.log(response);
-                // console.log('success');
+                setTimeout(() => {
+                    $('#spinner').hide('slow');
+                }, 3000);
                 data = response;
                 setData();
             },

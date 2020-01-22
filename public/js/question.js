@@ -64,16 +64,22 @@ function getNext() {
             // //IMPORTANT DONT DELETE! BOND METER CODE!
             $('.bond-container').addClass('bond-meter-loaded');
             $('#percent').text(score + '/15').fadeIn('slow');
+            if(score<=3){
+                $('#resultinfo').text(' Poor!').css('color',' red')
+            }
             if(score>3){
                 $('.semi-c').addClass('averageScore')
+                $('#resultinfo').text(' Average!').css('color',' rgb(245, 123, 9)')
             }
 
              if(score>7){
                 $('.semi-c').addClass('goodScore')
+                $('#resultinfo').text(' Good!').css('color', 'yellow;')
             }
 
              if(score>11){
                 $('.semi-c').addClass('greatScore')
+                $('#resultinfo').text(' Great!').css('color', 'green')
             }
         });
         // $('.bond-meter-show').each(function(item) {
@@ -89,6 +95,7 @@ function getNext() {
 
 }
 
+
 function remBondAnim() {
     $('.bond-container').removeClass('bond-meter-loaded');
 }
@@ -100,6 +107,7 @@ function setData() {
     for (let i = 0; i < 4; i++) {
         optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
     }
+   
 }
 
 // function fetchQuestion() {
@@ -168,6 +176,9 @@ function fetchData() {
             success: function(response) {
                 // console.log(response);
                 // console.log('success');
+                setTimeout(() => {
+                    $('#spinner').hide('slow');
+                }, 3000);
                 data = response;
                 setData();
             },
@@ -202,6 +213,10 @@ function copyLink(val) {
 }
 
 $('#reset').click(function() {
+    $(".toast").toast("show")
+});
+
+$('.btn-save').click(function() {
     $(".toast").toast("show")
 });
 

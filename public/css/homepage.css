@@ -17,6 +17,17 @@ body {
     font-weight: lighter;
 }
 
+#myProgress {
+    width: 100%;
+    background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  }
+  
+  #myBar {
+    width: 0;
+    height: 5px;
+    background-color:rgba(255, 67, 67, 0.986);
+  }
+
 .Fpass:hover {
     text-decoration: none;
     color:rgba(228, 42, 29, 0.945);

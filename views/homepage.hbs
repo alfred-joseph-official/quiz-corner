@@ -21,17 +21,16 @@
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
         </div>
         <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"  placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search"></i>
+            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"
+                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
         </form>
-        <div>
-        <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
-        <label class="switch">
-            <input onclick="darkMode()" type="checkbox">
-            <span class="slider round"></span>
-        </label>
-        </div>
-
+        {{!-- <div>
+            <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
+            <label class="switch">
+                <input onclick="darkMode()" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </div> --}}
         {{#if user.loggedin}}
         <div class="col-2">
             <div class="dropdown">
@@ -39,16 +38,19 @@
                     <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile">My Profile</a>
-                    <a class="dropdown-item" href="/logout">Logout</a>
+                    <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
+                    <a class="dropdown-item" href="/logout" onclick="move()">Logout</a>
                 </div>
             </div>
         </div>
         {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal"
-            data-target="#exampleModal">Login/Register</a>
+        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
+                class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
         {{/if}}
     </nav>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
     <br>
 
     {{!-- modal for login --}}
@@ -56,11 +58,12 @@
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
+                    </a>
                 </div>
                 <div class="modal-body">
                     <div class="container">
@@ -75,19 +78,25 @@
                                 <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
                                     name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
                                     oninput="setCustomValidity('')">
-                                <a class="offset-7 Fpass" data-toggle="modal" data-dismiss="modal"
-                                    data-target="#exampleModal2" href="forgot">Forgot Password?</a>
+                                <small><a class="ml-2 Fpass" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
                             </div>
                             <div>
-                                <button type="submit" class="form-control btn w-50 offset-3 btn-success">Sign
+                                <button type="submit" id='signInBtn'
+                                    class="form-control btn w-50 offset-3 btn-success">Sign
                                     in</button><br>
-                                <div class="font-weight-light text-center">
-                                    Not an user ? <a href="#" data-toggle="modal" data-dismiss="modal"
-                                        data-target="#exampleModal1"> Sign up</a>
-                                </div>
+                                <small>
+                                    <div class="font-weight-light text-center mt-3">
+                                        Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal1"> Sign up</a>
+                                    </div>
+                                </small>
                             </div>
                         </form>
                     </div>
+                    {{!-- <div class="alert alert-danger" role="alert" style="display: none;">
+                        Incorrect Email Id or Password!
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -117,12 +126,36 @@
     </div>
 
     {{!-- modal for signup --}}
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
+                    <div class="row mb-3">
+                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
+                            placeholder="Username / Email" required>
+                        <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for signup --}}
     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
                 <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel">Sign up</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -159,7 +192,8 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary" type="submit" data-target="#exampleModal">Sign
+                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal"
+                                data-target="#exampleModal">Sign
                                 up</button>
                         </form>
                     </div>
@@ -173,20 +207,57 @@
             <div class="col-md-8 bg-light shadow rounded">
                 <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
                     <div class="carousel-inner">
-                        <a class="example_e" href="/game"><i class="fa fa-play-circle-o"></i></a>
-                        <div class="container blackCon"></div>
+                        {{#if user.loggedin}}
                         <div class="carousel-item active">
+                            <a class="example_e"  onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
                             <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
-                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
-                        </div>
-                        <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=2" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
                             <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=3" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
                             <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=4" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        {{else}}
+                        <div class="carousel-item active">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        {{/if}}
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                             data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -217,12 +288,12 @@
                     <ol class="carousel-indicators ml-2">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
                                 src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"> <img
-                                src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
                                 src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100"><img
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
                                 src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100"> <img
+                                src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
                     </ol>
                 </div>
             </div>
@@ -283,7 +354,6 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
