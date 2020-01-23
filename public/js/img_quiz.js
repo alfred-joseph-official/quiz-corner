@@ -146,7 +146,10 @@ function loadRanks(ranks) {
 }
 
 function fetchData() {
-    if (data.length > 0) setData();
+    if (data.length > 0) {
+        console.log(gameId);
+        setData()
+    }
     else {
         $.ajax({
             type: "POST",

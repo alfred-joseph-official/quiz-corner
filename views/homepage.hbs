@@ -20,9 +20,10 @@
             <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
         </div>
-        <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"
-                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
+        <form class="form-inline col-4" autocomplete="off" action="/gotogame" method="POST">
+            <input  class="form-control w-100" type="search" id="searchgameinput" name="game"  placeholder="Search for quiz games"
+                aria-label="Search"><i class="fa fa-search" id="searchbtn"></i>
+                <button id="submitbtn"  type="submit" hidden ></button>
         </form>
         {{!-- <div>
             <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
@@ -33,11 +34,10 @@
         </div> --}}
         {{#if user.loggedin}}
         <div class="col-2">
-            <div class="dropdown row">
-                <span class="ml-5 mt-2 text-white"><i>{{user.user}}</i></span>
-                <a type="button" class="btn dropdown-toggle ml-1" data-toggle="dropdown">
-                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg border border-light">
-                </a>
+           <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
+                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
+                </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
                     <a class="dropdown-item" href="/logout" onclick="move()">Logout</a>
@@ -291,7 +291,7 @@
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
                                 src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732303/GameAssets/Bond-it/preview/1200x720_giewq0.jpg" class="d-block shadow" alt="..."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
-                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block w-100 imgS" class="d-block shadow" alt=".."></li>
+                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block shadow" alt=".."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
                                 src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/1200x720_kder3l.jpg" class="d-block shadow" alt="..."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100"> <img
@@ -362,6 +362,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+        {{!-- TEST! Not sure why this is here --}}
+        
+           {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
+
     <script src="/js/script.js"></script>
     <script src="/js/homepage.js"></script>
     {{!-- <script src="/js/question.js"></script> --}}

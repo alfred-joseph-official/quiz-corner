@@ -11,65 +11,68 @@
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/css/root.css">
     <title>Welcome to Quiz Corner</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-light">
-        <div class="row col-2">
-            <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {{#if user.loggedin}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{user.imglink}}" alt="profilepicture"
+                            class="rounded-circle img-fluid navImg border border-light">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" style="text-decoration:none; " href="/profile" onclick="move()">My
+                            Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" style="text-decoration:none" href="/logout" onclick="move()">Logout</a>
+                    </div>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/login" id="modalBtn" class="btn btn-sm btn-outline-light" data-toggle="modal"
+                        data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login/Register</a>
+                </li>
+                {{/if}}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
+                    placeholder="Search for quiz games" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
-        <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" id="searchbar" onclick="searchgame"
-                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search"></i>
-        </form>
-        {{!-- <div>
-            <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
-            <label class="switch">
-                <input onclick="darkMode()" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-        </div> --}}
-        {{#if user.loggedin}}
-        <div class="col-2">
-            <div class="dropdown row">
-                <span class="ml-5 mt-2 text-white"><i>{{user.user}}</i></span>
-                <a type="button" class="btn dropdown-toggle ml-1" data-toggle="dropdown">
-                    <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg border border-light">
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
-                    <a class="dropdown-item" href="/logout" onclick="move()">Logout</a>
-                </div>
-            </div>
-        </div>
-        {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
-                class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
-        {{/if}}
     </nav>
-    <div id="myProgress">
-        <div id="myBar"></div>
-    </div>
-    <br>
+
 
     {{!-- modal for login --}}
     <input type="text" class="auth" style="display: none;" value="{{user.user}}">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog w-25" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                <div class="modal-header text-white bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
                             aria-hidden="true"></i>Login</h5>
-                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                    <a href="#" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <form class="form-group" action="/loginuser" method="POST">
+                        <form class="form-group">
                             <div class="form-group">
                                 <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn"
                                     placeholder="Username" name="usn" required
@@ -84,7 +87,7 @@
                                         data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
                             </div>
                             <div>
-                                <button type="submit" id='signInBtn'
+                                <button type="button" id='signInBtn'
                                     class="form-control btn w-50 offset-3 btn-success">Sign
                                     in</button><br>
                                 <small>
@@ -96,9 +99,11 @@
                             </div>
                         </form>
                     </div>
-                    {{!-- <div class="alert alert-danger" role="alert" style="display: none;">
+                  
+                    <small class="text-danger" id='errorMsg' style="display: none;">
                         Incorrect Email Id or Password!
-                    </div> --}}
+                    </small>
+        
                 </div>
             </div>
         </div>
@@ -109,32 +114,9 @@
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header text-white bg-dark">
                     <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
-                    <div class="row mb-3">
-                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
-                            placeholder="Username / Email" required>
-                        <button id="reset" class="btn btn-primary col-2">Reset</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{!-- modal for signup --}}
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -153,12 +135,12 @@
     {{!-- modal for signup --}}
     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog w-25" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
                             aria-hidden="true"></i>Sign up</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -194,8 +176,7 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal"
-                                data-target="#exampleModal">Sign
+                            <button class="btn btn-primary form-control w-50 offset-3" type="submit">Sign
                                 up</button>
                         </form>
                     </div>
@@ -204,9 +185,12 @@
         </div>
     </div>
 
+    <div class="banner1">
+        <img height="370px" src="/img/banner1.png" alt="">
+    </div>
     <div class="container">
         <div id="row" class="row">
-            <div class="col-md-8 bg-light shadow rounded">
+            <div class="col-md-8 bg-light shadow rounded mainDiv">
                 <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
                     <div class="carousel-inner">
                         {{#if user.loggedin}}
@@ -214,50 +198,50 @@
                             <a class="example_e" href="/game/?game_id=1" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732303/GameAssets/Bond-it/preview/1200x720_giewq0.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=2" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=3" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/1200x720_kder3l.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=4" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738947/GameAssets/Colorista/preview/1200x720_ykzd5z.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         {{else}}
                         <div class="carousel-item active">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732302/GameAssets/Bond-it/preview/400x240_r0w0xn.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732399/GameAssets/Flagup/preview/400x240_vnzebt.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/400x240_lcwuxz.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738946/GameAssets/Colorista/preview/400x240_yxrxna.jpg" class="d-block w-100 imgS" alt="...">
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
                         {{/if}}
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
@@ -273,7 +257,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 bg-light rounded shadow ml-1">
+            <div class="col-md-3 bg-light rounded shadow ml-1" id="AdBlock">
                 <div class="container">
                     ads
                     <img class="adImg mt-1"
@@ -284,49 +268,93 @@
                 </div>
             </div>
         </div>
+    </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-8 ml-5">
                     <ol class="carousel-indicators ml-2">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
-                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732303/GameAssets/Bond-it/preview/1200x720_giewq0.jpg" class="d-block shadow" alt="..."></li>
+                                src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
-                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block shadow" alt=".."></li>
+                                src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
-                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/1200x720_kder3l.jpg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100"> <img
-                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738947/GameAssets/Colorista/preview/1200x720_ykzd5z.jpg" class="d-block shadow" alt="..."></li>
+                                src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100">
+                            <img src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
                     </ol>
                 </div>
             </div>
+        </div>
             <br>
-            <div class="row">
-                <h5 style="font-family: gill sans;" class="text-dark">Game Name</h5>
-            </div>
-            <div class="row">
-                <p class="text-secondary font-weight-light col-8">Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Repellat eligendi, quaerat similique perferendis optio expedita qui. Ut odio doloribus
-                    reprehenderit perferendis numquam ducimus aspernatur reiciendis dolor. Omnis magni distinctio
-                    suscipit!</p>
-            </div>
-            <div class="toast w-25" data-delay="3000">
-                <div class="toast-header text-white bg-transparent">
-                    <strong class="mr-auto">Quiz Corner</strong>
-                    <small>just now</small>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <h4 class="font-weight-bold">More Games</h4>
+            <div class="d-flex flex-col">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="toast-body text-white">
-                    Reset link sent
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="d-flex flex-col">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="toast w-25" data-delay="3000">
+            <div class="toast-header text-white bg-transparent">
+                <strong class="mr-auto">Quiz Corner</strong>
+                <small>just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body text-white">
+                Reset link sent
             </div>
         </div>
-    </div>
 
-
-    <footer class="footer">
-        <div class="w-100">
+    <br>
+    <footer class="footer w-100">
+        <div class="conatiner">
             <br>
             <h4 class="text-center text-white">About us</h4><br>
             <div class="row">
@@ -337,8 +365,7 @@
                 </div>
                 <div class="col-4 text-center border-right">
                     <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
-                        so you can test your skills by challenging your family & friends or other users and rank top in
-                        our leader board.</small>
+                        so you can test your skills.</small>
                 </div>
                 <div class="col-4 text-center">
                     <small class="text-white">
@@ -348,8 +375,11 @@
                 </div>
             </div>
         </div>
+        <br><br>
     </footer>
-    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
+
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights
+                Reserved.
             </strong></small></footer>
 
 
@@ -362,9 +392,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
     <script src="/js/script.js"></script>
     <script src="/js/homepage.js"></script>
-    {{!-- <script src="/js/question.js"></script> --}}
 </body>
 
 </html>

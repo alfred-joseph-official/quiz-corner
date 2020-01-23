@@ -68,6 +68,24 @@ function showResult() {
         endCard.fadeIn('slow', function() {
             $('.bond-container').addClass('bond-meter-loaded');
             $('#percent').text((score == "" ? 0 : score) + '/15').fadeIn('slow');
+            $('#percent').text(score + '/15').fadeIn('slow');
+            if(score<=3){
+                $('#resultinfo').text(' Poor!').css('color',' red')
+            }
+            if(score>3){
+                $('.semi-c').addClass('averageScore')
+                $('#resultinfo').text(' Average!').css('color',' (245, 123, 9)')
+            }
+
+             if(score>7){
+                $('.semi-c').addClass('goodScore')
+                $('#resultinfo').text(' Good!').css('color', 'yellow;')
+            }
+
+             if(score>11){
+                $('.semi-c').addClass('greatScore')
+                $('#resultinfo').text(' Great!').css('color', 'green')
+            }
         });
     } else {
         postCreaterData();

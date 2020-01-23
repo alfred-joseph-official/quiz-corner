@@ -22,9 +22,10 @@
             <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/">Home</a></div>
             {{/if}}
         </div>
-        <form class="form-inline col-4">
-            <input id="input" class="form-control w-100" type="search" placeholder="Search for quiz games"
-                aria-label="Search"><i class="fa fa-search"></i>
+        <form class="form-inline col-4" autocomplete="off" action="/gotogame" method="POST">
+            <input  class="form-control w-100" type="search" id="searchgameinput" name="game"  placeholder="Search for quiz games"
+                aria-label="Search"><i class="fa fa-search" id="searchbtn"></i>
+                <button id="submitbtn"  type="submit" hidden ></button>
         </form>
         <div>
             <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
@@ -395,6 +396,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+           <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script src="/js/script.js"></script>
     <script src="/js/question.js"></script>
 </body>

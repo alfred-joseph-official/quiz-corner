@@ -144,14 +144,14 @@ routes.post('/loginuser', function(req, res) {
                     'loggedin': true,
                     'imglink': result.dp
                 };
-                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).send('loginSuccess');
             } else {
                 //TODO validations
-                res.redirect('/?loginfailed=true');
+                res.send('loginfailedtrue');
             }
         } else {
             //TODO Validations
-            res.redirect('/?loginfailed=true');
+            res.send('loginfailedtrue');
         }
 
     })
@@ -253,7 +253,8 @@ routes.get('/', function(req, res) {
         });
     } else {
         res.render('homepage', {
-            layout: "homepage"
+            layout: "homepage",
+            loginfailed: req.query.loginfailed
         })
 
     }
@@ -266,6 +267,27 @@ routes.get('/logout', function(req, res) {
     //Changes 14.01.2020 02:05 - AJ
     // res.render('homepage')
     res.redirect('/');
+})
+
+routes.post('/getgames', function(req, res) {
+    DB.collection("games").find({}).toArray(function(err, result) {
+        if (err) throw err;
+        var array1 = []
+        var obj = {}
+        result.forEach(item => {
+            obj['_id'] = item._id,
+                obj['name'] = item.name,
+                obj['info'] = item.description,
+                obj['rules'] = item.rules,
+                obj['images'] = item.images
+            array1.push(obj)
+            obj = {}
+        });
+        array1.sort(function(a, b) {
+            return a._id - b._id;
+        })
+        res.json(array1)
+    });
 })
 
 routes.use(function(req, res, next) {
@@ -361,6 +383,7 @@ routes.post("/getques", function(req, res) {
         req.session.gameData = null;
     }
 });
+
 routes.post('/bond_get', function(req, res) {
     if (!req.session.gameData) {
         DB.collection("games").findOne({ _id: parseInt(req.body.gameId) }, function(err, result) {
@@ -742,7 +765,7 @@ routes.post("/updateprofile", function(req, res) {
             if (!err) {
 
                 //console.log(result)
-                DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.mongoUrl } }, function(err, result) {
+                DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "dp": result.url } }, function(err, result) {
                     if (!err) {
                         res.redirect('/profile')
 
@@ -838,5 +861,25 @@ routes.get('/autocomplete', function(req, res) {
         // res.json(result)
 })
 
+routes.post('/gotogame', function(req, res) {
+    console.log('I was called')
+        //console.log(req.header('Referer'))
+    if (req.body.game == 'Bond It') {
+        res.redirect('game/?game_id=1')
+    }
+    if (req.body.game == "Flag Up") {
+        res.redirect('game/?game_id=2')
+    }
+    if (req.body.game == "Iconic") {
+        res.redirect('game/?game_id=3')
+    }
+    if (req.body.game == "Colorista") {
+        res.redirect('game/?game_id=4')
+    } else {
+        var referer = req.header('Referer')
+        res.redirect(referer)
+    }
+
+})
 
 module.exports = routes

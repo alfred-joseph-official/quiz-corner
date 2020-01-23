@@ -4,6 +4,11 @@ $('document').ready(function() {
     // if ($('auth').val()) {
     //     $('#exampleModal').modal('show')
     // }
+    $('#btn').on('click', function() {
+        $('#row').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationend', function() {
+            $(this).removeClass('animated slideInLeft');
+        });
+    })
 
     $('#reset').click(function() {
 
@@ -34,9 +39,9 @@ function setProfilePic() {
 
 }
 
-$('.btn-save').click(function() {
-    $(".toast").toast("show")
-});
+// $('.btn-save').click(function() {
+//     $(".toast").toast("show")
+// });
 
 var i = 0;
 
@@ -58,3 +63,20 @@ function move() {
         }
     }
 }
+
+//CHECK - Amrit
+$(function() {
+
+    var availableGames = [
+        "Bond It", "Flag Up", "Iconic", "Colorista"
+    ];
+
+    $("#searchgameinput").autocomplete({
+        source: availableGames,
+
+    })
+});
+
+$('#searchbtn').click(function() {
+    $('#submitbtn').click()
+})

@@ -1,64 +1,15 @@
-body {
-    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-    overflow-x: hidden;
-    height: 120vh!important;
-}
-
-.navbar {
-    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
-}
-
-#input {
-    height: 33px;
-    border-style: none;
-}
-
-::placeholder{
-    font-weight: lighter;
-}
-
-#myProgress {
-    width: 100%;
-    background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  }
-  
-  #myBar {
-    width: 0;
-    height: 5px;
-    background-color:rgba(255, 67, 67, 0.986);
-  }
-
-.Fpass:hover {
-    text-decoration: none;
-    color:rgba(228, 42, 29, 0.945);
-    transition: 0.4s;
-}
-
-#homeBtn {
-    text-decoration: none;
-    color:white;
-    transition: 0.2s;
-}
-
-.fa-search {
-    position: absolute;
-    z-index: 1;
-    left: 90%;
-    cursor: pointer;
-}
-
-.dropdown {
-    cursor: pointer;
-    left: 25%;
-}
-
-.navImg {
-    height: 25px;
-    width: 25px;
-}
 
 #row {
-    height:500px;
+    height:500px!important;
+}
+
+.mainDiv {
+  width: 100%;
+  height: 100%!important;
+}
+
+#AdBlock {
+  height: 100%!important;
 }
 
 .blackCon {
@@ -119,59 +70,190 @@ ol li img:hover{
     background:rgb(75, 75, 75)
 }
 
-.Slogin{
-    position: relative;
-    left: 23%;
+.flip-card {
+  background-color: transparent;
+  width: 150px;
+  height: 150px;
+  perspective: 1000px;
+  margin: 1%;
 }
 
-.sBtn {
-    padding: 10px;
-    font-size: 20px;
-    width: 10%;
-    text-align: center;
-    text-decoration: none;
-    margin: 5px 4px;
-    border: 2px solid blanchedalmond;
-    border-radius: 50%;
-    filter: brightness(80%);
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-.sBtn:hover {
-    opacity: 0.5;
-    transition: all 0.4s;
-    text-decoration: none!important;
-    color: white!important;
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
 }
 
-.fa-facebook {
-    color: white;
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
 }
 
-.fa-twitter {
-    color: white;
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
 }
 
-.fa-google {
-    color: white;
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
 }
 
-.ul2 {
-    list-style: none;
-    color: blanchedalmond;
-    font-weight: bold;
-} 
 
-.footer {
-    height: 30%;
-    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+
+
+/* For responsive */
+
+@media screen and (max-width: 800px) {
+ #AdBlock{
+   display: none;
+ }
 }
 
-.dark-mode {
-    background-image: linear-gradient(to left, #434343 0%, black 100%);
+@media screen and (max-width: 600px) {
+ body {
+   overflow-x: hidden;
+ }
+
+#row {
+  height:50vh !important;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.banner1{
+  display: none;
+}
+
+.mainDiv {
+  width: 100%!important;
+  height: 100%!important;
+  overflow-x: hidden;
+}
+
+.blackCon {
+  background: black;
+  filter: opacity(40%);
+  height: 400px;
+  position: absolute;
+  z-index: 1;
+}
+
+.imgS {
+  height: 100%!important;
+  width: 100%;
+}
+
+.fa-play-circle-o {
+  color: white;
+  position: absolute;
+  margin-left: 32%;
+  margin-top: 10%;
+  z-index: 3;
+  font-size:130px;
+  filter: opacity(70%);
+  text-decoration: none;
+  background:none;
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all .2s ease-in-out; 
+}
+
+.fa-play-circle-o:hover {
+  text-shadow: 7px 11px 15px rgba(117, 117, 117, 0.767);
+  transform: scale(1.1); 
   }
 
-/* toggle button to dark mode */
+ol li img{
+  position: relative;
+  right:10%;
+  bottom: 60px;
+  height: 75px;
+  width: 70px;
+  transition: all .2s ease-in-out; 
+}
 
+ol li img:hover{
+  transform: scale(1.1); 
+}
+
+#AdBlock {
+  display: none;
+}
+
+.adImg {
+  display: none;
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 150px;
+  height: 80px;
+  perspective: 1000px;
+  margin: 2%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
+.toast {
+  position: absolute;
+  z-index: 5;
+  left: 50px;
+  bottom:30px;
+  background:rgb(75, 75, 75)
+}
+}
+
+/* .dark-mode {
+    background-image: linear-gradient(to left, #434343 0%, black 100%);
+  } */
+
+/* toggle button to dark mode */
+/* 
 .switch {
     position: relative;
     display: inline-block;
@@ -224,11 +306,11 @@ ol li img:hover{
     transform: translateX(26px);
   }
   
-  /* Rounded sliders */
+  Rounded sliders
   .slider.round {
     border-radius: 34px;
   }
   
   .slider.round:before {
     border-radius: 50%;
-  }
+  } */
