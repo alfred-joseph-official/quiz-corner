@@ -41,8 +41,8 @@
         {{#if user.loggedin}}
         <div class="col-2">
             <div class="dropdown row">
-                <span class="ml-3 mt-2 text-white"><i>{{user.user}}</i></span>
-                <a type="button" class="btn dropdown-toggle ml-1" data-toggle="dropdown">
+                <span class="ml-2 mt-2 text-white"><i>{{user.user}}</i></span>
+                <a type="button" class="btn dropdown-toggle" data-toggle="dropdown">
                     <img src="{{user.imglink}}" alt="profilepicture"
                         class="rounded-circle img-fluid navImg border border-light">
                 </a>
@@ -256,7 +256,7 @@
     {{#if quizG}}
     <script src="/js/img_quiz.js"></script>
     {{else}}
-  <script src="/js/question.js"></script>
+  <script src="/js/game_main.js"></script>
     {{/if}}
 
 

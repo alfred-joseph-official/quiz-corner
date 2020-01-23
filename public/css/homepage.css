@@ -1,7 +1,7 @@
 body {
     background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
     overflow-x: hidden;
-    height: 120vh!important;
+    height: 120%!important;
 }
 
 .navbar {

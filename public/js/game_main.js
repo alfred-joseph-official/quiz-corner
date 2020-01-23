@@ -30,9 +30,9 @@ function fetchData() {
 function setData() { 
     $('document').ready(function () {
          var gameId = parseInt($('#game_id').val())
-         $('#GameName').text(data[gameId].name)
-         $('#GameInfo').text(data[gameId].info)
-         $('#Rules').text(data[gameId].rules)
+         $('#GameName').text(data[gameId - 1].name)
+         $('#GameInfo').text(data[gameId - 1].info)
+         $('#Rules').text(data[gameId - 1].rules)
      })
    
  }
