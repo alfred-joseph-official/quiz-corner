@@ -200,10 +200,11 @@ ol li img:hover{
 
 .flip-card {
   background-color: transparent;
+  position: relative;
+  right:10%;
   width: 150px;
   height: 80px;
   perspective: 1000px;
-  margin: 2%;
 }
 
 .flip-card-inner {

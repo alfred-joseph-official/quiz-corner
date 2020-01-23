@@ -462,6 +462,13 @@
         transform-origin: center top;
         transition: all 3s ease-in-out;
     }
+
+    .linkDiv {
+        padding: 0;
+        margin: 0px;
+        width: 200px;
+    }
+
     
     
     /* Dont need this. Can delete
