@@ -11,8 +11,7 @@ var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
     twitterShare = "https://twitter.com/intent/tweet?text=";
 
 $('document').ready(function() {
-    fetchData();
-    resetSuccess = $('.alert');
+    gameId = parseInt($('#game_id').val());
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
     questNo = $('#questno');
@@ -22,6 +21,7 @@ $('document').ready(function() {
     optionsDiv.push($('#option-c'));
     optionsDiv.push($('#option-d'));
 
+    fetchData();
     var ans = [];
     ans.push($('#opd-a'));
     ans.push($('#opd-b'));
@@ -41,59 +41,42 @@ $('document').ready(function() {
     });
 });
 
-
 function getNext() {
     if (quesId < 15) {
         quesId++;
         // url = "/getques/?id=" + gameId + "&ques=" + quesId;
         setData()
     } else {
-        //IMPORTANT DONT DELETE! BOND METER CODE!
-        var bp = Math.round((score / 15) * .5 * 100) / 100;
+        showResult()
+    }
+}
+
+function showResult() {
+    if (data.player) {
+        postPlayerData();
+        let bp = Math.round((score / 15) * .5 * 100) / 100;
 
         $("<style>")
             .prop("type", "text/css")
             .html("\
-            .bond-meter-loaded .semi-c {\
-                transform: rotate(" + bp + "turn);\
-            }")
+        .bond-meter-loaded .semi-c {\
+            transform: rotate(" + bp + "turn);\
+        }")
             .appendTo("head");
 
         gameDiv.hide();
         endCard.fadeIn('slow', function() {
-            // //IMPORTANT DONT DELETE! BOND METER CODE!
             $('.bond-container').addClass('bond-meter-loaded');
-            $('#percent').text(score + '/15').fadeIn('slow');
-            if(score<=3){
-                $('#resultinfo').text(' Poor!').css('color',' red')
-            }
-            if(score>3){
-                $('.semi-c').addClass('averageScore')
-                $('#resultinfo').text(' Average!').css('color',' rgb(245, 123, 9)')
-            }
-
-             if(score>7){
-                $('.semi-c').addClass('goodScore')
-                $('#resultinfo').text(' Good!').css('color', 'yellow;')
-            }
-
-             if(score>11){
-                $('.semi-c').addClass('greatScore')
-                $('#resultinfo').text(' Great!').css('color', 'green')
-            }
+            $('#percent').text((score == "" ? 0 : score) + '/15').fadeIn('slow');
         });
-        // $('.bond-meter-show').each(function(item) {
-        //         item.click(function() {
-
-        //         })
-        //     })
-        // showBondMeter();
-
-        if (data.player) postPlayerData();
-        else postCreaterData();
+    } else {
+        postCreaterData();
+        gameDiv.hide();
+        endCard.fadeIn('slow');
     }
+    // postToServer();
 
-}
+};
 
 
 function remBondAnim() {
@@ -107,30 +90,13 @@ function setData() {
     for (let i = 0; i < 4; i++) {
         optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
     }
-   
+
 }
-
-// function fetchQuestion() {
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         success: function(response) {
-//             // console.log(response);
-//             // console.log('success');
-//             setData(response);
-//         },
-//         error: function(response) {
-//             // console.log(response);
-//             console.log('error');
-
-//         }
-//     });
-// }
 
 function postCreaterData() {
     $.ajax({
         type: "POST",
-        url: "/getques",
+        url: "/bond_post",
         data: { gameId: gameId, data: JSON.stringify(data) },
         success: function(response) {
             // console.log(response);
@@ -153,10 +119,11 @@ function postPlayerData() {
     $.ajax({
         type: "POST",
         url: "/result",
-        data: { gameId: gameId, token: data.token, score: score },
+        data: { gameId: gameId, token: data.token, score: score, player: data.player },
         success: function(response) {
-            // console.log(response);
+            console.log(response);
             // $("#uniqueLink").val(response);
+            if (response.length > 0) loadRanks(response);
             console.log('success');
         },
         error: function(response) {
@@ -166,21 +133,38 @@ function postPlayerData() {
     });
 }
 
+function loadRanks(ranks) {
+    $('#lb_table').show();
+    let tbody = $('#lb_body');
+    tbody.empty();
+    $('#empty_lb').remove();
+    let i = 1;
+    ranks.forEach(function(item) {
+        tbody.append(
+            $('<tr></tr>').append($('<td></td>').text(i++))
+            .append($('<td></td>').text(item.usn))
+            .append($('<td></td>').text(item.score))
+        );
+    });
+}
+
 function fetchData() {
     if (data.length > 0) setData();
     else {
+        let url = "/bond_get"
         $.ajax({
             type: "POST",
-            url: "/getques",
+            url: url,
             data: { gameId: gameId },
             success: function(response) {
-                // console.log(response);
-                // console.log('success');
+                console.log(response);
+                console.log('success');
                 setTimeout(() => {
                     $('#spinner').hide('slow');
-                }, 3000);
+                }, 1500);
                 data = response;
                 setData();
+
             },
             error: function(response) {
                 // console.log(response);
@@ -210,18 +194,6 @@ function setTwLink() {
 function copyLink(val) {
     $(val).select()
     document.execCommand("copy");
-}
-
-$('#reset').click(function() {
-    $(".toast").toast("show")
-});
-
-$('.btn-save').click(function() {
-    $(".toast").toast("show")
-});
-
-function resetPass() {
-    resetSuccess.fadeIn('slow')
 }
 
 function darkMode() {

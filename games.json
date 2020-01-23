@@ -1,8 +1,8 @@
 [{
         "_id": 1,
-        "name": "Game Name",
-        "description": "Proident eu reprehenderit aliquip non et eu eiusmod ipsum ea elit dolore non. Reprehenderit aliquip consectetur ipsum laboris in nulla ex eiusmod qui ea. Ad irure velit mollit velit fugiat eiusmod consectetur culpa pariatur adipisicing dolor nostrud ipsum eu. Proident aliqua deserunt consectetur laboris esse est sunt excepteur nostrud. Excepteur tempor velit velit tempor consectetur proident dolor elit voluptate id.",
-        "rules": "Aute eiusmod exercitation do dolore fugiat officia. Eiusmod minim ad consequat nisi nulla reprehenderit nulla.<br/>Fugiat sint irure irure elit deserunt ea culpa labore ut voluptate anim aliquip. Qui sunt qui proident ea ea cupidatat culpa non minim enim sit do esse.<br/>Dolor id commodo mollit reprehenderit cupidatat fugiat. Enim elit fugiat culpa voluptate ea ullamco quis ad dolor.<br/>Dolore quis qui sit elit. Irure commodo tempor Lorem quis labore dolor officia magna elit magna deserunt commodo. Nisi Lorem nostrud laborum nostrud nulla nisi dolor. Irure duis esse dolor consequat cupidatat incididunt cupidatat ut irure laborum consectetur enim.<br/>Ex dolor consequat elit culpa deserunt. Magna magna commodo eu elit deserunt id magna duis mollit aliqua esse magna esse. Esse sit aliqua ipsum nulla amet ex irure. Nulla sunt labore reprehenderit anim quis aute eiusmod deserunt exercitation elit. Commodo reprehenderit occaecat elit eiusmod incididunt dolor tempor incididunt excepteur nulla in. Consequat exercitation voluptate cillum cupidatat anim adipisicing laboris aute. Esse occaecat consectetur id elit incididunt dolore aute reprehenderit.",
+        "name": "Bond-it",
+        "description": "The quiz is about how well do you know a person?! This would be a very interactive and challenging game between the user and the person with whom he would like to play.",
+        "rules": "",
         "images": ["", ""],
         "questions": [{
                 "_id": 1,
@@ -14,8 +14,7 @@
                     "Five-star",
                     "Sneakers",
                     "Gems"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 2,
@@ -27,8 +26,7 @@
                     "Spring",
                     "Summer",
                     "Monsoon"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 3,
@@ -40,8 +38,7 @@
                     "Football",
                     "Basketball",
                     "Tennis"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 4,
@@ -53,8 +50,7 @@
                     "Everything",
                     "Confusing",
                     "Worthwhile"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 5,
@@ -66,8 +62,7 @@
                     "Switzerland",
                     "Greece",
                     "Paris"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 6,
@@ -79,8 +74,7 @@
                     "Pumpkin",
                     "Honey",
                     "None"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 7,
@@ -92,8 +86,7 @@
                     "Time with Friends",
                     "Travelling",
                     "More Wealth"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 8,
@@ -105,8 +98,7 @@
                     "Desert",
                     "Safari",
                     "Foreign Country"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 9,
@@ -118,8 +110,7 @@
                     "White",
                     "Red",
                     "Black "
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 10,
@@ -131,8 +122,7 @@
                     "Through Gifts",
                     "Through Actions",
                     "I don't Know"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 11,
@@ -144,8 +134,7 @@
                     "Smart One",
                     "Good One",
                     "Creative One"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 12,
@@ -157,8 +146,7 @@
                     "Summer",
                     "Winter",
                     "Stormy"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 13,
@@ -170,8 +158,7 @@
                     "Spend on family",
                     "Gamble",
                     "Travel"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 14,
@@ -183,8 +170,7 @@
                     "Watch TV",
                     "Sleep",
                     "Listen music"
-                ],
-                "answer": ""
+                ]
             },
             {
                 "_id": 15,
@@ -196,11 +182,9 @@
                     "Whatever but fast",
                     "Emoji City",
                     "IDK, Normal"
-                ],
-                "answer": ""
+                ]
             }
-        ],
-        "topten": [-1]
+        ]
     },
     {
         "_id": 2,
@@ -4589,8 +4573,7 @@
                     }
                 ]
             }
-        ],
-        "top_ten": []
+        ]
     },
     {
         "_id": 3,
@@ -5262,7 +5245,14 @@
                 ]
             }
 
-        ],
-        "top_ten": [-1]
+        ]
+    },
+    {
+        "_id": 4,
+        "name": "Colorista",
+        "description": "Love playing with colors? Then we have something in store for you.Lets see how far your brain can handle this. Hit the play button and lets roll!",
+        "rules": "Be quick to race to the top of the leaderboard! Time matters!",
+        "images": [],
+        "questions": []
     }
 ]

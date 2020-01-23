@@ -31,7 +31,7 @@ body {
 
 #homeBtn {
     text-decoration: none;
-    color:white;
+    color: white;
     transition: 0.2s;
 }
 
@@ -43,13 +43,13 @@ body {
 #myProgress {
     width: 100%;
     background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  }
-  
-  #myBar {
-      width: 0;
+}
+
+#myBar {
+    width: 0;
     height: 5px;
-    background-color:rgba(255, 67, 67, 0.986);
-  }
+    background-color: rgba(255, 67, 67, 0.986);
+}
 
 #row {
     height: 50%;
@@ -130,7 +130,7 @@ body {
     border: solid 2px rgb(7, 182, 7);
 }
 
-.Slogin{
+.Slogin {
     position: relative;
     left: 23%;
 }
@@ -170,17 +170,17 @@ body {
     list-style: none;
     color: blanchedalmond;
     font-weight: bold;
-} 
+}
 
 .footer {
     height: 30%;
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
 
-
 .dark-mode {
     background-image: linear-gradient(to left, #434343 0%, black 100%);
-  }
+}
+
 
 /* toggle button to dark mode */
 
@@ -190,15 +190,15 @@ body {
     width: 45px;
     height: 25px;
     top: 5px;
-  }
-  
-  .switch input { 
+}
+
+.switch input {
     opacity: 0;
     width: 0;
     height: 0;
-  }
-  
-  .slider {
+}
+
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -208,9 +208,9 @@ body {
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  .slider:before {
+}
+
+.slider:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -220,35 +220,43 @@ body {
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
-  }
-  
-  input:checked + .slider {
+}
+
+input:checked+.slider {
     background-color: black
-  }
-  
-  input:focus + .slider {
+}
+
+input:focus+.slider {
     box-shadow: 0 0 1px black
-  }
-  
-  input:checked + .slider:before {
+}
+
+input:checked+.slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
+}
 
-  .tableScroll {
-    overflow-y:scroll;
-    height:200px;
-  }
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.tableScroll {
+    overflow-y: scroll;
+    height: 200px;
+    -ms-overflow-style: none;
+}
+
+.tableScroll::-webkit-scrollbar {
+    display: none;
+}
+
 
 /* Bond meter code Dont delete */
 
@@ -356,7 +364,7 @@ body {
     }
 } */
 
-.averageScore{
+.averageScore {
     background-color: rgb(245, 123, 9);
 }
 
@@ -368,84 +376,90 @@ body {
     background-color: green;
 }
 
+
 /* game load spinner css dont touch */
-  
-  .Loading {
+
+.Loading {
     position: relative;
-    top:50%;
+    top: 50%;
     text-align: center;
-    color:white;
-    font-family:'gill sans'
-  }
-  
-  #preloader {
-      position:absolute;
-      z-index: 10;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-  }
-  #loader {
-      position: relative;
-      left: 50%;
-      top: 40%;
-      width: 150px;
-      height: 150px;
-      margin: -75px 0 0 -75px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #9370DB;
-      -webkit-animation: spin 2s linear infinite;
-      animation: spin 2s linear infinite;
-  }
-  #loader:before {
-      content: "";
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      right: 5px;
-      bottom: 5px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #BA55D3;
-      -webkit-animation: spin 3s linear infinite;
-      animation: spin 3s linear infinite;
-  }
-  #loader:after {
-      content: "";
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #FF00FF;
-      -webkit-animation: spin 1.5s linear infinite;
-      animation: spin 1.5s linear infinite;
-  }
-  @-webkit-keyframes spin {
-      0%   {
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-      }
-      100% {
-          -webkit-transform: rotate(360deg);
-          -ms-transform: rotate(360deg);
-          transform: rotate(360deg);
-      }
-  }
-  @keyframes spin {
-      0%   {
-          -webkit-transform: rotate(0deg);
-          -ms-transform: rotate(0deg);
-          transform: rotate(0deg);
-      }
-      100% {
-          -webkit-transform: rotate(360deg);
-          -ms-transform: rotate(360deg);
-          transform: rotate(360deg);
-      }
-  }
+    color: white;
+    font-family: 'gill sans'
+}
+
+#preloader {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loader {
+    position: relative;
+    left: 50%;
+    top: 40%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #9370DB;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+#loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #BA55D3;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+}
+
+#loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #FF00FF;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

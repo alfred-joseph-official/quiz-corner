@@ -57,6 +57,7 @@
 </div>
 
     {{!-- modal for login --}}
+    <input type="text" class="auth" style="display: none;" value="{{user.user}}">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
@@ -231,7 +232,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
-      {{#if imgQ}}
+      {{!-- {{#if imgQ}}
     <script src="/js/img_quiz.js"></script>
     {{else}}
         {{#if clr}}
@@ -239,7 +240,14 @@
         {{else}}
         <script src="/js/question.js"></script>
         {{/if}}
-    {{/if}}
+    {{/if}} --}}
+    {{#switch gameId}}
+        {{#case '1'}} <script src="/js/question.js"></script> {{/case}}
+        {{#case '2'}} <script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '3'}} <script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '4'}} <script src="/js/colorista.js"></script> {{/case}}
+        {{#default}} <script src="/js/qustion.js"></script>{{/default}}
+    {{/switch}}
 </body>
 
 </html>

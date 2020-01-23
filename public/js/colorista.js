@@ -120,7 +120,9 @@ $('document').ready(function() {
             }
         });
     });
-
+    setTimeout(() => {
+        $('#spinner').hide('slow');
+    }, 1500);
 });
 
 function getNext() {
@@ -135,11 +137,42 @@ function getNext() {
 }
 
 function showResult() {
+    postToServer();
     gameDiv.hide();
     endCard.fadeIn('slow', function() {
         $('#score').text(score == "" ? 0 : score);
     });
 };
+
+function postToServer() {
+    $.ajax({
+        type: "POST",
+        url: "/result",
+        data: { gameId: gameId, score: score == "" ? 0 : score },
+        success: function(response) {
+            // console.log(response);
+            if (response.length > 0) loadRanks(response);
+            console.log('success');
+        },
+        error: function(response) {
+            console.log('error');
+        }
+    });
+}
+
+function loadRanks(ranks) {
+    let tbody = $('#lb_body');
+    tbody.empty();
+    $('#empty_lb').remove();
+    let i = 1;
+    ranks.forEach(function(item) {
+        tbody.append(
+            $('<tr></tr>').append($('<td></td>').text(i++))
+            .append($('<td></td>').text(item.usn))
+            .append($('<td></td>').text(item.score))
+        );
+    });
+}
 
 function restart() {
     score = "";

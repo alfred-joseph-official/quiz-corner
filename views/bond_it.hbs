@@ -1,4 +1,5 @@
 <div id="gamecenter" class="col-md-8 shadow rounded bg-light">
+    <input id="game_id" type="text" value="{{gameId}}" hidden>
         <div class="container">
             <div class="container" id='spinner'>
     <div id="preloader" class="bg-dark">
@@ -8,7 +9,7 @@
     </div>
             <br>
             {{#if secondUser}}
-            <h4 id="quizName" class="text-center text-secondary">How well do you know {{user.user}}?</h4>
+            <h4 id="quizName" class="text-center text-secondary">How well do you know {{op}}?</h4>
             <hr class="w-50">
             {{else}}
             <h4 id="quizName" class="text-center text-secondary">Create your challenge {{user.user}}!</h4>
@@ -54,7 +55,7 @@
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                     aria-labelledby="nav-home-tab">
-                    <h5 class="text-center text-secondary my-3">Your Bond with {{user.user}} is<strong id='resultinfo'> </strong></h5>
+                    <h5 class="text-center text-secondary my-3">Your Bond with {{op}} is<strong id='resultinfo'> </strong></h5>
                     <div style="position: relative;">
                         <div class="bond-container">
                             <div class="semi-a"></div>
@@ -67,53 +68,23 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                    <div class="container mt-3 tableScroll">
-                        <table class="table table-hover table-dark rounded">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Rank</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Score</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mukhtar</td>
-                                    <td>14</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Alfred</td>
-                                    <td>12</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Amrit</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Amrit</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Amrit</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Amrit</td>
-                                    <td>10</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">3</th>
-                                    <td>Amrit</td>
-                                    <td>10</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                     <div class="container mt-3 tableScroll">
+                        <div class="table-responsive-sm">
+                            <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th>Rank</th>
+                                        <th>Username</th>
+                                        <th>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lb_body">
+                                </tbody>
+                            </table>
+                            <div id="empty_lb" class="text-center">
+                                <h1>Be the first!</h1>
+                            </div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -153,36 +124,27 @@
             </div>
 
         <div class="container mt-3 tableScroll">
-            <table class="table table-hover table-dark rounded">
-                <thead>
-                    <tr>
-                        <th scope="col">Rank</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mukhtar</td>
-                        <td>14</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Alfred</td>
-                        <td>12</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Amrit</td>
-                        <td>10</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive-sm">
+                <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lb_body">
+                    </tbody>
+                </table>
+                <div id="empty_lb" class="text-center">
+                    <h1>Looks like no one has played your game yet!</h1>
+                </div>
+            </div> 
         </div>
         <div class="text-center">
-                <div class="text-secondary"><strong>Want to play more games like this?</strong></div>
-                <a href="/" class="btn btn-danger w-50 mt-1 text-white" onclick="move()">Go</a></div>
+            <div class="text-secondary"><strong>Want to play more games like this?</strong></div>
+            <a href="/" class="btn btn-danger w-50 mt-1 text-white" onclick="move()">Go</a>
+        </div>
     </div>
 </div>
 {{/if}}
