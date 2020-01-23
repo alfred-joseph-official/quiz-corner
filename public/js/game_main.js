@@ -14,7 +14,7 @@ function fetchData() {
                 //     $('#spinner').hide('slow');
                 // }, 3000);
                 data = response;
-                console.log(data)
+                // console.log(data)
                 setData();
                 
                 
@@ -34,5 +34,4 @@ function setData() {
          $('#GameInfo').text(data[gameId - 1].info)
          $('#Rules').text(data[gameId - 1].rules)
      })
-   
  }

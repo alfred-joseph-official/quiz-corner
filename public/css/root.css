@@ -1,0 +1,182 @@
+body {
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    overflow-x: hidden;
+    height: 100%!important;
+}
+
+.navbar {
+    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+}
+
+::placeholder{
+    font-weight: lighter;
+}
+
+#myProgress {
+    width: 100%;
+    background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
+  }
+  
+  #myBar {
+    width: 0;
+    height: 5px;
+    background-color:rgba(255, 67, 67, 0.986);
+  }
+
+.Fpass:hover {
+    text-decoration: none;
+    color:rgba(228, 42, 29, 0.945);
+    transition: 0.4s;
+}
+
+#homeBtn {
+    text-decoration: none;
+    color:white;
+    transition: 0.2s;
+}
+
+.navImg {
+    height: 30px;
+    width: 30px;
+}
+
+.Slogin{
+    position: relative;
+    left: 25%;
+}
+
+.sBtn {
+    padding: 10px;
+    font-size: 20px;
+    width: 10%;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 4px;
+    border: 2px solid blanchedalmond;
+    border-radius: 50%;
+    filter: brightness(80%);
+}
+
+.sBtn:hover {
+    opacity: 0.5;
+    transition: all 0.4s;
+    text-decoration: none!important;
+    color: white!important;
+}
+
+.fa-facebook {
+    color: white;
+}
+
+.fa-twitter {
+    color: white;
+}
+
+.fa-google {
+    color: white;
+}
+
+.ul2 {
+    list-style: none;
+    color: blanchedalmond;
+    font-weight: bold;
+} 
+
+.footer {
+    height: 30%;
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+}
+
+/* For responsive */
+
+@media only screen and (max-width: 600px) {
+
+    body {
+        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        overflow-x: hidden;
+        height: 100%!important;
+    }
+
+    .navbar {
+        background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    }
+    
+    ::placeholder{
+        font-weight: lighter;
+    }
+    
+    #myProgress {
+        width: 100%;
+        background-color: linear-gradient(to top, #dfe9f3 0%, white 100%);
+      }
+      
+      #myBar {
+        width: 0;
+        height: 5px;
+        background-color:rgba(255, 67, 67, 0.986);
+      }
+    
+    .Fpass:hover {
+        text-decoration: none;
+        color:rgba(228, 42, 29, 0.945);
+        transition: 0.4s;
+    }
+    
+    #homeBtn {
+        text-decoration: none;
+        color:white;
+        transition: 0.2s;
+    }
+    
+    .navImg {
+        height: 25px;
+        width: 25px;
+    }
+    
+    .Slogin{
+        position: relative;
+        left: 15%;
+    }
+    
+    .sBtn {
+        padding: 8px;
+        font-size: 13px;
+        width: 25%;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 4px;
+        border: 2px solid blanchedalmond;
+        border-radius: 50%;
+        filter: brightness(80%);
+    }
+    
+    .sBtn:hover {
+        opacity: 0.5;
+        transition: all 0.4s;
+        text-decoration: none!important;
+        color: white!important;
+    }
+    
+    .fa-facebook {
+        color: white;
+    }
+    
+    .fa-twitter {
+        color: white;
+    }
+    
+    .fa-google {
+        color: white;
+    }
+    
+    .ul2 {
+        list-style: none;
+        color: blanchedalmond;
+        font-weight: bold;
+    } 
+    
+    .footer {
+        height: 15%;
+        background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+    }
+}

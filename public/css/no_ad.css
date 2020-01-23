@@ -1,0 +1,46 @@
+/* Profile Css */
+
+#row {
+    height: 70%;
+}
+
+.proCon {
+    height: 55%;
+    padding: 2%;
+}
+
+#EditBtn {
+    position: relative;
+    float: right;
+}
+
+#infoDiv {
+    position: relative;
+    right: 3%;
+}
+
+.fa {
+    cursor: pointer;
+}
+
+#editDP {
+    position: absolute;
+    z-index: 3;
+    bottom: 5%;
+    background-color: black;
+    filter: opacity(60%);
+    color: white;
+    width: 250px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#editDP:hover {
+    filter: opacity(100%);
+}
+
+.centerimg {
+    height: 250px;
+    width: 250px;
+    object-fit: noner;
+}

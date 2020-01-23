@@ -134,24 +134,28 @@ routes.post("/signupuser", function(req, res) {
 routes.post('/loginuser', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
-
             res.redirect('/')
-        } else if (result) {
+        } 
+        else if (result) {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
+               
                 var obj = {
                     'user': result.usn,
                     'loggedin': true,
                     'imglink': result.dp
-                };
-                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).redirect('/');
-            } else {
+                }; 
+                console.log(req.session.user)
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).send('loginSuccess');
+            } 
+            else {
                 //TODO validations
-                res.redirect('/?loginfailed=true');
+                res.send('loginfailedtrue');
             }
-        } else {
+        } 
+        else {
             //TODO Validations
-            res.redirect('/?loginfailed=true');
+            res.send('loginfailedtrue');
         }
 
     })
@@ -250,12 +254,14 @@ routes.get('/', function(req, res) {
               res.render('homepage', {
         layout: "homepage",
         user: req.signedCookies['user'],
+
     });
         }
 
         else {
             res.render('homepage', {
-                layout: "homepage"
+                layout: "homepage",
+                loginfailed: req.query.loginfailed
         })
   
     }
@@ -284,6 +290,9 @@ routes.post('/getgames', function (req, res) {
             array1.push(obj)
             obj = {}
         }); 
+        array1.sort(function(a,b){
+            return a._id - b._id;
+        })
         res.json(array1)
       });
  })

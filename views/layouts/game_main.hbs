@@ -11,51 +11,51 @@
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/gamepage.css">
+    <link rel="stylesheet" href="/css/root.css">
 
     <title>Quiz Corner</title>
 </head>
 
 <body>
     <input type="text" id="game_id" value="{{gameId}}" hidden>
-    <nav class="navbar navbar-light">
-        <div class="row col-2">
-            <div><a href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a></div>
-            {{#if user.loggedin}}
-            <div class="mt-2 ml-4"><a class="text-light" id="homeBtn" href="/" onclick="move()">Home</a></div>
-            {{/if}}
-        </div>
-        <form class="form-inline col-4" autocomplete="off" action="/gotogame" method="POST">
-            <input class="form-control w-100" type="search" id="searchgameinput" name="game"
-                placeholder="Search for quiz games" aria-label="Search"><i class="fa fa-search" id="searchbtn"></i>
-            <button id="submitbtn" type="submit" hidden></button>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        </form>
-        {{!-- <div>
-            <small style="position:relative; top:5px"><strong class="text-light">Dark Mode</strong></small>
-            <label class="switch">
-                <input onclick="darkMode()" type="checkbox">
-                <span class="slider round"></span>
-            </label>
-        </div> --}}
-
-        {{#if user.loggedin}}
-        <div class="col-2">
-            <div class="dropdown row">
-                <span class="ml-2 mt-2 text-white"><i>{{user.user}}</i></span>
-                <a type="button" class="btn dropdown-toggle" data-toggle="dropdown">
-                    <img src="{{user.imglink}}" alt="profilepicture"
-                        class="rounded-circle img-fluid navImg border border-light">
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="/profile" onclick="move()">My Profile</a>
-                    <a class="dropdown-item" href="/logout" onclick="move()">Logout</a>
-                </div>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                {{#if user.loggedin}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{user.imglink}}" alt="profilepicture"
+                            class="rounded-circle img-fluid navImg border border-light">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" style="text-decoration:none; " href="/profile" onclick="move()">My
+                            Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" style="text-decoration:none" href="/logout" onclick="move()">Logout</a>
+                    </div>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/login" id="modalBtn" class="btn btn-sm btn-outline-light" data-toggle="modal"
+                        data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login/Register</a>
+                </li>
+                {{/if}}
+            </ul>
+            <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
+                    placeholder="Search for quiz games" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
-        {{else}}
-        <a href="/login" class="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i
-                class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login/Register</a>
-        {{/if}}
     </nav>
     <div id="myProgress">
         <div id="myBar"></div>
@@ -134,12 +134,12 @@
     </div>
 
     {{!-- modal for signup --}}
-    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog w-25" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
                             aria-hidden="true"></i>Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -177,8 +177,7 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary form-control w-50 offset-3" type="submit" data-toggle="modal"
-                                data-target="#exampleModal">Sign
+                            <button class="btn btn-primary form-control w-50 offset-3" type="submit">Sign
                                 up</button>
                         </form>
                     </div>
@@ -192,7 +191,7 @@
         <div id="row" class="row">
             {{{body}}}
             <div class="col-md-3 bg-light shadow rounded ml-1">
-                <div class="container">
+                <div class="container" id="AdBlock">
                     ads
                     <img class="adImg mt-1"
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ9V3_c06_uBfcnE8PLPFvLFUHYzevEjKf0A2c3eMGekef_7QEZ"
@@ -204,7 +203,7 @@
         </div>
     </div><br>
 
-    <div class="offset-1 col-7">
+    <div class="offset-1 col-md-7" id="gameDetails">
         <strong><h2 class="ml-3" id="GameName"></h2></strong>
         <p class="font-weight-light ml-3" id="GameInfo"></p>
         <p id="Rules" class="ml-3"></p>
@@ -213,7 +212,7 @@
 
 
     <footer class="footer">
-        <div class="w-100">
+        <div class="container">
             <br>
             <h4 class="text-center text-white">About us</h4><br>
             <div class="row">
@@ -224,8 +223,7 @@
                 </div>
                 <div class="col-4 text-center border-right">
                     <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
-                        so you can test your skills by challenging your family & friends or other users and rank top in
-                        our leader board.</small>
+                        so you can test your skills.</small>
                 </div>
                 <div class="col-4 text-center">
                     <small class="text-white">
@@ -235,6 +233,7 @@
                 </div>
             </div>
         </div>
+        <br><br>
     </footer>
     <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
             </strong></small></footer>
@@ -252,12 +251,12 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
-      {{!-- <script src="/js/question.js"></script> --}}
-    {{#if quizG}}
-    <script src="/js/img_quiz.js"></script>
-    {{else}}
-  <script src="/js/game_main.js"></script>
-    {{/if}}
+      <script src="/js/question.js"></script>
+    {{!-- {{#if quizG}} --}}
+    {{!-- <script src="/js/img_quiz.js"></script> --}}
+    {{!-- {{else}} --}}
+  {{!-- <script src="/js/game_main.js"></script> --}}
+    {{!-- {{/if}} --}}
 
 
 </body>
