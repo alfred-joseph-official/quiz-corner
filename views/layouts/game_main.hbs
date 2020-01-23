@@ -62,6 +62,7 @@
     </div>
 
     {{!-- modal for login --}}
+    <input type="text" class="auth" style="display: none;" value="{{user.user}}">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
@@ -251,14 +252,22 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
-      <script src="/js/question.js"></script>
-    {{!-- {{#if quizG}} --}}
-    {{!-- <script src="/js/img_quiz.js"></script> --}}
-    {{!-- {{else}} --}}
-  {{!-- <script src="/js/game_main.js"></script> --}}
-    {{!-- {{/if}} --}}
-
-
+      {{!-- {{#if imgQ}}
+    <script src="/js/img_quiz.js"></script>
+    {{else}}
+        {{#if clr}}
+        <script src="/js/colorista.js"></script>
+        {{else}}
+        <script src="/js/question.js"></script>
+        {{/if}}
+    {{/if}} --}}
+    {{#switch gameId}}
+        {{#case '1'}} <script src="/js/question.js"></script> {{/case}}
+        {{#case '2'}} <script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '3'}} <script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '4'}} <script src="/js/colorista.js"></script> {{/case}}
+        {{#default}} <script src="/js/qustion.js"></script>{{/default}}
+    {{/switch}}
 </body>
 
 </html>

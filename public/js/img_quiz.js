@@ -6,13 +6,12 @@ var ans;
 var flag = false;
 var data = [];
 var score = 0;
-var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
-    fbShare2 = "%2F&amp;src=sdkpreparse",
-    twitterShare = "https://twitter.com/intent/tweet?text=";
+// var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
+//     fbShare2 = "%2F&amp;src=sdkpreparse",
+//     twitterShare = "https://twitter.com/intent/tweet?text=";
 
 $('document').ready(function() {
     gameId = parseInt($('#game_id').val());
-    resetSuccess = $('.alert');
     endCard = $('#resultcenter');
     gameDiv = $('#gamecenter')
         // questNo = $('#questno');
@@ -39,54 +38,8 @@ $('document').ready(function() {
     });
 });
 
-
-function getNext() {
-    if (quesId < 15) {
-        quesId++;
-        // url = "/getques/?id=" + gameId + "&ques=" + quesId;
-        setData()
-    } else {
-        //IMPORTANT DONT DELETE! BOND METER CODE!
-        var bp = Math.round((score / 15) * .5 * 100) / 100;
-
-        $("<style>")
-            .prop("type", "text/css")
-            .html("\
-            .bond-meter-loaded .semi-c {\
-                transform: rotate(" + bp + "turn);\
-            }")
-            .appendTo("head");
-
-        gameDiv.hide();
-        endCard.fadeIn('slow', function() {
-            // //IMPORTANT DONT DELETE! BOND METER CODE!
-            $('.bond-container').addClass('bond-meter-loaded');
-            $('#percent').text(score + '/15').fadeIn('slow');
-        });
-        // $('.bond-meter-show').each(function(item) {
-        //         item.click(function() {
-
-        //         })
-        //     })
-        // showBondMeter();
-
-        postPlayerData();
-    }
-
-}
-
 function remBondAnim() {
     $('.bond-container').removeClass('bond-meter-loaded');
-}
-
-
-function setData() {
-    // questNo.text("Question " + data.questions[quesId - 1].number + ".");
-
-    questDiv.attr('src', data.questions[quesId - 1].question);
-    for (let i = 0; i < 4; i++) {
-        optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
-    }
 }
 
 // function fetchQuestion() {
@@ -106,20 +59,89 @@ function setData() {
 //     });
 // }
 
-function postPlayerData() {
+// function postPlayerData() {
+//     $.ajax({
+//         type: "POST",
+//         url: "/img_quiz",
+//         data: { gameId: gameId, score: score },
+//         success: function(response) {
+//             // console.log(response);
+//             // $("#uniqueLink").val(response);
+//             console.log('success');
+//         },
+//         error: function(response) {
+//             // console.log(response);
+//             console.log('error');
+//         }
+//     });
+// }
+
+function getNext() {
+    if (quesId < 15) {
+        quesId++;
+        // url = "/getques/?id=" + gameId + "&ques=" + quesId;
+        setData()
+    } else {
+        showResult()
+    }
+}
+
+function setData() {
+    // questNo.text("Question " + data.questions[quesId - 1].number + ".");
+
+    questDiv.attr('src', data.questions[quesId - 1].question);
+    for (let i = 0; i < 4; i++) {
+        optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
+    }
+}
+
+function showResult() {
+    postToServer();
+
+    let bp = Math.round((score / 15) * .5 * 100) / 100;
+
+    $("<style>")
+        .prop("type", "text/css")
+        .html("\
+        .bond-meter-loaded .semi-c {\
+            transform: rotate(" + bp + "turn);\
+        }")
+        .appendTo("head");
+
+    gameDiv.hide();
+    endCard.fadeIn('slow', function() {
+        $('.bond-container').addClass('bond-meter-loaded');
+        $('#percent').text((score == "" ? 0 : score) + '/15').fadeIn('slow');
+    });
+};
+
+function postToServer() {
     $.ajax({
         type: "POST",
-        url: "/img_quiz",
-        data: { gameId: gameId, score: score },
+        url: "/result",
+        data: { gameId: gameId, score: score == "" ? 0 : score },
         success: function(response) {
-            // console.log(response);
-            // $("#uniqueLink").val(response);
-            console.log('success');
+            if (response.length > 0) loadRanks(response);
+            // console.log('success');
         },
         error: function(response) {
-            // console.log(response);
             console.log('error');
         }
+    });
+}
+
+function loadRanks(ranks) {
+    $('#lb_table').show();
+    let tbody = $('#lb_body');
+    tbody.empty();
+    $('#empty_lb').remove();
+    let i = 1;
+    ranks.forEach(function(item) {
+        tbody.append(
+            $('<tr></tr>').append($('<td></td>').text(i++))
+            .append($('<td></td>').text(item.usn))
+            .append($('<td></td>').text(item.score))
+        );
     });
 }
 
@@ -137,7 +159,7 @@ function fetchData() {
                 console.log(response);
                 setTimeout(() => {
                     $('#spinner').hide('slow');
-                }, 3000);
+                }, 1500);
                 data = response;
                 setData();
             },
@@ -149,37 +171,16 @@ function fetchData() {
     }
 }
 
-function setFbLink() {
-    //facebook
-    var x = document.querySelectorAll('.shared')
-
-    var link = document.getElementById('uniqueLink').value;
-    var finallink = encodeURIComponent(link);
-
-    var finalhref = "https://www.facebook.com/sharer/sharer.php?u=" + finallink + "&amp;src=sdkpreparse";
-    x[0].href = finalhref
-}
-
-function setTwLink() {
-    var link = encodeURIComponent(document.getElementById('uniqueLink').value);
-    var y = document.getElementById('twitterlink')
-    y.href = "https://twitter.com/intent/tweet?text=" + link;
-}
-
-function copyLink(val) {
-    $(val).select()
-    document.execCommand("copy");
-}
-
-$('#reset').click(function() {
-    $(".toast").toast("show")
-});
-
-function resetPass() {
-    resetSuccess.fadeIn('slow')
-}
-
 function darkMode() {
     var element = document.body;
     element.classList.toggle("dark-mode");
 }
+
+// function restart() {
+//     score = "";
+//     endCard.fadeOut();
+//     quesId = 0;
+//     getNext()
+//     $('#score').text(score);
+//     gameDiv.fadeIn();
+// };

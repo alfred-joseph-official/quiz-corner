@@ -13,9 +13,9 @@ cloudinary.config({
     api_secret: '4rxarmWlvptpb3Y5z0U2mPpZjVg'
 });
 const file = "games.json";
-//var url = "mongodb://localhost:27017"
-// var url = "mongodb://localhost:27017"
-var url = process.env.MONGO_ATLAS;
+//var mongoUrl = "mongodb://localhost:27017"
+// var mongoUrl = "mongodb://localhost:27017"
+var mongoUrl = process.env.MONGO_ATLAS;
 var dbNAME = process.env.DB_NAME;
 var DB = ''
 var serverSchema = {
@@ -25,7 +25,7 @@ var serverSchema = {
 var gameData = {};
 var curGameId = 0;
 
-mongoDB.MongoClient.connect(url, {
+mongoDB.MongoClient.connect(mongoUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, function(err, server) {
@@ -62,7 +62,7 @@ var transporter = nodemailer.createTransport({
     }
 });
 
-const dDP = "https://res.cloudinary.com/dpkcwayz1/image/upload/v1579511047/sitedata/profile/dp/default.png";
+const dDP = "https://res.cloudinary.com/dpkcwayz1/image/upload/v1579527999/UserAssets/default/dp/default.png";
 
 function importDb() {
     jsonfile.readFile(file, function(err, obj) {
@@ -79,12 +79,11 @@ function importDb() {
                 // g_count = ++defGames.slice(-1)[0]._id;
                 // console.log(gameRes);
 
-                g_count = 2;
+                g_count = 5;
             });
         }
     });
 }
-
 
 var genRandomString = function(length) {
     return crypto.randomBytes(Math.ceil(length / 2))
@@ -131,29 +130,26 @@ routes.post("/signupuser", function(req, res) {
     })
 })
 
+
 routes.post('/loginuser', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
+
             res.redirect('/')
-        } 
-        else if (result) {
+        } else if (result) {
             if (sha512(req.body.pwd.trim(), result.slt).pwd === result.pwd) {
                 req.session.user = result.usn
-               
                 var obj = {
                     'user': result.usn,
                     'loggedin': true,
                     'imglink': result.dp
-                }; 
-                console.log(req.session.user)
+                };
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).send('loginSuccess');
-            } 
-            else {
+            } else {
                 //TODO validations
                 res.send('loginfailedtrue');
             }
-        } 
-        else {
+        } else {
             //TODO Validations
             res.send('loginfailedtrue');
         }
@@ -250,20 +246,17 @@ routes.get('/', function(req, res) {
     // if (req.session.user) {
     //     res.render('profile')
     // } else {
-        if(req.session.user){
-              res.render('homepage', {
-        layout: "homepage",
-        user: req.signedCookies['user'],
-
-    });
-        }
-
-        else {
-            res.render('homepage', {
-                layout: "homepage",
-                loginfailed: req.query.loginfailed
+    if (req.session.user) {
+        res.render('homepage', {
+            layout: "homepage",
+            user: req.signedCookies['user'],
+        });
+    } else {
+        res.render('homepage', {
+            layout: "homepage",
+            loginfailed: req.query.loginfailed
         })
-  
+
     }
 
 })
@@ -276,33 +269,33 @@ routes.get('/logout', function(req, res) {
     res.redirect('/');
 })
 
-routes.post('/getgames', function (req, res) { 
+routes.post('/getgames', function(req, res) {
     DB.collection("games").find({}).toArray(function(err, result) {
         if (err) throw err;
         var array1 = []
         var obj = {}
         result.forEach(item => {
             obj['_id'] = item._id,
-            obj['name'] = item.name,
-            obj['info'] = item.description,
-            obj['rules'] = item.rules,
-            obj['images'] = item.images
+                obj['name'] = item.name,
+                obj['info'] = item.description,
+                obj['rules'] = item.rules,
+                obj['images'] = item.images
             array1.push(obj)
             obj = {}
-        }); 
-        array1.sort(function(a,b){
+        });
+        array1.sort(function(a, b) {
             return a._id - b._id;
         })
         res.json(array1)
-      });
- })
+    });
+})
 
 routes.use(function(req, res, next) {
     if (req.session.user && req.signedCookies)
         if (req.session.user === req.signedCookies['user'].user) next();
         else {
             res.cookie('user', "", { signed: true, maxAge: Date.now() });
-            res.redirect('/');
+            res.redirect("/");
         }
     else {
         res.cookie('user', "", { signed: true, maxAge: Date.now() });
@@ -363,8 +356,7 @@ function fetchImgQuiz(gameId, req, res) {
 
 //1st user
 routes.post("/getques", function(req, res) {
-    // var url = process.env.DOMAIN;
-    var url = 'http://localhost:58686/'
+    var mongoUrl = process.env.DOMAIN;
     var gameId = parseInt(req.body.gameId);
     if (gameId == 2 || gameId == 3) {
         fetchImgQuiz(gameId, req, res);
@@ -384,19 +376,23 @@ routes.post("/getques", function(req, res) {
                     res.status(400).end();
                 } else {
                     res.status(200);
-                    res.send(url + "uniq/" + "?game_id=1&t=" + token);
+                    res.send(mongoUrl + "uniq/" + "?game_id=1&t=" + token);
                 }
             });
         });
         req.session.gameData = null;
-    } else if (!req.session.gameData) {
-        DB.collection("games").findOne({ _id: gameId }, function(err, result) {
+    }
+});
+
+routes.post('/bond_get', function(req, res) {
+    if (!req.session.gameData) {
+        DB.collection("games").findOne({ _id: parseInt(req.body.gameId) }, function(err, result) {
             if (result) {
                 // console.log("pinged DB 2");
                 req.session.gameData = processData(result, true);
                 res.json(req.session.gameData);
             } else {
-                throw err;
+                res.status(500).end();
             }
         });
     } else {
@@ -404,10 +400,33 @@ routes.post("/getques", function(req, res) {
     }
 });
 
-routes.post('/img_quiz', function(req, res) {
-    req.session.gameData = false;
-    res.status(200).end();
-});
+routes.post('/bond_post', function(req, res) {
+    url = process.env.DOMAIN;
+    var data = JSON.parse(req.body.data)
+    var gameObj = data;
+    crypto.randomBytes(16, function(err, buffer) {
+        var token = buffer.toString('hex');
+        gameObj["usn"] = req.session.user;
+        gameObj["token"] = token;
+        gameObj['list'] = [];
+        var newVal = { $set: { 'questions': gameObj.questions, 'token': token, 'list': gameObj.list } }
+        DB.collection("Knowme").update({ "usn": req.session.user }, newVal, { upsert: true }, function(err, result) {
+            // console.log("pinged DB 1");
+            if (err) {
+                res.status(400).end();
+            } else {
+                res.status(200);
+                res.send(url + "uniq/" + "?game_id=1&t=" + token);
+            }
+            req.session.gameData = null;
+        });
+    });
+})
+
+// routes.post('/img_quiz', function(req, res) {
+//     req.session.gameData = false;
+//     res.status(200).end();
+// });
 // routes.post("/getques", function(req, res) {
 //     var gameId = parseInt(req.body.gameId, 10);
 //     var quesId = parseInt(req.body.quesId) - 1;
@@ -470,17 +489,37 @@ routes.post('/img_quiz', function(req, res) {
 // });
 
 routes.get("/uniq", function(req, res) {
+    let cPFlag = true;
     if (req.query.game_id) {
         if (req.query.t) {
             DB.collection('Knowme').findOne({ token: req.query.t }, function(err, result) {
                 if (err) res.status(400).end();
                 // console.log(result);
-                result['player'] = true;
-                req.session.gameData = result;
-                res.render("bond_it", {
-                    user: req.signedCookies['user'],
-                    secondUser: true,
-                });
+                if (req.session.user != result.usn) {
+                    result.list.forEach(function(item) {
+                        if (item.usn) {
+                            cPFlag = false;
+                        }
+                    });
+                    if (cPFlag) {
+                        delete result.list;
+                        result['player'] = true;
+                        req.session.gameData = result;
+                        res.render("bond_it", {
+                            user: req.signedCookies['user'],
+                            secondUser: true,
+                            gamestart: true,
+                            op: result.usn,
+                            gameId: parseInt(req.query.game_id)
+                        });
+                    } else {
+                        //TODO RENDER CANT PLAY! YOU've ALREADY PLAYED THIS GAME! // LeaderBoardPage
+                        res.json(result.list);
+                    }
+                } else {
+                    //TODO RENDER YOU CANT PLAY YOUR OWN GAME! // LeaderBoardPage
+                    res.json(result.list);
+                }
             });
         } else {
             res.redirect('/game');
@@ -502,15 +541,31 @@ routes.get("/uniq", function(req, res) {
 //     })
 // });
 routes.get('/game', function(req, res) {
-    let gameId = 1;
-    let img = "/img/Bondit.jpeg"
-    if (parseInt(req.query.game_id) == 2) {
-        gameId = 2;
-        img = "/img/Flagup.jpeg"
-    } else if (parseInt(req.query.game_id) == 3) {
-        gameId = 3;
-        img = "/img/Iconic.jpeg"
-    } else gameId = 1;
+    let gameId, img;
+    switch (parseInt(req.query.game_id)) {
+        case 1:
+            gameId = 1;
+            img = "/img/Bondit.jpeg"
+            break;
+        case 2:
+            gameId = 2;
+            img = "/img/Flagup.jpeg"
+            break;
+        case 3:
+            gameId = 3;
+            img = "/img/Iconic.jpeg"
+            break;
+        case 4:
+            gameId = 4;
+            img = "/img/Colorista.jpeg"
+            break;
+        default:
+            gameId = 1;
+            img = "/img/Bondit.jpeg"
+            break;
+    }
+
+    req.session.gameData = null;
     res.render('gameintro', {
         user: req.signedCookies['user'],
         gameId: gameId,
@@ -528,25 +583,46 @@ routes.get('/game', function(req, res) {
 //     })
 // })
 routes.get('/gamestart', function(req, res) {
-    if (parseInt(req.query.game_id) == 2) {
-        res.render('img_quiz', {
-            user: req.signedCookies['user'],
-            ques: "Which Country Flag Is This ?",
-            quizG: true,
-            gameId: req.query.game_id
-        });
-    } else if (parseInt(req.query.game_id) == 3) {
-        res.render('img_quiz', {
-            user: req.signedCookies['user'],
-            ques: "Can You Identify The Logo?",
-            quizG: true,
-            gameId: req.query.game_id
-        });
-    } else
-        res.render('bond_it', {
-            user: req.signedCookies['user'],
-            gameId: req.query.game_id
-        })
+    switch (parseInt(req.query.game_id)) {
+        case 1:
+            res.render('bond_it', {
+                user: req.signedCookies['user'],
+                // bndQ: true
+                gameId: req.query.game_id
+
+            });
+            break;
+        case 2:
+            res.render('img_quiz', {
+                user: req.signedCookies['user'],
+                ques: "Which Country Flag Is This ?",
+                // imgQ: true,
+                gameId: req.query.game_id
+            });
+            break;
+        case 3:
+            res.render('img_quiz', {
+                user: req.signedCookies['user'],
+                ques: "Can You Identify The Logo?",
+                // imgQ: true,
+                gameId: req.query.game_id
+            });
+            break;
+        case 4:
+            res.render('colorista', {
+                user: req.signedCookies['user'],
+                // clr: true,
+                gameId: req.query.game_id
+            });
+            break;
+        default:
+            res.render('bond_it', {
+                user: req.signedCookies['user'],
+                // bndQ: true
+                gameId: req.query.game_id
+            });
+            break;
+    }
 });
 
 routes.get('/result', function(req, res) {
@@ -556,14 +632,78 @@ routes.get('/result', function(req, res) {
     })
 })
 
-// routes.post('/result', function(req, res) {
-//     var usn = req.session.user;
-//     var newVal = { $set: { scores: [{ usn: usn, score: req.body.score }] } };
-//     DB.collection('Knowme').findOneAndUpdate({ token: req.body.token }, )
-//     res.render('gamepage', {
-//         result: true
-//     });
-// })
+routes.post('/result', function(req, res) {
+    var body = req.body;
+    switch (parseInt(body.gameId)) {
+        case 1:
+            bondUpdate(req, res, body.player);
+            break;
+        case 2:
+        case 3:
+        case 4:
+            updateScore(req, res, 1);
+            break;
+        default:
+            break;
+    }
+});
+
+function bondUpdate(req, res, upFlag) {
+    let token = req.body.token;
+    DB.collection('Knowme').findOne({ 'token': token }, function(err, result) {
+        if (err) res.status(500).end();
+        else {
+            let tr = [];
+            var upObj = {};
+            if (upFlag) {
+                tr.push({
+                    usn: req.session.user,
+                    score: parseInt(req.body.score)
+                });
+            }
+
+            if (result != null || result.list.length > 0) {
+                tr.push(...result.list);
+                tr.sort(function(a, b) {
+                    return b.score - a.score;
+                });
+            }
+            upObj = { $set: { 'list': tr } };
+            res.json(tr);
+            if (upFlag) DB.collection('Knowme').updateOne({ 'token': token }, upObj, { upsert: true }, function(err, result) { upFlag = false });
+        }
+    });
+}
+
+function updateScore(req, res, lowestScore) {
+    let upFlag = false;
+    DB.collection('Tops').findOne({ _id: req.body.gameId }, function(err, result) {
+        if (err) res.status(500).end();
+        else {
+            let tr = [];
+            var upObj = {};
+            if (parseInt(req.body.score) >= lowestScore) {
+                tr.push({
+                    usn: req.session.user,
+                    score: parseInt(req.body.score)
+                });
+                upFlag = true;
+            }
+
+            if (result != null) {
+                tr.push(...result.list);
+                tr.sort(function(a, b) {
+                    return b.score - a.score;
+                });
+                if (tr.length > 10) tr.pop();
+
+            }
+            upObj = { $set: { 'list': tr } };
+            res.json(tr);
+            if (upFlag) DB.collection('Tops').updateOne({ '_id': req.body.gameId }, upObj, { upsert: true }, function(err, result) { upFlag = false });
+        }
+    });
+}
 
 routes.get("/profile", function(req, res) {
     var imgsrc = ''
@@ -701,14 +841,14 @@ routes.get('*', function(req, res) {
 routes.get('/autocomplete', function(req, res) {
     //var result=['Quiz','Snake','Ludo']
     // DB.collection('Games').find({title:{$regex:new RegExp(req.query["term"]),$options:'i'}},function(err,data)
-    DB.collection('games').find({ "name": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
+    DB.collection('Games').find({ "title": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
             if (!err) {
                 // console.log(data)
                 var result = []
 
 
                 for (var i = 0; i < data.length; i++) {
-                    result.push(data[i].name)
+                    result.push(data[i].title)
                 }
 
 
@@ -720,31 +860,26 @@ routes.get('/autocomplete', function(req, res) {
         })
         // res.json(result)
 })
-routes.post('/gotogame',function(req,res)
-{
+
+routes.post('/gotogame', function(req, res) {
     console.log('I was called')
-    //console.log(req.header('Referer'))
-    if(req.body.game == 'Bond It')
-    {
+        //console.log(req.header('Referer'))
+    if (req.body.game == 'Bond It') {
         res.redirect('game/?game_id=1')
     }
-    if(req.body.game == "Flag Up")
-    {
+    if (req.body.game == "Flag Up") {
         res.redirect('game/?game_id=2')
     }
-    if(req.body.game == "Iconic")
-    {
+    if (req.body.game == "Iconic") {
         res.redirect('game/?game_id=3')
     }
-    if(req.body.game == "Colorista")
-    {
+    if (req.body.game == "Colorista") {
         res.redirect('game/?game_id=4')
-    }
-    else{
+    } else {
         var referer = req.header('Referer')
         res.redirect(referer)
     }
-    
+
 })
 
 module.exports = routes

@@ -34,7 +34,7 @@
         </div> --}}
         {{#if user.loggedin}}
         <div class="col-2">
-            <div class="dropdown">
+           <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle offset-6" data-toggle="dropdown">
                     <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                 </button>
@@ -55,6 +55,7 @@
     <br>
 
     {{!-- modal for login --}}
+    <input type="text" class="auth" style="display: none;" value="{{user.user}}">
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
@@ -210,53 +211,53 @@
                     <div class="carousel-inner">
                         {{#if user.loggedin}}
                         <div class="carousel-item active">
-                            <a class="example_e"  onclick="move()"><i
+                            <a class="example_e" href="/game/?game_id=1" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732303/GameAssets/Bond-it/preview/1200x720_giewq0.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=2" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=3" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/1200x720_kder3l.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="/game/?game_id=4" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738947/GameAssets/Colorista/preview/1200x720_ykzd5z.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         {{else}}
                         <div class="carousel-item active">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732302/GameAssets/Bond-it/preview/400x240_r0w0xn.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732399/GameAssets/Flagup/preview/400x240_vnzebt.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/400x240_lcwuxz.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         <div class="carousel-item">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
-                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                            <img src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738946/GameAssets/Colorista/preview/400x240_yxrxna.jpg" class="d-block w-100 imgS" alt="...">
                         </div>
                         {{/if}}
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
@@ -288,13 +289,13 @@
                 <div class="col-md-8 ml-5">
                     <ol class="carousel-indicators ml-2">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
-                                src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
+                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732303/GameAssets/Bond-it/preview/1200x720_giewq0.jpg" class="d-block shadow" alt="..."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
-                                src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
+                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732400/GameAssets/Flagup/preview/1200x720_rjjdd5.jpg" class="d-block shadow" alt=".."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
-                                src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
+                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579732445/GameAssets/Iconic/preview/1200x720_kder3l.jpg" class="d-block shadow" alt="..."></li>
                         <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100"> <img
-                                src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
+                                src="https://res.cloudinary.com/dpkcwayz1/image/upload/v1579738947/GameAssets/Colorista/preview/1200x720_ykzd5z.jpg" class="d-block shadow" alt="..."></li>
                     </ol>
                 </div>
             </div>
@@ -361,13 +362,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-           <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        {{!-- TEST! Not sure why this is here --}}
+        
+           {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
 
     <script src="/js/script.js"></script>
     <script src="/js/homepage.js"></script>
+    {{!-- <script src="/js/question.js"></script> --}}
 </body>
 
 </html>

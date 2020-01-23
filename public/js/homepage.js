@@ -1,8 +1,7 @@
-
-
-
 $('document').ready(function() {
-
+    $('#reset').click(function() {
+        $(".toast").toast("show")
+    })
     $('#signInBtn').click(function () { 
         var data = {
             usn: $('#usn').val(),
@@ -23,11 +22,6 @@ $('document').ready(function() {
             }
         });
      })
-
-
-    $('#reset').click(function() {
-        $(".toast").toast("show")
-    })
 });
 
 //Not found anywhere
@@ -38,8 +32,4 @@ $('document').ready(function() {
 function darkMode() {
     var element = document.body;
     element.classList.toggle("dark-mode");
-} 
-
-
-
-
+}
