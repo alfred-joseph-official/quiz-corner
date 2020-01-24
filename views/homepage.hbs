@@ -74,13 +74,13 @@
                     <div class="container">
                         <form class="form-group">
                             <div class="form-group">
-                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn"
+                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="lusn"
                                     placeholder="Username" name="usn" required
                                     oninvalid="this.setCustomValidity('Enter your Username')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
+                                <input type="password" class="form-control m-1" id="lpwd" placeholder="Enter Password"
                                     name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
                                     oninput="setCustomValidity('')">
                                 <small><a class="ml-2 Fpass" data-toggle="modal" data-dismiss="modal"
@@ -88,20 +88,18 @@
                             </div>
                             <div>
                                 <button type="button" id='signInBtn'
-                                    class="form-control btn w-50 offset-3 btn-success">Sign
-                                    in</button><br>
+                                    class="form-control btn w-50 offset-3 btn-success">Sign in</button><br>
                                 <small>
                                     <div class="font-weight-light text-center mt-3">
                                         Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
-                                            data-target="#exampleModal1"> Sign up</a>
+                                            data-target="#exampleModal1">Sign up</a>
                                     </div>
                                 </small>
                             </div>
                         </form>
                     </div>
                   
-                    <small class="text-danger" id='errorMsg' style="display: none;">
-                        Incorrect Email Id or Password!
+                    <small id='errorMsg' style="display: none;">
                     </small>
         
                 </div>
@@ -126,6 +124,7 @@
                         <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
                             placeholder="Username / Email" required>
                         <button id="reset" class="btn btn-primary col-2">Reset</button>
+                        <small id='resetAlert' style="display: none;"></small>
                     </div>
                 </div>
             </div>
@@ -146,10 +145,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
+                        
+                    <small id='suemsg' style="display: none; overflow:hidden;"></small>
                         <form class="form-group" action="/signupuser" method="POST">
                             <div class="Username">
                                 <div class="form-group">
-                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn"
+                                    <input type="text" pattern="^[a-zA-Z0-9]{3,}$" class="form-control m-1" id="susn"
                                         placeholder="Username" name="usn" required
                                         oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
                                         oninput="setCustomValidity('')">
@@ -157,14 +158,14 @@
                             </div>
                             <div class="form-group">
                                 <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-                                    class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
+                                    class="form-control m-1" id="semail" placeholder="Enter Email" name="email" required
                                     oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
                                     oninput="setCustomValidity('')">
                             </div>
                             <div class="pwd">
                                 <div class="form-group">
-                                    <input type="password" class="form-control m-1" id="pwd"
-                                        placeholder="Enter Password" name="pwd" minlength="6" required
+                                    <input type="password" class="form-control m-1" id="spwd"
+                                        placeholder="Enter Password" name="spwd" minlength="6" required
                                         oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
                                         oninput="setCustomValidity('')">
                                 </div>
@@ -172,12 +173,11 @@
                             <div class="cpwd">
                                 <div class="form-group">
                                     <input type="password" class="form-control m-1" id="cpwd"
-                                        placeholder="Re-enter Password" name="cpwd" required
+                                        placeholder="Re-enter Password" name="scpwd" required
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary form-control w-50 offset-3" type="submit">Sign
-                                up</button>
+                         <button type="button" id="signUpBtn" class="btn btn-primary form-control w-50 offset-3">Sign up</button>
                         </form>
                     </div>
                 </div>
@@ -185,9 +185,10 @@
         </div>
     </div>
 
-    <div class="banner1">
+    {{!-- <div class="banner1">
         <img height="370px" src="/img/banner1.png" alt="">
-    </div>
+    </div> --}}
+    <br>
     <div class="container">
         <div id="row" class="row">
             <div class="col-md-8 bg-light shadow rounded mainDiv">
@@ -286,7 +287,7 @@
             </div>
         </div>
             <br>
-            <h4 class="font-weight-bold">More Games</h4>
+            {{!-- <h4 class="font-weight-bold">More Games</h4>
             <div class="d-flex flex-col">
                 <div class="flip-card">
                     <div class="flip-card-inner">
@@ -338,7 +339,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         <div class="toast w-25" data-delay="3000">
             <div class="toast-header text-white bg-transparent">
                 <strong class="mr-auto">Quiz Corner</strong>
@@ -347,8 +348,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="toast-body text-white">
-                Reset link sent
+            <div id="toast-body" class="toast-body text-white">
             </div>
         </div>
 
@@ -397,6 +397,7 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
     <script src="/js/script.js"></script>
+    <script src="/js/root.js"></script>
     <script src="/js/homepage.js"></script>
 </body>
 

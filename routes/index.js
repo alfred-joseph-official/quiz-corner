@@ -122,13 +122,23 @@ routes.post("/signupuser", function(req, res) {
         top_score: [],
         fb_auth: ""
     }
-    DB.collection('Users').insertOne(data, function(err, result) {
-        if (err) console.log("error2")
-        else {
-            res.redirect('/');
+
+    DB.collection('Users').findOne({ $or: [{ email: data.email }, { usn: data.usn }] }, function(err, userObj) {
+        console.log(userObj);
+
+        if (userObj) {
+            if (userObj.usn == data.usn) {
+                res.status(409).send("Username Taken!");
+            } else if (userObj.email == data.email) {
+                res.status(409).send("Email Already Registered!");
+            }
+        } else {
+            DB.collection('Users').insertOne(data, function(err, result) {
+                res.status(200).send('Success! Please Login!');
+            })
         }
-    })
-})
+    });
+});
 
 
 routes.post('/loginuser', function(req, res) {
@@ -144,14 +154,15 @@ routes.post('/loginuser', function(req, res) {
                     'loggedin': true,
                     'imglink': result.dp
                 };
-                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).send('loginSuccess');
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).status(200).send('Success!');
             } else {
                 //TODO validations
-                res.send('loginfailedtrue');
+                res.status(403).send('Incorrect Email Id or Password!');
             }
         } else {
             //TODO Validations
-            res.send('loginfailedtrue');
+
+            res.status(403).send('Incorrect Email Id or Password!');
         }
 
     })
@@ -167,7 +178,7 @@ routes.post("/forgot", function(req, res) {
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
             // res.redirect('/');
-            res.status(400).end();
+            res.status(404).send("User Not Found!");
         } else {
             crypto.randomBytes(16, function(err, buffer) {
                 var token = buffer.toString('hex');
@@ -180,7 +191,7 @@ routes.post("/forgot", function(req, res) {
                 }
 
                 transporter.sendMail(mailOptions, function(mailErr, info) {
-                    if (mailErr) res.status(400).end();
+                    if (mailErr) res.status(500).send("Server Error!");
                     else {
                         var newStr = {};
                         newStr["expire_time"] = expire;
@@ -196,15 +207,15 @@ routes.post("/forgot", function(req, res) {
                                 }
                                 DB.collection('ResetLinks').insertOne(resetLink, function(err, result) {
                                     if (err) {
-                                        res.status(400).end();
+                                        res.status(500).send('Server Error!');
                                     } else {
-                                        res.status(200).end();
+                                        res.status(200).send("Reset Link Sent Successfully!");
                                         // res.send('Message sent: ' + info.response);
                                     }
                                 });
                             } else {
                                 //todo check for err
-                                res.status(200).end();
+                                res.status(200).send("Reset Link Sent Successfully!");
                                 // res.send('Message sent: ' + info.response);
                             }
                         });
