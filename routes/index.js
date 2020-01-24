@@ -248,12 +248,12 @@ routes.get('/', function(req, res) {
     // } else {
     if (req.session.user) {
         res.render('homepage', {
-            layout: "homepage",
+            layout: "home_layout",
             user: req.signedCookies['user'],
         });
     } else {
         res.render('homepage', {
-            layout: "homepage",
+            layout: "home_layout",
             loginfailed: req.query.loginfailed
         })
 
