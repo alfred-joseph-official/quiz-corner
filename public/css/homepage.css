@@ -1,0 +1,316 @@
+
+#row {
+    height:500px!important;
+}
+
+.mainDiv {
+  width: 100%;
+  height: 100%!important;
+}
+
+#AdBlock {
+  height: 100%!important;
+}
+
+.blackCon {
+    background: black;
+    filter: opacity(40%);
+    height: 400px;
+    position: absolute;
+    z-index: 1;
+}
+
+.imgS {
+    height: 370px;
+}
+
+.fa-play-circle-o {
+    color: white;
+    position: absolute;
+    margin-left: 38%;
+    margin-top: 13%;
+    z-index: 3;
+    font-size:200px;
+    filter: opacity(70%);
+    text-decoration: none;
+    background:none;
+    border-radius: 50px;
+    display: inline-block;
+    border: none;
+    transition: all .2s ease-in-out; 
+}
+
+.fa-play-circle-o:hover {
+    text-shadow: 7px 11px 15px rgba(117, 117, 117, 0.767);
+    transform: scale(1.1); 
+    }
+
+ol li img{
+    position: relative;
+    bottom: 60px;
+    height: 85px;
+    width: 100%;
+    transition: all .2s ease-in-out; 
+}
+
+ol li img:hover{
+    transform: scale(1.1); 
+}
+
+.adImg {
+    height: 30%;
+    width: 100%;
+}
+
+.toast {
+    position: absolute;
+    z-index: 5;
+    left: 50px;
+    bottom:30px;
+    background:rgb(75, 75, 75)
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 150px;
+  height: 150px;
+  perspective: 1000px;
+  margin: 1%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
+
+
+/* For responsive */
+
+@media screen and (max-width: 800px) {
+ #AdBlock{
+   display: none;
+ }
+}
+
+@media screen and (max-width: 600px) {
+ body {
+   overflow-x: hidden;
+ }
+
+#row {
+  height:50vh !important;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.banner1{
+  display: none;
+}
+
+.mainDiv {
+  width: 100%!important;
+  height: 100%!important;
+  overflow-x: hidden;
+}
+
+.blackCon {
+  background: black;
+  filter: opacity(40%);
+  height: 400px;
+  position: absolute;
+  z-index: 1;
+}
+
+.imgS {
+  height: 100%!important;
+  width: 100%;
+}
+
+.fa-play-circle-o {
+  color: white;
+  position: absolute;
+  margin-left: 32%;
+  margin-top: 10%;
+  z-index: 3;
+  font-size:130px;
+  filter: opacity(70%);
+  text-decoration: none;
+  background:none;
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all .2s ease-in-out; 
+}
+
+.fa-play-circle-o:hover {
+  text-shadow: 7px 11px 15px rgba(117, 117, 117, 0.767);
+  transform: scale(1.1); 
+  }
+
+ol li img{
+  position: relative;
+  right:10%;
+  bottom: 60px;
+  height: 75px;
+  width: 70px;
+  transition: all .2s ease-in-out; 
+}
+
+ol li img:hover{
+  transform: scale(1.1); 
+}
+
+#AdBlock {
+  display: none;
+}
+
+.adImg {
+  display: none;
+}
+
+
+.flip-card {
+  background-color: transparent;
+  width: 150px;
+  height: 80px;
+  perspective: 1000px;
+  margin: 2%;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}
+
+
+.toast {
+  position: absolute;
+  z-index: 5;
+  left: 50px;
+  bottom:30px;
+  background:rgb(75, 75, 75)
+}
+}
+
+/* .dark-mode {
+    background-image: linear-gradient(to left, #434343 0%, black 100%);
+  } */
+
+/* toggle button to dark mode */
+/* 
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    top: 5px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 17px;
+    left: 2px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: black
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px black
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  Rounded sliders
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  } */

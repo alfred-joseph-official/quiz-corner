@@ -1,0 +1,87 @@
+<div id="gamecenter" class="col-md-8 shadow rounded bg-light">
+    <div class="container" id='spinner'>
+    <div id="preloader" class="bg-dark">
+        <div id="loader"></div>
+        <h2 class="Loading">Loading Please Wait...</h2>
+    </div>
+    </div>
+    <input id="game_id" type="text" value="{{gameId}}" hidden>
+    <div class="container">
+        <br>
+        <h4 id="quizName" class="text-center text-secondary">{{ques}}</h4>
+        <hr class="w-50">
+        <br>
+        {{!-- <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></div> --}}
+        <div class="text-center">
+            <div class="img">
+                <img id="quesDiv" class="rounded shadow-lg img-thumbnail" src="" alt="image" width="150" height="150" />
+            </div>
+        </div>
+        <br> <br>
+        <div class="row optionsRow">
+            <div id="opd-a" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
+                    class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
+            </div>
+            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
+                    class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
+        </div>
+        <div class="row optionsRow mt-2">
+            <div id="opd-c" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
+                    class="p-2 rounded bg-warning text-white">C</span><small class="options"
+                    id="option-c"></small></div>
+            <div id="opd-d" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded p-3"><span
+                    class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
+        </div>
+    </div>
+</div>
+<div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
+    <div class="container"><br>
+        <h3 class="text-center text-secondary mb-4"><strong>Your Result!</strong></h3>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                    aria-controls="nav-home" aria-selected="true">Score</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                    aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div style="position: relative;">
+                    <div class="bond-container">
+                        <div class="semi-a"></div>
+                        <div class="semi-b"></div>
+                        <div class="semi-c"></div>
+                        <div class="semi-data">
+                            <h1 id="percent"></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="container mt-3 tableScroll">
+                    <div class="table-responsive-sm">
+                        <table id="lb_table" class="table table-hover table-dark rounded">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Username</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lb_body">
+                            </tbody>
+                        </table>
+                        <div id="empty_lb" class="text-center">
+                            <h1>Looks like no one has made it to the leaderboard yet!</h1>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <div class="text-secondary mt-3"><strong>Want to play more games like this?</strong></div>
+            <a href="/" class="btn btn-danger w-50 mt-2 text-white" onclick="move()">Go</a>
+        </div>
+    </div>
+</div>

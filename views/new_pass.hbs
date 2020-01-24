@@ -1,0 +1,29 @@
+<div class="container-fluid col-12">
+    <div class="jumbotron w-50 offset-3 bg-light shadow">
+        <h3 class="text-center"><small> Password Reset! Enter your new password.</small></h3>
+        <form class="needs-validation" action="/pwd" method="POST"> 
+        <div class="row offset-1">
+            <input type="text" name="usn" value={{this.usn}} hidden>
+        <div class="m-2">
+                <input type="password" class="form-control" id="pwd" placeholder="New Password" name="pwd"
+                    minlength="6" required
+                    oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                    oninput="setCustomValidity('')">
+            </div>
+            <div class="m-2">
+                <input type="password" class="form-control" id="cpwd" placeholder="Confirm Password"
+                    name="cpwd" required
+                    oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'
+                    oninput="setCustomValidity('')">
+            </div>
+            <div class="m-2">
+            <button class="btn btn-primary" type="submit">Confirm</button>
+            </div>
+            </div>
+            <div style="display:none" class="alert alert-success alert-dismissible show col-8 offset-2 mt-4">
+                <button type="button" class="close" onclick="resetPass()" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> Please Login To Continue.
+            </div>
+        </form>
+    </div>
+</div><br><br><br>
