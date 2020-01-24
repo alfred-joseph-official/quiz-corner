@@ -1,17 +1,5 @@
-function enabled() {
-    document.getElementById('password').removeAttribute('disabled');
-    document.getElementById('userphone').removeAttribute('disabled');
-    document.getElementById('useraddress').removeAttribute('disabled');
-    document.getElementById('btnupdate').removeAttribute('disabled');
 
-}
 $('document').ready(function() {
-
-  $('#btn').on('click',function(){
-    $('#row').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationend',function(){
-        $(this).removeClass('animated slideInLeft');
-    });
-})
   
    
     $('#reset').click(function() {

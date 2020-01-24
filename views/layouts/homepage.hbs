@@ -175,10 +175,11 @@
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
-                            <button class="btn btn-primary form-control w-50 offset-3" type="submit">Sign
+                            <button id="signUpBtn"class="btn btn-primary form-control w-50 offset-3" type="button">Sign
                                 up</button>
                         </form>
                     </div>
+                    <small id="errorMsg2" class="text-danger"></small>
                 </div>
             </div>
         </div>
