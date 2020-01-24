@@ -5,7 +5,7 @@ body {
 }
 
 .navbar {
-    background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
 
 ::placeholder{

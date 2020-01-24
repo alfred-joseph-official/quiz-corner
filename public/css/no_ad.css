@@ -96,3 +96,24 @@ body {
     object-fit: noner;
 }
 }
+
+/* For new_password page */
+
+@media screen and (max-width: 600px) {
+    .w-50 {
+        width: 100%!important;
+        margin-left: 0!important;
+    }
+
+    #inpBox {
+        display: flex;
+        flex-direction: column;
+        margin: 0!important;
+    }
+
+    #ConfirmBtn {
+        position: relative;
+        left:32%
+    }
+}
+

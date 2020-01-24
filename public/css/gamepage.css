@@ -175,47 +175,6 @@
     background-color: green;
 }
 
-
-/* animation for gamecenter */
-/* 
-.animated {
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
-
-@-webkit-keyframes slideInLeft {
-    0% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-      visibility: visible;
-    }
-  
-    100% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  
-  @keyframes slideInLeft {
-    0% {
-      -webkit-transform: translate3d(-100%, 0, 0);
-      transform: translate3d(-100%, 0, 0);
-      visibility: visible;
-    }
-  
-    100% {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  
-  .slideInLeft {
-    -webkit-animation-name: slideInLeft;
-    animation-name: slideInLeft;
-  } */
-
 /* game load spinner css dont touch */
   
   .Loading {
@@ -482,31 +441,6 @@
         transition: all 1s ease-out;
     }
     
-    
-    /*
-    #shareBtns {
-        transform: translate(0, 300%);
-    } */
-    
-    
-    /* @keyframes rotate {
-        0% {
-            background: red;
-        }
-        25% {
-            background: blue;
-        }
-        50% {
-            background: yellow;
-        }
-        75% {
-            background: green;
-        }
-        100% {
-            background: red;
-        }
-    } */
-    
     .averageScore{
         background-color: rgb(245, 123, 9);
     }
@@ -518,47 +452,6 @@
     .greatScore {
         background-color: green;
     }
-    
-    
-    /* animation for gamecenter */
-    
-    .animated {
-        -webkit-animation-duration: 1s;
-        animation-duration: 1s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-      }
-    
-    @-webkit-keyframes slideInLeft {
-        0% {
-          -webkit-transform: translate3d(-100%, 0, 0);
-          transform: translate3d(-100%, 0, 0);
-          visibility: visible;
-        }
-      
-        100% {
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      
-      @keyframes slideInLeft {
-        0% {
-          -webkit-transform: translate3d(-100%, 0, 0);
-          transform: translate3d(-100%, 0, 0);
-          visibility: visible;
-        }
-      
-        100% {
-          -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
-        }
-      }
-      
-      .slideInLeft {
-        -webkit-animation-name: slideInLeft;
-        animation-name: slideInLeft;
-      }
     
     /* game load spinner css dont touch */
       
@@ -642,3 +535,16 @@
           }
       }
   }
+
+  /* Css of leaderboard page */
+
+@media screen and (max-width: 600px){
+    .done {
+        display: flex;
+        flex-direction: column;
+        margin: 3%;
+        width: 50%;
+        position: relative;
+        left: 20%;
+    }
+}
