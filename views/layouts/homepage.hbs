@@ -98,11 +98,11 @@
                             </div>
                         </form>
                     </div>
-                  
+
                     <small class="text-danger" id='errorMsg' style="display: none;">
                         Incorrect Email Id or Password!
                     </small>
-        
+
                 </div>
             </div>
         </div>
@@ -184,9 +184,10 @@
         </div>
     </div>
 
-    <div class="banner1">
+    {{!-- <div class="banner1">
         <img height="370px" src="/img/banner1.png" alt="">
-    </div>
+    </div> --}}
+    <br>
     <div class="container">
         <div id="row" class="row">
             <div class="col-md-8 bg-light shadow rounded mainDiv">
@@ -268,89 +269,93 @@
             </div>
         </div>
     </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 ml-5">
-                    <ol class="carousel-indicators ml-2">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
-                                src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
-                                src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
-                                src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100">
-                            <img src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
-                    </ol>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-5">
+                <ol class="carousel-indicators ml-2">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
+                            src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
+                            src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
+                            src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100">
+                        <img src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
+                </ol>
             </div>
         </div>
-            <br>
-            <h4 class="font-weight-bold offset-2">More Games</h4>
-            <div class="d-flex flex-col offset-2">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-                        </div>
-                        <div class="flip-card-back">
-                            <h1>John Doe</h1>
-                            <p>Architect & Engineer</p>
-                            <p>We love that guy</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-                        </div>
-                        <div class="flip-card-back">
-                            <h1>John Doe</h1>
-                            <p>Architect & Engineer</p>
-                            <p>We love that guy</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-col offset-2">
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-                        </div>
-                        <div class="flip-card-back">
-                            <h1>John Doe</h1>
-                            <p>Architect & Engineer</p>
-                            <p>We love that guy</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flip-card">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-                        </div>
-                        <div class="flip-card-back">
-                            <h1>John Doe</h1>
-                            <p>Architect & Engineer</p>
-                            <p>We love that guy</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="toast w-25" data-delay="3000">
-            <div class="toast-header text-white bg-transparent">
-                <strong class="mr-auto">Quiz Corner</strong>
-                <small>just now</small>
-                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="toast-body text-white">
-                Reset link sent
-            </div>
-        </div>
+    </div>
+    <br>
 
+{{!-- FOR LATER --}}
+
+    {{!-- <div class="container"> --}}
+        {{!-- <div class="row">
+            <div class="col-md-4 futureScope">
+                    <h4 id="h4" class="font-weight-bold offset-1">More Games</h4>
+                    <div class="d-flex flipcards flex-col offset-1">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="https://cdn4.vectorstock.com/i/1000x1000/74/43/quiz-time-card-with-colorful-brush-strokes-vector-21757443.jpg" alt="Avatar" width="170px" height="150px">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h4>Game 1</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="https://cdn5.vectorstock.com/i/1000x1000/40/89/quiz-time-neon-sign-quiz-pub-design-vector-21824089.jpg" alt="Avatar" width="170px" height="150px">
+                                </div>
+                                <div class="flip-card-back">
+                                   <h4>Game 2</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flipcards flex-col offset-1">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="https://png.pngtree.com/png-clipart/20191121/original/pngtree-speech-sign-text-quiz-time-vector-illustration-png-image_5157353.jpg" alt="Avatar" width="170px" height="150px">
+                                </div>
+                                <div class="flip-card-back">
+                                    <h4>Game 3</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img src="https://i.ytimg.com/vi/3lzWxccGEGQ/maxresdefault.jpg" alt="Avatar" width="170px" height="150px">
+                                </div>
+                                <div class="flip-card-back">
+                                 <h3>Game 4</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toast w-25" data-delay="3000">
+                        <div class="toast-header text-white bg-transparent">
+                            <strong class="mr-auto">Quiz Corner</strong>
+                            <small>just now</small>
+                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="toast-body text-white">
+                            Reset link sent
+                        </div>
+                </div>
+            </div>
+                <div class="col-md-6 futureScope">
+                    <h4 class="font-weight-bold">Users Wall</h4>
+                    <img width="600px" height="315px" class="shadow" src="/img/newsfeed.png" alt="">
+                </div>
+            </div> --}}
+        {{!-- </div> --}}
     <br>
     <footer class="footer w-100">
         <div class="conatiner">
@@ -391,10 +396,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css"> --}}
+    {{!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
     <script src="/js/script.js"></script>
     <script src="/js/homepage.js"></script>
 </body>

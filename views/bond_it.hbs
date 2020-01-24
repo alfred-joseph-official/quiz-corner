@@ -15,27 +15,26 @@
             <hr class="w-50">
             {{/if}}
             <br> <br>
-            <div class="container rounded bg-light shadow col-8 p-4">
+            <div id="quesMainDiv" class="container rounded bg-light shadow col-lg-8 p-4">
                 <h3 id="questno" class="text-center text-secondary">Question 1.</h3>
                 <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></div>
             </div>
             <br> 
-            <div class="row">
-                <div id="opd-a" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                        class="p-2 rounded bg-success text-white">A</span><small class="options"
-                        id="option-a"></small></div>
-                <div id="opd-b" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                        class="p-2 rounded bg-danger text-white">B</span><small class="options"
-                        id="option-b"></small></div>
+            <div class="row optionsRow">
+            <div id="opd-a" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
+                    class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
             </div>
-            <div class="row">
-                <div id="opd-c" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                        class="p-2 rounded bg-warning text-white d-inline">C</span><small class="options"
-                        id="option-c"></small></div>
-                <div id="opd-d" class="ans bg-light col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                        class="p-2 rounded bg-info text-white">D</span><small class="options"
-                        id="option-d"></small></div>
-            </div>
+            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
+                    class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
+        </div>
+        <div class="row optionsRow">
+            <div id="opd-c" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
+                    class="p-2 rounded bg-warning text-white">C</span><small class="options"
+                    id="option-c"></small></div>
+            <div id="opd-d" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
+                    class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
+        </div>
+        <br>
         </div>
     </div>
     {{#if secondUser}}
@@ -120,14 +119,14 @@
                 <div class="text-secondary mt-3"><strong>Did you like the game?</strong></div>
                 <a href="#" data-toggle="modal" data-target="#exampleModal"
                     class="btn btn-danger w-50 mt-2 text-white">Create your own
-                    challenge</a></div>
+                    challenge</a></div><br>
         </div>
     </div>
     {{else}}
     <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
         <div class="container">
             <h4 class="text-center text-secondary mt-3">Your Challenge is Ready!</h4>
-            <div class="text-center rounded linkDiv col-6 py-2 offset-3 mt-2">
+            <div class="text-center rounded linkDiv col-md-6 py-2 mt-2">
                 <div class="shareLink"><b>Share this link with your friends</b></div>
 
                 <input class="rounded-pill p-1 mt-2 text-muted" type="text" name="uniqueLink"
@@ -142,7 +141,7 @@
             <!-- Load Facebook SDK for JavaScript -->
             <script async defer crossorigin="anonymous"
                 src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
-            <div id="shareBtns" class="row col-8 mt-2">
+            <div id="shareBtns" class="col-md-8 mt-2">
                 <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a
                         target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb"
                         onclick="setFbLink()"><i class="fa fa-facebook-f pr-1"></i>Facebook share</a></div>
@@ -183,5 +182,6 @@
             <div class="text-secondary mt-3"><strong>Want to play more games like this?</strong></div>
             <a href="/" class="btn btn-danger w-50 mt-2 text-white" onclick="move()">Go</a>
         </div>
+        <br>
 </div>
 {{/if}}

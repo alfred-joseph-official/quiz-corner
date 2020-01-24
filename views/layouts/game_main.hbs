@@ -10,8 +10,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/gamepage.css">
-    <link rel="stylesheet" href="/css/root.css">
+      <link rel="stylesheet" href="/css/root.css">
+      <link rel="stylesheet" href="/css/gamepage.css">
+  
 
     <title>Quiz Corner</title>
 </head>
@@ -252,11 +253,11 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
       <script src="/js/question.js"></script>
-    {{!-- {{#if quizG}} --}}
-    {{!-- <script src="/js/img_quiz.js"></script> --}}
-    {{!-- {{else}} --}}
-  {{!-- <script src="/js/game_main.js"></script> --}}
-    {{!-- {{/if}} --}}
+    {{#if quizG}}
+    <script src="/js/img_quiz.js"></script>
+    {{else}}
+  <script src="/js/game_main.js"></script>
+    {{/if}}
 
 
 </body>

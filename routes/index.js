@@ -144,8 +144,7 @@ routes.post('/loginuser', function(req, res) {
                     'user': result.usn,
                     'loggedin': true,
                     'imglink': result.dp
-                }; 
-                console.log(req.session.user)
+                };
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).send('loginSuccess');
             } 
             else {

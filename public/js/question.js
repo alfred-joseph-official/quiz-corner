@@ -68,7 +68,7 @@ function getNext() {
             }
             if(score>3){
                 $('.semi-c').addClass('averageScore')
-                $('#resultinfo').text(' Average!').css('color',' (245, 123, 9)')
+                $('#resultinfo').text(' Average!').css('color',' orange')
             }
 
              if(score>7){

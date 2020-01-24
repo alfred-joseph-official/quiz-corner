@@ -110,6 +110,19 @@ ol li img:hover{
   transform: rotateY(180deg);
 }
 
+#h4 {
+  position: relative;
+    left: 2%;
+}
+
+.flipcards {
+  position: relative;
+  left: 1%;
+}
+
+.futureScope {
+  left: 7%;
+}
 
 
 
@@ -197,6 +210,19 @@ ol li img:hover{
   display: none;
 }
 
+#id {
+    font-size: smaller;
+    margin-left: 0%;
+    left: 20%;
+}
+
+#h4{
+  font-size: small;
+}
+
+.flipcards {
+  left: 10%;
+}
 
 .flip-card {
   background-color: transparent;

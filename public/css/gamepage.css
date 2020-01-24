@@ -29,6 +29,8 @@
 
 .linkDiv {
     border: dashed 1px grey;
+    position: relative;
+    left: 25%;
 }
 
 .shareLink {
@@ -41,8 +43,9 @@
 }
 
 #shareBtns {
-    position: relative;
-    left: 30%;
+    display: flex;
+    flex-direction: row;
+    left: 27%;
 }
 
 .btn-fb:hover {
@@ -160,31 +163,6 @@
     transition: all 1s ease-out;
 }
 
-
-/*
-#shareBtns {
-    transform: translate(0, 300%);
-} */
-
-
-/* @keyframes rotate {
-    0% {
-        background: red;
-    }
-    25% {
-        background: blue;
-    }
-    50% {
-        background: yellow;
-    }
-    75% {
-        background: green;
-    }
-    100% {
-        background: red;
-    }
-} */
-
 .averageScore{
     background-color: rgb(245, 123, 9);
 }
@@ -199,7 +177,7 @@
 
 
 /* animation for gamecenter */
-
+/* 
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -236,7 +214,7 @@
   .slideInLeft {
     -webkit-animation-name: slideInLeft;
     animation-name: slideInLeft;
-  }
+  } */
 
 /* game load spinner css dont touch */
   
@@ -366,6 +344,8 @@
     
     .linkDiv {
         border: dashed 1px grey;
+        padding: 10%;
+        left: 0%;
     }
     
     .shareLink {
@@ -379,7 +359,8 @@
     
     #shareBtns {
         position: relative;
-        left: 30%;
+        margin: 0%;
+        left: 0%;
     }
     
     .btn-fb:hover {
@@ -409,6 +390,10 @@
     
     .ans {
         cursor: pointer;
+    }
+
+    #quesMainDiv{
+        margin: 0%;
     }
     
     .ans:hover {
@@ -463,12 +448,7 @@
         transition: all 3s ease-in-out;
     }
 
-    .linkDiv {
-        padding: 0;
-        margin: 0px;
-        width: 200px;
-    }
-
+    
     
     
     /* Dont need this. Can delete
