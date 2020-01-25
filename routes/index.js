@@ -240,9 +240,15 @@ routes.get("/reset/token/:t", function(req, res) {
     });
 });
 
+routes.get('/linkexpired', function (req,res) { 
+    res.render('expiredpage',{
+        layout: 'no_ad'
+    })
+ })
+
 routes.post("/pwd", function(req, res) {
     DB.collection('ResetLinks').remove({ usn: req.body.usn }, function(err, deletedRes) {
-        if (err || deletedRes.result.n < 1) { res.send("Link Expired!"); } else {
+        if (err || deletedRes.result.n < 1) { res.redirect('/linkexpired'); } else {
             DB.collection('Users').findOneAndUpdate({ usn: req.body.usn }, { $set: { pwd: req.body.pwd } }, { returnOriginal: false }, function(err, result) {
                 res.redirect("/");
             });
