@@ -90,10 +90,11 @@ $('document').ready(function() {
             field: $('#resInp').val()
         }
 
-        if (!(/^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(data.email))) {
-            setAlert('Please Enter a Valid Email!', $('#serremail'), 'text-danger');
+        if (!(/^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(data.field))) {
+            setAlert('Please Enter a Valid Email!', $('#resetAlert'), 'text-danger');
             pingServer = false;
         }
+
         if (pingServer) {
             $.ajax({
                 type: "POST",

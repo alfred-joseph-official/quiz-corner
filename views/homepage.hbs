@@ -127,8 +127,11 @@
                         <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
                             placeholder="Username / Email" required>
                         <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                    <div class="text-center">
                         <small id='resetAlert' style="display: none;"></small>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -156,9 +159,9 @@
                                         placeholder="Username" name="usn" required
                                         oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
                                         oninput="setCustomValidity('')">
+                                <small id='serrusn' style="display: none;"></small>
                                 </div>
                                 
-                                <small id='serrusn' style="display: none;"></small>
                             </div>
                             <div class="form-group">
                                 <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -182,9 +185,10 @@
                                     <input type="password" class="form-control m-1" id="cpwd"
                                         placeholder="Re-enter Password" name="scpwd" required
                                         oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                                        
+                                <small id='serrcpwd' style="display: none;" ></small>
                                 </div>
                                 
-                                <small id='serrcpwd' style="display: none;"></small>
                             </div>
                          <button type="button" id="signUpBtn" class="btn btn-primary form-control w-50 offset-3">Sign up</button>
                         </form>

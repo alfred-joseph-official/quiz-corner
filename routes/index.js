@@ -178,7 +178,7 @@ routes.post("/forgot", function(req, res) {
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
             // res.redirect('/');
-            res.status(404).send("User Not Found!");
+            res.status(413).send("User Not Found!");
         } else {
             crypto.randomBytes(16, function(err, buffer) {
                 var token = buffer.toString('hex');
@@ -247,12 +247,16 @@ routes.get('/linkexpired', function(req, res) {
 })
 
 routes.post("/pwd", function(req, res) {
+
     var pass = saltHashPassword(req.body.pwd.trim());
     DB.collection('ResetLinks').remove({ usn: req.body.usn.trim() }, function(err, deletedRes) {
         if (err || deletedRes.result.n < 1) { res.redirect('/linkexpired'); } else {
-            DB.collection('Users').findOneAndUpdate({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { returnOriginal: false }, function(err, result) {
+            DB.collection('Users').update({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { upsert: true }, function(err, result) {
                 res.redirect("/");
             });
+            // DB.collection('Users').findOneAndUpdate({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { returnOriginal: false }, function(err, result) {
+            //     res.redirect("/");
+            // });
         }
     });
 });
