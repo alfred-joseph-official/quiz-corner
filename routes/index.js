@@ -240,13 +240,18 @@ routes.get("/reset/token/:t", function(req, res) {
     });
 });
 
+routes.get('/linkexpired', function(req, res) {
+    res.render('expiredpage', {
+        layout: 'no_ad'
+    })
+})
+
 routes.post("/pwd", function(req, res) {
     var pass = saltHashPassword(req.body.pwd.trim());
-
     DB.collection('ResetLinks').remove({ usn: req.body.usn.trim() }, function(err, deletedRes) {
-        if (err || deletedRes.result.n < 1) { res.status(410).send("Link Expired!"); } else {
+        if (err || deletedRes.result.n < 1) { res.redirect('/linkexpired'); } else {
             DB.collection('Users').findOneAndUpdate({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { returnOriginal: false }, function(err, result) {
-                res.status(200).redirect("Password Updated!");
+                res.redirect("/");
             });
         }
     });

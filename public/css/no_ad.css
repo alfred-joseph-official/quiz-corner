@@ -23,6 +23,11 @@
     cursor: pointer;
 }
 
+#ConfirmBtn {
+    position: relative;
+    left: 30%;
+}
+
 #editDP {
     position: absolute;
     z-index: 3;
