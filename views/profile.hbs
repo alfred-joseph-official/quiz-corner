@@ -1,17 +1,16 @@
 
-    <div class="container proCon w-75 bg-white shadow-lg">
+    <div class="container col-md-9 proCon w-75 w-100 bg-white shadow-lg rounded">
         <div class="row">
-            <div class="col-4">
-                <div class="m-3 ">
-                    <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1 ">&#xf030;</i>Edit
+            <div class="col-md-4">
+                <div class="dpDiv">
+                  <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1 ">&#xf030;</i>Edit
                     </div>
-                    
-                    <img src={{imglink}} height="270px" width="250px" alt="new pic" class="centerimg  img-thumbnail">
+                    <img src={{imglink}} alt="new pic" class="centerimg img-thumbnail">
                 </div>
             </div>
-            <div id="infoDiv" class="col-8 mt-3 p-0">
-                <div class="col-12">
-                    <h3><span class="font-weight-lighter">I'm </span> {{sessionuser}}</h3>
+            <div id="infoDiv" class="col-md-8 mt-3 p-0">
+                <div class="col-md-12">
+                    <h3 class="ml-3 ml-2">{{sessionuser}}</h3>
                     <form action="/updateprofile" method="POST" enctype="multipart/form-data">
                         <table class="table">
                             <tbody>
@@ -51,10 +50,9 @@
         </div>
     </div>
 
-    <div class="container col-9">
+    <div class="container col-md-9">
         <div class="row bg-danger">
-
-            <h3 class="text-white mt-2 offset-4"><i class="fa fa-facebook ml-3 mr-5" aria-hidden="true"></i><i
+            <h3 id="h3" class="text-white mt-2 offset-4"><i class="fa fa-facebook ml-3 mr-5" aria-hidden="true"></i><i
                     class="fa fa-google-plus ml-3 mr-5" aria-hidden="true"></i>
                 <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3"
                     aria-hidden="true"></i>

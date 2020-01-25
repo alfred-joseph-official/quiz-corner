@@ -161,6 +161,7 @@ function postToServer() {
 }
 
 function loadRanks(ranks) {
+    $('#lb_table').show();
     let tbody = $('#lb_body');
     tbody.empty();
     $('#empty_lb').remove();

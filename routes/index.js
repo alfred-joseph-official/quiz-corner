@@ -367,7 +367,7 @@ function fetchImgQuiz(gameId, req, res) {
 
 //1st user
 routes.post("/getques", function(req, res) {
-    var mongoUrl = process.env.DOMAIN;
+    var url = process.env.DOMAIN;
     var gameId = parseInt(req.body.gameId);
     if (gameId == 2 || gameId == 3) {
         fetchImgQuiz(gameId, req, res);
@@ -387,7 +387,7 @@ routes.post("/getques", function(req, res) {
                     res.status(400).end();
                 } else {
                     res.status(200);
-                    res.send(mongoUrl + "uniq/" + "?game_id=1&t=" + token);
+                    res.send(url + "uniq/" + "?game_id=1&t=" + token);
                 }
             });
         });
@@ -434,10 +434,6 @@ routes.post('/bond_post', function(req, res) {
     });
 })
 
-// routes.post('/img_quiz', function(req, res) {
-//     req.session.gameData = false;
-//     res.status(200).end();
-// });
 // routes.post("/getques", function(req, res) {
 //     var gameId = parseInt(req.body.gameId, 10);
 //     var quesId = parseInt(req.body.quesId) - 1;
@@ -576,7 +572,8 @@ routes.get('/game', function(req, res) {
             break;
     }
 
-    req.session.gameData = null;
+    // req.session.gameData = null;
+    delete req.session.gameData;
     res.render('gameintro', {
         user: req.signedCookies['user'],
         gameId: gameId,
@@ -852,14 +849,14 @@ routes.get('*', function(req, res) {
 routes.get('/autocomplete', function(req, res) {
     //var result=['Quiz','Snake','Ludo']
     // DB.collection('Games').find({title:{$regex:new RegExp(req.query["term"]),$options:'i'}},function(err,data)
-    DB.collection('Games').find({ "title": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
+    DB.collection('games').find({ "name": { $regex: new RegExp(req.query["term"]), $options: 'i' } }).toArray(function(err, data) {
             if (!err) {
                 // console.log(data)
                 var result = []
 
 
                 for (var i = 0; i < data.length; i++) {
-                    result.push(data[i].title)
+                    result.push(data[i].name)
                 }
 
 

@@ -26,7 +26,7 @@
 #editDP {
     position: absolute;
     z-index: 3;
-    bottom: 5%;
+    bottom: 10%;
     background-color: black;
     filter: opacity(60%);
     color: white;
@@ -43,4 +43,67 @@
     height: 250px;
     width: 250px;
     object-fit: noner;
+}
+
+@media screen and (max-width: 600px) {
+    /* Profile Css */
+    body {
+        overflow-x: hidden;
+    }
+    #row {
+        height: 100%;
+    }
+    .proCon {
+        height: 100%;
+        padding: 2%;
+    }
+    #EditBtn {
+        position: relative;
+        float: right;
+    }
+    .fa {
+        cursor: pointer;
+    }
+    #editDP {
+        position: absolute;
+        z-index: 3;
+        bottom: 0;
+        left: 5%;
+        background-color: black;
+        filter: opacity(60%);
+        color: white;
+        width: 90%;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+    #h3 {
+        margin-left: 10px;
+    }
+    #editDP:hover {
+        filter: opacity(100%);
+    }
+    .centerimg {
+        height: 100%;
+        width: 100%;
+        object-fit: noner;
+    }
+}
+
+
+/* For new_password page */
+
+@media screen and (max-width: 600px) {
+    .w-50 {
+        width: 100%!important;
+        margin-left: 0!important;
+    }
+    #inpBox {
+        display: flex;
+        flex-direction: column;
+        margin: 0!important;
+    }
+    #ConfirmBtn {
+        position: relative;
+        left: 32%
+    }
 }

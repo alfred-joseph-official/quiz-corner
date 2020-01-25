@@ -4,11 +4,6 @@ $('document').ready(function() {
     // if ($('auth').val()) {
     //     $('#exampleModal').modal('show')
     // }
-    $('#btn').on('click', function() {
-        $('#row').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd msAnimationEnd oAnimationEnd animationend', function() {
-            $(this).removeClass('animated slideInLeft');
-        });
-    })
 
     $('#reset').click(function() {
 
