@@ -27,13 +27,18 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+             <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
+                    placeholder="Search for quiz games" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ml-auto">
                 {{#if user.loggedin}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{user.imglink}}" alt="profilepicture"
-                            class="rounded-circle img-fluid navImg border border-light">
+                            class="rounded-circle img-fluid navImg">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
@@ -51,11 +56,6 @@
                 </li>
                 {{/if}}
             </ul>
-            <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
-                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
-                    placeholder="Search for quiz games" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
     <div id="myProgress">

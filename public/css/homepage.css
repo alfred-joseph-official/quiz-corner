@@ -7,6 +7,11 @@
     height: 100%!important;
 }
 
+.dropdown-menu {
+    left: auto;
+    right: 0;
+}
+
 #AdBlock {
     height: 100%!important;
 }

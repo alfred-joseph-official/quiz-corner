@@ -24,13 +24,18 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+             <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
+                    placeholder="Search for quiz games" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ml-auto">
                 {{#if user.loggedin}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{user.imglink}}" alt="profilepicture"
-                            class="rounded-circle img-fluid navImg border border-light">
+                            class="rounded-circle img-fluid navImg">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
@@ -42,17 +47,12 @@
                 </li>
                 {{else}}
                 <li class="nav-item">
-                    <a href="/login" id="modalBtn" class="btn btn-sm btn-outline-light" data-toggle="modal"
+                    <a href="/login" id="modalBtn" class="btn btn-outline-light" data-toggle="modal"
                         data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
                             aria-hidden="true"></i>Login/Register</a>
                 </li>
                 {{/if}}
             </ul>
-            <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
-                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
-                    placeholder="Search for quiz games" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
     </nav>
 
@@ -99,7 +99,7 @@
                         </form>
                     </div>
                   
-                    <small id='errorMsg' style="display: none;">
+                    <small id='errorMsg' class="text-center" style="display: none;">
                     </small>
         
                 </div>
@@ -145,8 +145,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        
-                    <small id='suemsg' style="display: none; overflow:hidden;"></small>
+                    <small id='suemsg' class="text-center" style="display: none; overflow:hidden;"></small>
                         <form class="form-group" action="/signupuser" method="POST">
                             <div class="Username">
                                 <div class="form-group">
