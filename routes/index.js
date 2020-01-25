@@ -113,8 +113,8 @@ routes.post("/signupuser", function(req, res) {
     var pwdObj = saltHashPassword(req.body.pwd.trim());
     var data = {
         name: "",
-        usn: req.body.usn,
-        email: req.body.email,
+        usn: req.body.usn.trim(),
+        email: req.body.email.trim(),
         pwd: pwdObj.pwd,
         slt: pwdObj.slt,
         dp: dDP,
@@ -241,10 +241,12 @@ routes.get("/reset/token/:t", function(req, res) {
 });
 
 routes.post("/pwd", function(req, res) {
-    DB.collection('ResetLinks').remove({ usn: req.body.usn }, function(err, deletedRes) {
-        if (err || deletedRes.result.n < 1) { res.send("Link Expired!"); } else {
-            DB.collection('Users').findOneAndUpdate({ usn: req.body.usn }, { $set: { pwd: req.body.pwd } }, { returnOriginal: false }, function(err, result) {
-                res.redirect("/");
+    var pass = saltHashPassword(req.body.pwd.trim());
+
+    DB.collection('ResetLinks').remove({ usn: req.body.usn.trim() }, function(err, deletedRes) {
+        if (err || deletedRes.result.n < 1) { res.status(410).send("Link Expired!"); } else {
+            DB.collection('Users').findOneAndUpdate({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { returnOriginal: false }, function(err, result) {
+                res.status(200).redirect("Password Updated!");
             });
         }
     });
