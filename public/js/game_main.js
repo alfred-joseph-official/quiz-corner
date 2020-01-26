@@ -1,23 +1,23 @@
-var data = []
-fetchData()
+var gameData = []
+getGamesList()
 
 
-function fetchData() {
-    if (data.length > 0) setData();
+function getGamesList() {
+    if (gameData.length > 0) setGameInfo();
     else {
         $.ajax({
             type: "POST",
             url: "/getgames",
             success: function(response) {
-                
+
                 // setTimeout(() => {
                 //     $('#spinner').hide('slow');
                 // }, 3000);
-                data = response;
-                // console.log(data)
-                setData();
-                
-                
+                gameData = response;
+                // console.log(gameData)
+                setGameInfo();
+
+
             },
             error: function(response) {
                 // console.log(response);
@@ -27,11 +27,11 @@ function fetchData() {
     }
 }
 
-function setData() { 
-    $('document').ready(function () {
-         var gameId = parseInt($('#game_id').val())
-         $('#GameName').text(data[gameId - 1].name)
-         $('#GameInfo').text(data[gameId - 1].info)
-         $('#Rules').text(data[gameId - 1].rules)
-     })
- }
+function setGameInfo() {
+    $('document').ready(function() {
+        var gameId = parseInt($('#game_id').val())
+        $('#GameName').text(gameData[gameId - 1].name)
+        $('#GameInfo').text(gameData[gameId - 1].info)
+        $('#Rules').text(gameData[gameId - 1].rules)
+    })
+}

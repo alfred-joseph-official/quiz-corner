@@ -141,7 +141,7 @@ routes.post("/signupuser", function(req, res) {
 });
 
 
-routes.post('/loginuser', function(req, res) {
+routes.post('/login', function(req, res) {
     DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
         if (err) {
 
@@ -269,15 +269,31 @@ routes.get('/', function(req, res) {
     //     res.render('profile')
     // } else {
     if (req.session.user) {
-        res.render('homepage', {
+        if (req.query.redirect) {
+            console.log('logged ' + req.query.redirect);
+
+            res.render('homepage', {
+                layout: "home_layout",
+                user: req.signedCookies['user'],
+                redir: true
+            });
+        } else res.render('homepage', {
             layout: "home_layout",
-            user: req.signedCookies['user'],
+            user: req.signedCookies['user']
         });
     } else {
-        res.render('homepage', {
+        if (req.query.redirect) {
+
+            console.log('not logged ' + req.query.redirect);
+            res.render('homepage', {
+                layout: "home_layout",
+                loginfailed: req.query.login,
+                redir: true
+            });
+        } else res.render('homepage', {
             layout: "home_layout",
-            loginfailed: req.query.loginfailed
-        })
+            loginfailed: req.query.login
+        });
 
     }
 
@@ -312,16 +328,32 @@ routes.post('/getgames', function(req, res) {
     });
 })
 
+function checkRedirect(str) {
+    //ceck if redirect is broken
+    return str;
+}
 routes.use(function(req, res, next) {
+    var redir;
     if (req.session.user && req.signedCookies)
         if (req.session.user === req.signedCookies['user'].user) next();
         else {
+            // redir = '/'
+            redir = '/?login=false&redirect="' + req.protocol + '://' + req.get('Host') + req.originalUrl + '"';
+            console.log(redir);
+            redir = encodeURI(redir);
+            console.log(redir);
             res.cookie('user', "", { signed: true, maxAge: Date.now() });
-            res.redirect("/");
+            res.redirect(redir);
         }
     else {
+        redir = '/?login=false&redirect=' + req.protocol + '://' + req.get('Host') + req.originalUrl;
+        console.log(redir);
+
+        redir = encodeURI(redir);
+        console.log(redir);
+
         res.cookie('user', "", { signed: true, maxAge: Date.now() });
-        res.redirect("/");
+        res.redirect(redir);
     }
 });
 

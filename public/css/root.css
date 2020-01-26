@@ -1,5 +1,5 @@
 body {
-    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    background-image: linear-gradient(to bottom, #dfe9f3 0%, white 100%);
     overflow-x: hidden;
     height: 100%!important;
 }
@@ -98,7 +98,7 @@ body {
 
 @media only screen and (max-width: 600px) {
     body {
-        background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+        background-image: linear-gradient(to bottom, #dfe9f3 0%, white 100%);
         overflow-x: hidden;
         height: 100%!important;
     }

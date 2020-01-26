@@ -5,6 +5,10 @@ $('document').ready(function() {
     //         pwd: $('#loginpwd').val().trim()
     //     }
     //     console.log(data);
+    var redirIp = $('#redir');
+    if (redirIp.val()) {
+        $('#modalBtn')[0].click();
+    }
     $('#signInBtn').click(function() {
         var pingServer = true;
         const errEle = $('#errorMsg');
@@ -27,7 +31,7 @@ $('document').ready(function() {
         if (pingServer) {
             $.ajax({
                 type: "POST",
-                url: "/loginuser",
+                url: "/login",
                 data: data,
                 success: function(response) {
                     console.log(response)
@@ -113,10 +117,33 @@ $('document').ready(function() {
     });
 });
 
+$.urlParam = function(name) {
+    // var urlParams = new URLSearchParams(window.location.search);
+    // if (urlParams.has(name)) {
+    //     return urlParams.get(name);
+    // } else return false;
+    var str = window.location.search;
+    return str.split(name + '=').pop();
+}
+
+// $.urlParam = function(name) {
+//     var results = new RegExp('[\?&]' + name + '=([^&#]*)')
+//         .exec(window.location.search);
+
+//     return (results !== null) ? results[1] || 0 : false;
+// }
+
 function setAlert(str, doc, clss) {
     doc.text(str).removeClass().addClass(clss).show();
     setTimeout(() => {
         doc.hide('slow');
-        if (clss == 'text-success') window.location.href = '/';
+        if (clss == 'text-success') {
+            var redir = $.urlParam('redirect');
+            // console.log(decodeURI(window.location.search));
+
+            console.log(redir);
+
+            window.location.href = redir != false ? redir : '/';
+        };
     }, 2000);
 }

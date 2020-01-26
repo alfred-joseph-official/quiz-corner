@@ -84,8 +84,20 @@ function setData() {
     questDiv.text("Select the " + question.ques + " " + question.color + ".");
     for (let i = 0; i < 4; i++) {
         optionsDiv[i].text(question.options[i].word);
+        let clr = '';
+        switch (question.options[i].color) {
+            case 'Yellow':
+                clr = '#ffc107';
+                break;
+            case 'Orange':
+                clr = '#f99b41';
+                break;
+            default:
+                clr = question.options[i].color;
+                break;
+        }
         optionsDiv[i].css({
-            'color': question.options[i].color
+            'color': clr
                 // 'textShadow': 'black 0px 0px 15px'
         });
     }

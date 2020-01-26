@@ -55,7 +55,9 @@
             </ul>
         </div>
     </nav>
-
+    {{#if redir}}
+    <input id='redir' type="text" value="{{redir}}" hidden>
+    {{/if}}
 
     {{!-- modal for login --}}
     {{!-- <input type="text" class="auth" style="display: none;" value="{{user.user}}"> --}}
@@ -207,7 +209,7 @@
             <div class="col-md-8 bg-light shadow rounded mainDiv">
                 <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
                     <div class="carousel-inner">
-                        {{#if user.loggedin}}
+                        {{!-- {{#if user.loggedin}} --}}
                         <div class="carousel-item active">
                             <a class="example_e" href="/game/?game_id=1" onclick="move()"><i
                                     class="fa fa-play-circle-o"></i></a>
@@ -232,7 +234,7 @@
                             <div class="container blackCon"></div>
                             <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
                         </div>
-                        {{else}}
+                        {{!-- {{else}}
                         <div class="carousel-item active">
                             <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
                                     class="fa fa-play-circle-o"></i></a>
@@ -256,8 +258,8 @@
                                     class="fa fa-play-circle-o"></i></a>
                             <div class="container blackCon"></div>
                             <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
-                        </div>
-                        {{/if}}
+                        </div> --}}
+                        {{!-- {{/if}} --}}
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
                             data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -405,8 +407,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+    {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
+    {{!-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
