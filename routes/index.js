@@ -704,6 +704,10 @@ routes.post('/result', function(req, res) {
     }
 });
 
+routes.get('/leaderboard', function (req,res) { 
+    res.render('leaderboard')
+ })
+
 function bondUpdate(req, res, upFlag) {
     let token = req.body.token;
     DB.collection('Knowme').findOne({ 'token': token }, function(err, result) {

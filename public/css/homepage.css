@@ -150,6 +150,11 @@ ol li img:hover {
     .banner1 {
         display: none;
     }
+
+    .mainCon {
+        padding: 0%;
+    }
+
     .mainDiv {
         width: 100%!important;
         height: 100%!important;
@@ -169,8 +174,8 @@ ol li img:hover {
     .fa-play-circle-o {
         color: white;
         position: absolute;
-        margin-left: 32%;
-        margin-top: 10%;
+        margin-left: 35%;
+        margin-top: 12%;
         z-index: 3;
         font-size: 130px;
         filter: opacity(70%);
@@ -187,10 +192,10 @@ ol li img:hover {
     }
     ol li img {
         position: relative;
-        right: 10%;
+        right: 5%;
         bottom: 60px;
-        height: 75px;
-        width: 70px;
+        height: 70px;
+        width: 80px;
         transition: all .2s ease-in-out;
     }
     ol li img:hover {

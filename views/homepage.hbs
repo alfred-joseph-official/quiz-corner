@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,15 +24,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-             <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+             <form class="form-inline mt-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
                 <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
                     placeholder="Search for quiz games" aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto mt-1">
                 {{#if user.loggedin}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                    <a class="nav-link dropdown-toggle text-light pt-0" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="{{user.imglink}}" alt="profilepicture"
                             class="rounded-circle img-fluid navImg">
@@ -210,7 +210,8 @@
         <img height="370px" src="/img/banner1.png" alt="">
     </div> --}}
     <br>
-    <div class="container">
+    <br><br><br>
+    <div class="container mainCon">
         <div id="row" class="row">
             <div class="col-md-8 bg-light shadow rounded mainDiv">
                 <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
@@ -295,13 +296,13 @@
             <div class="row">
                 <div class="col-md-8 ml-5">
                     <ol class="carousel-indicators ml-2">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-1 w-100"><img
                                 src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-1 w-100"><img
                                 src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-1 w-100"><img
                                 src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-1 w-100">
                             <img src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
                     </ol>
                 </div>
@@ -379,10 +380,10 @@
             <br>
             <h4 class="text-center text-white">About us</h4><br>
             <div class="row">
-                <div class="col-4 border-right">
+                <div class="col-4 border-right SloginDiv">
                     <small class="text-white offset-3"><strong>Follow</strong></small>
-                                        <div class="Slogin mt-2"><a href="https://www.facebook.com/Quiz-Corner-110405373841100/?modal=admin_todo_tour" class="sBtn fa fa-facebook"></a><a href="#"
-                            class="sBtn fa fa-google"></a><a href="https://twitter.com/CornerQuiz" class="sBtn fa fa-twitter"></a></div>
+                    <div class="Slogin mt-2"><a href="https://www.facebook.com/Quiz-Corner-110405373841100/?modal=admin_todo_tour" class="sBtn fa fa-facebook"></a><a href="#"
+                    class="sBtn fa fa-google"></a><a href="https://twitter.com/CornerQuiz" class="sBtn fa fa-twitter"></a></div>
                 </div>
                 <div class="col-4 text-center border-right">
                     <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
@@ -414,6 +415,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{{!--<link rel="stylesheet" href="/resources/demos/style.css">--}}
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
