@@ -27,6 +27,15 @@ app.engine('hbs', hbs({
                 this.switch_break = true;
                 return options.fn(this);
             }
+        },
+
+        add: function(lhs, operator, rhs, options) {
+            lhs = parseFloat(lhs);
+            rhs = parseFloat(rhs);
+
+            return {
+                "+": lhs + rhs
+            }[operator];
         }
     }
 }));

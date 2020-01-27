@@ -3,7 +3,7 @@
         <h3 class="text-center text-secondary mb-4"><strong>Leaderboards</strong></h3>
                 <div class="container mt-3 tableScroll">
                      <div class="table-responsive-sm">
-                        <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
+                        <table id="lb_table" class="table table-hover table-dark rounded" style="display: {{#unless lb}}none{{/unless}};">
                             <thead>
                                 <tr>
                                     <th>Rank</th>
@@ -12,11 +12,20 @@
                                 </tr>
                             </thead>
                             <tbody id="lb_body">
+                                {{#each top}}
+                                <tr>
+                                    <td>{{add @index '+' 1}}</td>
+                                    <td>{{this.usn}}</td>
+                                    <td>{{this.score}}</td>
+                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
+                        {{#unless lb}}
                         <div id="empty_lb" class="text-center" style="font-family: 'gill sans';">
                             <h3 style="color: rgb(201, 201, 201);">Looks like no one has made it to the leaderboard yet!</h3>
                         </div>
+                        {{/unless}}
                     </div> 
                 </div>
             </div>

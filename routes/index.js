@@ -134,15 +134,21 @@ routes.post("/signupuser", function(req, res) {
             }
         } else {
             DB.collection('Users').insertOne(data, function(err, result) {
-                res.status(200).send('Success! Please Login!');
-            })
+                req.session.user = data.usn
+                var obj = {
+                    'user': data.usn,
+                    'loggedin': true,
+                    'imglink': data.dp
+                };
+                res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).status(200).send('Success!');
+            });
         }
     });
 });
 
 
 routes.post('/login', function(req, res) {
-    DB.collection('Users').findOne({ usn: req.body.usn }, function(err, result) {
+    DB.collection('Users').findOne({ $or: [{ email: req.body.usn }, { usn: req.body.usn }] }, function(err, result) {
         if (err) {
 
             res.redirect('/')
@@ -162,7 +168,7 @@ routes.post('/login', function(req, res) {
         } else {
             //TODO Validations
 
-            res.status(401).send('Incorrect Email Id or Password!');
+            res.status(401).send('User Not Found!');
         }
 
     })
@@ -549,10 +555,10 @@ routes.get("/uniq", function(req, res) {
         if (req.query.t) {
             DB.collection('Knowme').findOne({ token: req.query.t }, function(err, result) {
                 if (err) res.status(400).end();
-                // console.log(result);
+
                 if (req.session.user != result.usn) {
                     result.list.forEach(function(item) {
-                        if (item.usn) {
+                        if (item.usn == req.session.user) {
                             cPFlag = false;
                         }
                     });
@@ -569,11 +575,18 @@ routes.get("/uniq", function(req, res) {
                         });
                     } else {
                         //TODO RENDER CANT PLAY! YOU've ALREADY PLAYED THIS GAME! // LeaderBoardPage
-                        res.json(result.list);
+                        res.render('leaderboard', {
+                            top: result.list,
+                            lb: true
+                        });
                     }
                 } else {
-                    //TODO RENDER YOU CANT PLAY YOUR OWN GAME! // LeaderBoardPage
-                    res.json(result.list);
+                    console.log(result.length);
+
+                    res.render('leaderboard', {
+                        top: result.list,
+                        lb: (result.list.length > 0) ? true : false
+                    });
                 }
             });
         } else {
@@ -704,9 +717,9 @@ routes.post('/result', function(req, res) {
     }
 });
 
-routes.get('/leaderboard', function (req,res) { 
-    res.render('leaderboard')
- })
+routes.get('/leaderboard', function(req, res) {
+    res.render('leaderboard', { top: result });
+})
 
 function bondUpdate(req, res, upFlag) {
     let token = req.body.token;

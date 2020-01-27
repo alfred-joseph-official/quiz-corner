@@ -41,7 +41,7 @@ $('document').ready(function() {
                 success: function(response) {
                     // console.log(response)
                     setAlert(response, $('#errorMsg'), 'text-success');
-                    btnLoadingAnim(signInBtn, false, 'Sign In');
+                    btnLoadingAnim(signInBtn, false, 'Success!');
                 },
                 error: function(response) {
                     // console.log(response);
