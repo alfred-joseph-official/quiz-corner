@@ -82,7 +82,9 @@
         cursor: pointer;
     }
     #h3 {
+        position: relative;
         margin-left: 10px;
+        left: 8%;
     }
     #editDP:hover {
         filter: opacity(100%);
@@ -92,16 +94,36 @@
         width: 100%;
         object-fit: noner;
     }
+
+    #infoDiv {
+        position: relative;
+        right: 0;
+    }
+
+    .SocialDiv {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 
 /* For new_password page */
+
+.row {
+    padding: 0;
+}
 
 @media screen and (max-width: 600px) {
     .w-50 {
         width: 100%!important;
         margin-left: 0!important;
     }
+
+    .SloginDiv {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
     #inpBox {
         display: flex;
         flex-direction: column;

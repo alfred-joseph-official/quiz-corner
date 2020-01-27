@@ -279,11 +279,14 @@
     .imgS {
         height: 100%!important;
     }
+
+    .mainCon {
+        padding: 0;
+    }
+
     #btn {
-        position: absolute;
-        z-index: 1;
         left: 35%;
-        top: 22%;
+        top: 30%;
     }
     .adImg {
         display: none;
@@ -302,9 +305,11 @@
     }
     #gamecenter {
         margin: 0;
+        padding: 0;
     }
     #resultcenter {
         margin: 0;
+        padding: 0;
     }
     .linkDiv {
         border: dashed 1px grey;
@@ -356,7 +361,7 @@
     .bond-container {
         position: relative;
         top: 5%;
-        left: 28%;
+        left: 31%;
         overflow: hidden;
         text-align: center;
         transform: translate(-33.33%, 0);

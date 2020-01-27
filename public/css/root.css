@@ -102,8 +102,21 @@ body {
         overflow-x: hidden;
         height: 100%!important;
     }
+
+    #GameName {
+        margin-left: 0!important;
+    }
+
+    #GameInfo {
+        margin-left: 0!important;
+    }
+
+    #Rules {
+        margin-left: 0!important;
+    }
+
     .navbar {
-        background-image: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+        background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
     }
      ::placeholder {
         font-weight: lighter;
@@ -133,15 +146,21 @@ body {
     }
     .Slogin {
         position: relative;
-        left: 12%;
+        left: 8%;
     }
+
+    .SloginDiv {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
     .sBtn {
-        padding: 8px;
+        padding: 6px;
         font-size: 13px;
         width: 25%;
         text-align: center;
         text-decoration: none;
-        margin: 5px 4px;
+        margin: 2px 4px;
         border: 2px solid blanchedalmond;
         border-radius: 50%;
         filter: brightness(80%);
@@ -167,7 +186,12 @@ body {
         font-weight: bold;
     }
     .footer {
-        height: 15%;
+        height: 15%!important;
         background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
+    }
+
+    .row {
+        padding-right: 0;
+        margin: 0%;
     }
 }
