@@ -9,7 +9,10 @@ $('document').ready(function() {
     if (redirIp.val()) {
         $('#modalBtn')[0].click();
     }
-    $('#signInBtn').click(function() {
+    const signInBtn = $('#signInBtn');
+    const signUpBtn = $('#signUpBtn');
+    const resetBtn = $('#reset');
+    signInBtn.click(function() {
         var pingServer = true;
         const errEle = $('#errorMsg');
 
@@ -29,22 +32,27 @@ $('document').ready(function() {
         }
 
         if (pingServer) {
+            btnLoadingAnim(signInBtn, true, 'Sign In');
+            signInBtn.prop('disabled', true);
             $.ajax({
                 type: "POST",
                 url: "/login",
                 data: data,
                 success: function(response) {
-                    console.log(response)
+                    // console.log(response)
                     setAlert(response, $('#errorMsg'), 'text-success');
+                    btnLoadingAnim(signInBtn, false, 'Sign In');
                 },
                 error: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     setAlert(response.responseText, $('#errorMsg'), 'text-danger');
+                    btnLoadingAnim(signInBtn, false, 'Sign In');
+                    signInBtn.prop('disabled', false);
                 }
             });
         }
     });
-    $('#signUpBtn').click(function() {
+    signUpBtn.click(function() {
         let pingServer = true;
         var data = {
             usn: $('#susn').val(),
@@ -72,23 +80,28 @@ $('document').ready(function() {
         }
 
         if (pingServer) {
+            btnLoadingAnim(signUpBtn, true, 'Sign Up');
+            signUpBtn.prop('disabled', true);
             $.ajax({
                 type: "POST",
                 url: "/signupuser",
                 data: data,
                 success: function(response) {
-                    console.log(response)
+                    // console.log(response)
                     setAlert(response, $('#suemsg'), 'text-success');
+                    btnLoadingAnim(signUpBtn, false, 'Sign Up');
                 },
                 error: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     setAlert(response.responseText, $('#suemsg'), 'text-danger');
+                    btnLoadingAnim(signUpBtn, false, 'Sign Up');
+                    signUpBtn.prop('disabled', false);
                 }
             });
         }
     });
 
-    $('#reset').click(function() {
+    resetBtn.click(function() {
         var pingServer = true;
         var data = {
             field: $('#resInp').val()
@@ -100,22 +113,36 @@ $('document').ready(function() {
         }
 
         if (pingServer) {
+            btnLoadingAnim(resetBtn, true, '');
+            resetBtn.prop('disabled', true);
             $.ajax({
                 type: "POST",
                 url: "/forgot",
                 data: data,
                 success: function(response) {
-                    console.log(response)
+                    // console.log(response)
                     setAlert(response, $('#resetAlert'), 'text-success');
+                    btnLoadingAnim(resetBtn, false, 'Reset');
                 },
                 error: function(response) {
-                    console.log(response);
+                    // console.log(response);
                     setAlert(response.responseText, $('#resetAlert'), 'text-danger');
+                    btnLoadingAnim(resetBtn, false, 'Reset');
+                    resetBtn.prop('disabled', false);
                 }
             });
         }
     });
 });
+
+function btnLoadingAnim(btn, state, text) {
+    btn.empty();
+    if (state) {
+        btn.html('<span class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span>' + text);
+    } else {
+        btn.html(text);
+    }
+}
 
 $.urlParam = function(name) {
     // var urlParams = new URLSearchParams(window.location.search);

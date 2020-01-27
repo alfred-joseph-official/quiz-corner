@@ -157,12 +157,12 @@ routes.post('/login', function(req, res) {
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).status(200).send('Success!');
             } else {
                 //TODO validations
-                res.status(403).send('Incorrect Email Id or Password!');
+                res.status(401).send('Incorrect Email Id or Password!');
             }
         } else {
             //TODO Validations
 
-            res.status(403).send('Incorrect Email Id or Password!');
+            res.status(401).send('Incorrect Email Id or Password!');
         }
 
     })
@@ -178,7 +178,7 @@ routes.post("/forgot", function(req, res) {
     DB.collection('Users').findOne({ $or: [{ email: req.body.field }, { usn: req.body.field }] }, function(err, userObj) {
         if (err || !userObj) {
             // res.redirect('/');
-            res.status(413).send("User Not Found!");
+            res.status(404).send("User Not Found!");
         } else {
             crypto.randomBytes(16, function(err, buffer) {
                 var token = buffer.toString('hex');
@@ -261,6 +261,21 @@ routes.post("/pwd", function(req, res) {
     });
 });
 
+routes.post('/gotogame', function(req, res) {
+    if (req.body.game == 'Bond It') {
+        res.redirect('game/?game_id=1')
+    } else if (req.body.game == "Flag Up") {
+        res.redirect('game/?game_id=2')
+    } else if (req.body.game == "Iconic") {
+        res.redirect('game/?game_id=3')
+    } else if (req.body.game == "Colorista") {
+        res.redirect('game/?game_id=4')
+    } else {
+        var referer = req.header('Referer')
+        res.redirect(referer)
+    }
+})
+
 routes.get('/', function(req, res) {
     // console.log(req.signedCookies);
 
@@ -270,8 +285,6 @@ routes.get('/', function(req, res) {
     // } else {
     if (req.session.user) {
         if (req.query.redirect) {
-            console.log('logged ' + req.query.redirect);
-
             res.render('homepage', {
                 layout: "home_layout",
                 user: req.signedCookies['user'],
@@ -283,8 +296,6 @@ routes.get('/', function(req, res) {
         });
     } else {
         if (req.query.redirect) {
-
-            console.log('not logged ' + req.query.redirect);
             res.render('homepage', {
                 layout: "home_layout",
                 loginfailed: req.query.login,
@@ -339,19 +350,13 @@ routes.use(function(req, res, next) {
         else {
             // redir = '/'
             redir = '/?login=false&redirect="' + req.protocol + '://' + req.get('Host') + req.originalUrl + '"';
-            console.log(redir);
             redir = encodeURI(redir);
-            console.log(redir);
             res.cookie('user', "", { signed: true, maxAge: Date.now() });
             res.redirect(redir);
         }
     else {
         redir = '/?login=false&redirect=' + req.protocol + '://' + req.get('Host') + req.originalUrl;
-        console.log(redir);
-
         redir = encodeURI(redir);
-        console.log(redir);
-
         res.cookie('user', "", { signed: true, maxAge: Date.now() });
         res.redirect(redir);
     }
@@ -910,27 +915,6 @@ routes.get('/autocomplete', function(req, res) {
             }
         })
         // res.json(result)
-})
-
-routes.post('/gotogame', function(req, res) {
-    console.log('I was called')
-        //console.log(req.header('Referer'))
-    if (req.body.game == 'Bond It') {
-        res.redirect('game/?game_id=1')
-    }
-    if (req.body.game == "Flag Up") {
-        res.redirect('game/?game_id=2')
-    }
-    if (req.body.game == "Iconic") {
-        res.redirect('game/?game_id=3')
-    }
-    if (req.body.game == "Colorista") {
-        res.redirect('game/?game_id=4')
-    } else {
-        var referer = req.header('Referer')
-        res.redirect(referer)
-    }
-
 })
 
 module.exports = routes
