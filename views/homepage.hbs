@@ -55,6 +55,10 @@
             </ul>
         </div>
     </nav>
+    <div id="myProgress">
+        <div id="myBar"></div>
+    </div>
+
     {{#if redir}}
     <input id='redir' type="text" value="{{redir}}" hidden>
     {{/if}}
@@ -92,8 +96,10 @@
                                         data-target="#exampleModal2" href="/forgot">Forgot Password?</a></small>
                             </div>
                             <div>
-                                <button type="button" id='signInBtn'
-                                    class="form-control btn w-50 offset-3 btn-success">Sign in</button><br>
+                                <button type="button" id='signInBtn' class="form-control btn w-50 offset-3 btn-success">
+                                    Sign in
+                                </button>
+                                <br>
                                 <small>
                                     <div class="font-weight-light text-center mt-3">
                                         Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
@@ -409,7 +415,8 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+{{!--<link rel="stylesheet" href="/resources/demos/style.css">--}}
+
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
