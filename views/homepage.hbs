@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" href="/img/logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/css/root.css">
+    <title>Welcome to Quiz Corner</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <form class="form-inline my-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
+                    placeholder="Search for quiz games" aria-label="Search">
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <ul class="navbar-nav ml-auto">
+                {{#if user.loggedin}}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{user.imglink}}" alt="profilepicture"
+                            class="rounded-circle img-fluid navImg">
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" style="text-decoration:none; " href="/profile" onclick="move()">My
+                            Profile</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" style="text-decoration:none" href="/logout" onclick="move()">Logout</a>
+                    </div>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                    <a href="/login" id="modalBtn" class="btn btn-outline-light" data-toggle="modal"
+                        data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
+                            aria-hidden="true"></i>Login/Register</a>
+                </li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
+    {{#if redir}}
+    <input id='redir' type="text" value="{{redir}}" hidden>
+    {{/if}}
+
+    {{!-- modal for login --}}
+    {{!-- <input type="text" class="auth" style="display: none;" value="{{user.user}}"> --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
+                            aria-hidden="true"></i>Login</h5>
+                    <a href="#" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <form class="form-group">
+                            <div class="form-group">
+                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="lusn"
+                                    placeholder="Username" name="usn" required
+                                    oninvalid="this.setCustomValidity('Enter your Username')"
+                                    oninput="setCustomValidity('')">
+                                <small id='lerrusn' style="display: none;"></small>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control m-1" id="lpwd" placeholder="Enter Password"
+                                    name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
+                                    oninput="setCustomValidity('')">
+                                    
+                                <small id='lerrpwd' class='pb-1' style="display: none;"></small>
+                                <small><a class="ml-2 Fpass d-block" data-toggle="modal" data-dismiss="modal"
+                                        data-target="#exampleModal2" href="/forgot">Forgot Password?</a></small>
+                            </div>
+                            <div>
+                                <button type="button" id='signInBtn'
+                                    class="form-control btn w-50 offset-3 btn-success">Sign in</button><br>
+                                <small>
+                                    <div class="font-weight-light text-center mt-3">
+                                        Don't have an account ? <a href="#" data-toggle="modal" data-dismiss="modal"
+                                            data-target="#exampleModal1">Sign up</a>
+                                    </div>
+                                </small>
+                            </div>
+                        </form>
+                    </div>
+                  
+                    <small id='errorMsg' class="text-center" style="display: none;">
+                    </small>
+        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for forgot password --}}
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-white bg-dark">
+                    <h5 class="modal-title" id="exampleModalLabel">Reset Password</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
+                    <div class="row mb-3">
+                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
+                            placeholder="Username / Email" required>
+                        <button id="reset" class="btn btn-primary col-2">Reset</button>
+                    </div>
+                    <div class="text-center">
+                        <small id='resetAlert' style="display: none;"></small>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- modal for signup --}}
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark">
+                    <h5 class="modal-title text-white" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
+                            aria-hidden="true"></i>Sign up</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                    <small id='suemsg' class="text-center" style="display: none; overflow:hidden;"></small>
+                        <form class="form-group" action="/signupuser" method="POST">
+                            <div class="Username">
+                                <div class="form-group">
+                                    <input type="text" pattern="^[a-zA-Z0-9]{3,}$" class="form-control m-1" id="susn"
+                                        placeholder="Username" name="usn" required
+                                        oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
+                                        oninput="setCustomValidity('')">
+                                <small id='serrusn' style="display: none;"></small>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group">
+                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                                    class="form-control m-1" id="semail" placeholder="Enter Email" name="email" required
+                                    oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
+                                    oninput="setCustomValidity('')">
+                                    
+                                <small id='serremail' style="display: none;"></small>
+                            </div>
+                            <div class="pwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="spwd"
+                                        placeholder="Enter Password" name="spwd" minlength="6" required
+                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                                        oninput="setCustomValidity('')">
+                                <small id='serrpwd' style="display: none;"></small>
+                                </div>
+                            </div>
+                            <div class="cpwd">
+                                <div class="form-group">
+                                    <input type="password" class="form-control m-1" id="cpwd"
+                                        placeholder="Re-enter Password" name="scpwd" required
+                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                                        
+                                <small id='serrcpwd' style="display: none;" ></small>
+                                </div>
+                                
+                            </div>
+                         <button type="button" id="signUpBtn" class="btn btn-primary form-control w-50 offset-3">Sign up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{!-- <div class="banner1">
+        <img height="370px" src="/img/banner1.png" alt="">
+    </div> --}}
+    <br>
+    <div class="container">
+        <div id="row" class="row">
+            <div class="col-md-8 bg-light shadow rounded mainDiv">
+                <div id="carouselExampleIndicators" class="carousel slide mt-3" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {{!-- {{#if user.loggedin}} --}}
+                        <div class="carousel-item active">
+                            <a class="example_e" href="/game/?game_id=1" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=2" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=3" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="/game/?game_id=4" onclick="move()"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        {{!-- {{else}}
+                        <div class="carousel-item active">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Bondit.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Flagup.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Iconic.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <a class="example_e" href="#" data-toggle="modal" data-target="#exampleModal"><i
+                                    class="fa fa-play-circle-o"></i></a>
+                            <div class="container blackCon"></div>
+                            <img src="/img/Colorista.jpeg" class="d-block w-100 imgS" alt="...">
+                        </div> --}}
+                        {{!-- {{/if}} --}}
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 bg-light rounded shadow ml-1" id="AdBlock">
+                <div class="container">
+                    ads
+                    <img class="adImg mt-1"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ9V3_c06_uBfcnE8PLPFvLFUHYzevEjKf0A2c3eMGekef_7QEZ"
+                        alt="">
+                    <img class="adImg mt-3" src="https://i.kym-cdn.com/photos/images/facebook/000/326/434/34c.jpg"
+                        alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 ml-5">
+                    <ol class="carousel-indicators ml-2">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active m-2 w-100"><img
+                                src="/img/Bondit.jpeg" class="d-block shadow" alt="..."></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1" class="active m-2 w-100"><img
+                                src="/img/Flagup.jpeg" class="d-block shadow" alt=".."></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2" class="active m-2 w-100"><img
+                                src="/img/Iconic.jpeg" class="d-block shadow" alt="..."></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="3" class="active m-2 w-100">
+                            <img src="/img/Colorista.jpeg" class="d-block shadow" alt="..."></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+            <br>
+            {{!-- <h4 class="font-weight-bold">More Games</h4>
+            <div class="d-flex flex-col">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-col">
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
+                        </div>
+                        <div class="flip-card-back">
+                            <h1>John Doe</h1>
+                            <p>Architect & Engineer</p>
+                            <p>We love that guy</p>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+        <div class="toast w-25" data-delay="3000">
+            <div class="toast-header text-white bg-transparent">
+                <strong class="mr-auto">Quiz Corner</strong>
+                <small>just now</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="toast-body" class="toast-body text-white">
+            </div>
+        </div>
+
+    <br>
+    <footer class="footer w-100">
+        <div class="conatiner">
+            <br>
+            <h4 class="text-center text-white">About us</h4><br>
+            <div class="row">
+                <div class="col-4 border-right">
+                    <small class="text-white offset-3"><strong>Follow</strong></small>
+                                        <div class="Slogin mt-2"><a href="https://www.facebook.com/Quiz-Corner-110405373841100/?modal=admin_todo_tour" class="sBtn fa fa-facebook"></a><a href="#"
+                            class="sBtn fa fa-google"></a><a href="https://twitter.com/CornerQuiz" class="sBtn fa fa-twitter"></a></div>
+                </div>
+                <div class="col-4 text-center border-right">
+                    <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
+                        so you can test your skills.</small>
+                </div>
+                <div class="col-4 text-center">
+                    <small class="text-white">
+                        <p> Designed and Devloped at Attain University.</p>
+                        <p> Call us - 1-800-XXX-020-XXX </p>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </footer>
+
+    <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights
+                Reserved.
+            </strong></small></footer>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{!-- <link rel="stylesheet" href="/resources/demos/style.css"> --}}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/root.js"></script>
+    <script src="/js/homepage.js"></script>
+</body>
+
+</html>
