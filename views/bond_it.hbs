@@ -1,125 +1,103 @@
 <div id="gamecenter" class="col-md-8 shadow rounded bg-light">
     <input id="game_id" type="text" value="{{gameId}}" hidden>
-        <div class="container">
-            <div class="container" id='spinner'>
-    <div id="preloader" class="bg-dark">
-        <div id="loader"></div>
-        <h2 class="Loading">Loading Please Wait...</h2>
-    </div>
-    </div>
-            <br>
-            {{#if secondUser}}
-            <h4 id="quizName" class="text-center text-secondary">How well do you know {{op}}?</h4>
-            <hr class="w-50">
-            {{else}}
-            <h4 id="quizName" class="text-center text-secondary">Create your challenge {{user.user}}!</h4>
-            <hr class="w-50">
-            {{/if}}
-            <br> <br>
-            <div id="quesMainDiv" class="container rounded bg-light shadow col-lg-8 p-4">
-                <h3 id="questno" class="text-center text-secondary">Question 1.</h3>
-                <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></div>
+    <div class="container">
+        <div class="container" id='spinner'>
+            <div id="preloader" class="bg-dark">
+                <div id="loader"></div>
+                <h2 class="Loading">Loading Please Wait...</h2>
             </div>
-            <br> <br>
-            <div class="row optionsRow">
-            <div id="opd-a" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                    class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
+        </div>
+        <br> {{#if secondUser}}
+        <h4 id="quizName" class="text-center text-secondary">How well do you know {{op}}?</h4>
+        <hr class="w-50"> {{else}}
+        <h4 id="quizName" class="text-center text-secondary">Create your challenge {{user.user}}!</h4>
+        <hr class="w-50"> {{/if}}
+        <br> <br>
+        <div id="quesMainDiv" class="container rounded bg-light shadow col-lg-8 p-4">
+            <h3 id="questno" class="text-center text-secondary">Question 1.</h3>
+            <div id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></div>
+        </div>
+        <br> <br>
+        <div class="row optionsRow">
+            <div id="opd-a" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
             </div>
-            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
-                    class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
+            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
         </div>
         <div class="row optionsRow">
-            <div id="opd-c" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                    class="p-2 rounded bg-warning text-white">C</span><small class="options"
-                    id="option-c"></small></div>
-            <div id="opd-d" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
-                    class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
-            </div>
-        <br>
+            <div id="opd-c" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-warning text-white">C</span><small class="options" id="option-c"></small></div>
+            <div id="opd-d" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
         </div>
+        <br>
     </div>
-    {{#if secondUser}}
-    <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
-        <div class="container"><br>
-            <h3 class="text-center text-secondary mb-4"><strong>Your Result!</strong></h3>
-            <nav>
-                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                        role="tab" aria-controls="nav-home" aria-selected="true">Bond</a>
-                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                        role="tab" aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
-                </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                    aria-labelledby="nav-home-tab">
-                    <h5 class="text-center text-secondary my-3">Your Bond with {{op}} is<strong id='resultinfo'> </strong></h5>
-                    <div style="position: relative;">
-                        <div class="bond-container">
-                            <div class="semi-a"></div>
-                            <div class="semi-b"></div>
-                            <div class="semi-c"></div>
-                            <div class="semi-data">
-                                <h1 id="percent"></h1>
-                            </div>
+</div>
+{{#if secondUser}}
+<div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
+    <div class="container"><br>
+        <h3 class="text-center text-secondary mb-4"><strong>Your Result!</strong></h3>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Bond</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <h5 class="text-center text-secondary my-3">Your Bond with {{op}} is<strong id='resultinfo'> </strong></h5>
+                <div style="position: relative;">
+                    <div class="bond-container">
+                        <div class="semi-a"></div>
+                        <div class="semi-b"></div>
+                        <div class="semi-c"></div>
+                        <div class="semi-data">
+                            <h1 id="percent"></h1>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                     <div class="container mt-3 tableScroll">
-                        <div class="table-responsive-sm">
-                            <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
-                                <thead>
-                                    <tr>
-                                        <th>Rank</th>
-                                        <th>Username</th>
-                                        <th>Score</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="lb_body">
-                                </tbody>
-                            </table>
-                            <div id="empty_lb" class="text-center">
-                                <h1>Be the first!</h1>
-                            </div>
-                        </div> 
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="container mt-3 tableScroll">
+                    <div class="table-responsive-sm">
+                        <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Username</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lb_body">
+                            </tbody>
+                        </table>
+                        <div id="empty_lb" class="text-center">
+                            <h1>Be the first!</h1>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center">
-                <div class="text-secondary mt-3"><strong>Did you like the game?</strong></div>
-                <a href="#" data-toggle="modal" data-target="#exampleModal"
-                    class="btn btn-danger w-50 mt-2 text-white">Create your own
-                    challenge</a></div><br>
         </div>
+        <div class="text-center">
+            <div class="text-secondary mt-3"><strong>Did you like the game?</strong></div>
+            <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger w-50 mt-2 text-white">Create your own
+                    challenge</a></div><br>
     </div>
-    {{else}}
-    <div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
-        <div class="container">
-            <h4 class="text-center text-secondary mt-3">Your Challenge is Ready!</h4>
-            <div class="text-center rounded linkDiv col-md-6 py-2 mt-2">
-                <div class="shareLink"><b>Share this link with your friends</b></div>
+</div>
+{{else}}
+<div style="display:none" id="resultcenter" class="col-md-8 shadow rounded bg-light">
+    <div class="container">
+        <h4 class="text-center text-secondary mt-3">Your Challenge is Ready!</h4>
+        <div class="text-center rounded linkDiv col-md-6 py-2 mt-2">
+            <div class="shareLink"><b>Share this link with your friends</b></div>
 
-                <input class="rounded-pill p-1 mt-2 text-muted" type="text" name="uniqueLink"
-                    placeholder="website/xxxxxx" id="uniqueLink" readonly>
-                <button type="button" style='font-size:16px' onclick="copyLink('#uniqueLink')"
-                    class="rounded-circle btn btn-outline-dark mb-1" data-container="body" data-toggle="popover"
-                    data-placement="top" data-content="Link copied!"><i class='fa fa-copy'></i></button>
-            </div>
-            {{!-- Tabbed Bond --}}
-
-            {{!-- MOdal Bond --}}
-            <!-- Load Facebook SDK for JavaScript -->
-            <script async defer crossorigin="anonymous"
-                src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
-            <div id="shareBtns" class="col-md-8 mt-2">
-                <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a
-                        target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb"
-                        onclick="setFbLink()"><i class="fa fa-facebook-f pr-1"></i>Facebook share</a></div>
-                <div data-href="http://www.google.com" data-layout="button" data-size="large"><a
-                        class="btn btn-tw " id="twitterlink" target="_blank" href="" onclick="setTwLink()"
-                        data-size="large"><i class="fa fa-twitter pr-1"></i>Twitter share</a></div>
-            </div>
+            <input class="rounded-pill p-1 mt-2 text-muted" type="text" name="uniqueLink" placeholder="website/xxxxxx" id="uniqueLink" readonly>
+            <button type="button" style='font-size:16px' onclick="copyLink('#uniqueLink')" class="rounded-circle btn btn-outline-dark mb-1" data-container="body" data-toggle="popover" data-placement="top" data-content="Link copied!"><i class='fa fa-copy'></i></button>
+        </div>
+        {{!-- Tabbed Bond --}} {{!-- MOdal Bond --}}
+        <!-- Load Facebook SDK for JavaScript -->
+        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v5.0&appId=3027158610694151&autoLogAppEvents=1"></script>
+        <div id="shareBtns" class="col-md-8 mt-2">
+            <div data-href="http://www.google.com" data-layout="button" class="mr-2" data-size="large"><a target="_blank" href="" class="fb-xfbml-parse-ignore shared btn btn-fb" onclick="setFbLink()"><i class="fa fa-facebook-f pr-1"></i>Facebook share</a></div>
+            <div data-href="http://www.google.com" data-layout="button" data-size="large"><a class="btn btn-tw " id="twitterlink" target="_blank" href="" onclick="setTwLink()" data-size="large"><i class="fa fa-twitter pr-1"></i>Twitter share</a></div>
+        </div>
 
         <div class="container mt-3 tableScroll">
             <div class="table-responsive-sm">
@@ -137,13 +115,13 @@
                 <div id="empty_lb" class="text-center">
                     <h3 class="text-secondary">Looks like no one has played your game yet!</h3>
                 </div>
-            </div> 
+            </div>
         </div>
         <div class="text-center">
             <div class="text-secondary mt-3"><strong>Want to play more games like this?</strong></div>
             <a href="/" class="btn btn-danger w-50 mt-2 text-white" onclick="move()">Go</a>
         </div>
         <br>
-</div>
+    </div>
 </div>
 {{/if}}

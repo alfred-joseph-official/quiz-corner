@@ -1,37 +1,42 @@
 <div id="resultcenter" class="col-md-8 shadow rounded bg-light">
     <div class="container"><br>
         <h3 class="text-center text-secondary mb-4"><strong>Leaderboards</strong></h3>
-                <div class="container mt-3 tableScroll">
-                     <div class="table-responsive-sm">
-                        <table id="lb_table" class="table table-hover table-dark rounded" style="display: {{#unless lb}}none{{/unless}};">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Username</th>
-                                    <th>Score</th>
-                                </tr>
-                            </thead>
-                            <tbody id="lb_body">
-                                {{#each top}}
-                                <tr>
-                                    <td>{{add @index '+' 1}}</td>
-                                    <td>{{this.usn}}</td>
-                                    <td>{{this.score}}</td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                        {{#unless lb}}
-                        <div id="empty_lb" class="text-center" style="font-family: 'gill sans';">
-                            <h3 style="color: rgb(201, 201, 201);">Looks like no one has made it to the leaderboard yet!</h3>
-                        </div>
-                        {{/unless}}
-                    </div> 
+        <div class="container mt-3 tableScroll">
+            <div class="table-responsive-sm">
+                <table id="lb_table" class="table table-hover table-dark rounded" style="display: {{#unless lb}}none{{/unless}};">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lb_body">
+                        {{#each top}}
+                        <tr>
+                            <td>{{add @index '+' 1}}</td>
+                            <td>{{this.usn}}</td>
+                            <td>{{this.score}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+                {{#unless lb}}
+                <div id="empty_lb" class="text-center" style="font-family: 'gill sans';">
+                    <h3 style="color: rgb(201, 201, 201);">Looks like no one has made it to the leaderboard yet!</h3>
                 </div>
+                {{/unless}}
             </div>
-            <div class="text-center">
-            <div class="text-secondary mt-3"><strong>Can you beat it?</strong></div>
-            <button class="btn btn-danger w-50 mt-2 text-white" onclick="restart()">Click Here</button></div>
-            <br>
         </div>
-        
+    </div>
+    <div class="text-center">
+        <div class="alertUser d-flex justify-content-center mt-3 mb-1">
+            <div class="alert alert-danger p-2 w-75" role="alert">
+                <strong>Error!</strong>{{#if op}} You can't answer your own questions!{{else}} Let's play fair! You've already answered those questions!{{/if}}
+            </div>
+        </div>
+        <div class="text-secondary"><strong>Wanna Checkout Other Games?</strong></div>
+        <button class="btn btn-danger w-50 mt-2 text-white" onclick="window.location.href='/'">Click Here</button>
+    </div>
+    <br>
+</div>

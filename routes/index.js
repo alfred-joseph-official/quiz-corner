@@ -258,7 +258,7 @@ routes.post("/pwd", function(req, res) {
     DB.collection('ResetLinks').remove({ usn: req.body.usn.trim() }, function(err, deletedRes) {
         if (err || deletedRes.result.n < 1) { res.redirect('/linkexpired'); } else {
             DB.collection('Users').update({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { upsert: true }, function(err, result) {
-                res.redirect("/");
+                res.status(200).send("Password Changed!");
             });
             // DB.collection('Users').findOneAndUpdate({ usn: req.body.usn.trim() }, { $set: { pwd: pass.pwd, slt: pass.slt } }, { returnOriginal: false }, function(err, result) {
             //     res.redirect("/");
@@ -577,15 +577,15 @@ routes.get("/uniq", function(req, res) {
                         //TODO RENDER CANT PLAY! YOU've ALREADY PLAYED THIS GAME! // LeaderBoardPage
                         res.render('leaderboard', {
                             top: result.list,
-                            lb: true
+                            lb: true,
+                            op: false
                         });
                     }
                 } else {
-                    console.log(result.length);
-
                     res.render('leaderboard', {
                         top: result.list,
-                        lb: (result.list.length > 0) ? true : false
+                        lb: (result.list.length > 0) ? true : false,
+                        op: true
                     });
                 }
             });

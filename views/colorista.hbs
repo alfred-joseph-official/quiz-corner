@@ -12,23 +12,19 @@
         <hr class="w-50">
         <br>
         <div class="container rounded bg-light shadow col-8 p-4">
-            {{!-- <h3 id="questno" class="text-center text-secondary">Question 1.</h3> --}}
+            {{!--
+            <h3 id="questno" class="text-center text-secondary">Question 1.</h3> --}}
             <h4 id="quesDiv" class="text-center font-weight-light text-secondary mt-3"></h4>
         </div>
         <br> <br>
-       <div class="row optionsRow">
-            <div id="opd-a" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                    class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
+        <div class="row optionsRow">
+            <div id="opd-a" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-success text-white">A</span><small class="options" id="option-a"></small>
             </div>
-            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
-                    class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
+            <div id="opd-b" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span class="p-2 rounded bg-danger text-white">B</span><small class="options" id="option-b"></small></div>
         </div>
         <div class="row optionsRow">
-            <div id="opd-c" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span
-                    class="p-2 rounded bg-warning text-white">C</span><small class="options"
-                    id="option-c"></small></div>
-            <div id="opd-d" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span
-                    class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
+            <div id="opd-c" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded offset-2 mr-3 p-3"><span class="p-2 rounded bg-warning text-white">C</span><small class="options" id="option-c"></small></div>
+            <div id="opd-d" class="ans bg-light mt-2 col-md-5 col-12 mx-auto shadow rounded p-3"><span class="p-2 rounded bg-info text-white">D</span><small class="options" id="option-d"></small></div>
         </div>
         <br>
     </div>
@@ -38,22 +34,19 @@
         <h3 class="text-center text-secondary mb-4"><strong>Your Result!</strong></h3>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                    role="tab" aria-controls="nav-home" aria-selected="true">Score</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
-                    role="tab" aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Score</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Leaderboard</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                aria-labelledby="nav-home-tab">
-                 <div class="text-center">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="text-center">
                     <h1 id='score' class="display-4 d-block"></h1>
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="container mt-3 tableScroll">
-                     <div class="table-responsive-sm">
+                    <div class="table-responsive-sm">
                         <table id="lb_table" class="table table-hover table-dark rounded" style="display: none;">
                             <thead>
                                 <tr>
@@ -68,13 +61,13 @@
                         <div id="empty_lb" class="text-center">
                             <h1>Looks like no one has made it to the leaderboard yet!</h1>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
         <div class="text-center">
             <div class="text-secondary mt-3"><strong>Did you like the game?</strong></div>
             <button class="btn btn-danger w-50 mt-2 text-white" onclick="restart()">Play Again</button></div>
-            <br>
+        <br>
     </div>
 </div>

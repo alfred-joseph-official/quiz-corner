@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" href="/img/logo1.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,29 +17,25 @@
 
 <body>
     <input type="text" id="game_id" value="{{gameId}}" hidden>
-      <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/"><img src="/img/logo1.png" width="50px" height="37px" id="logo"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <form class="form-inline mt-2 my-lg-0" autocomplete="off" action="/gotogame" method="POST">
-                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game"
-                    placeholder="Search for quiz games" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" id="searchgameinput" name="game" placeholder="Search for quiz games" aria-label="Search">
                 <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             </form>
             <ul class="navbar-nav ml-auto">
                 {{#if user.loggedin}}
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="{{user.imglink}}" alt="profilepicture"
-                            class="rounded-circle img-fluid navImg">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{user.imglink}}" alt="profilepicture" class="rounded-circle img-fluid navImg">
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="dropdown-item" href="/">Home <span class="sr-only">(current)</span></a>
                         <a class="dropdown-item" style="text-decoration:none; " href="/profile" onclick="move()">My
                             Profile</a>
                         <div class="dropdown-divider"></div>
@@ -49,8 +44,7 @@
                 </li>
                 {{else}}
                 <li class="nav-item">
-                    <a href="/login" id="modalBtn" class="btn btn-outline-light" data-toggle="modal"
-                        data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
+                    <a href="/login" id="modalBtn" class="btn btn-outline-light" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-sign-in mr-1"
                             aria-hidden="true"></i>Login/Register</a>
                 </li>
                 {{/if}}
@@ -61,15 +55,12 @@
         <div id="myBar"></div>
     </div>
 
-    {{!-- modal for login --}}
-    {{!-- <input type="text" class="auth" style="display: none;" value="{{user.user}}"> --}}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    {{!-- modal for login --}} {{!-- <input type="text" class="auth" style="display: none;" value="{{user.user}}"> --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog w-25" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1"
-                            aria-hidden="true"></i>Login</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-sign-in mr-1" aria-hidden="true"></i>Login</h5>
                     <a href="#" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </a>
@@ -78,21 +69,15 @@
                     <div class="container">
                         <form class="form-group" action="/loginuser" method="POST">
                             <div class="form-group">
-                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn"
-                                    placeholder="Username" name="usn" required
-                                    oninvalid="this.setCustomValidity('Enter your Username')"
-                                    oninput="setCustomValidity('')">
+                                <input type="text" pattern="^[A-Za-z0-9]+$" class="form-control m-1" id="usn" placeholder="Username" name="usn" required oninvalid="this.setCustomValidity('Enter your Username')" oninput="setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password"
-                                    name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')"
-                                    oninput="setCustomValidity('')">
+                                <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" required oninvalid="this.setCustomValidity('Enter your password!')" oninput="setCustomValidity('')">
                                 <small><a class="ml-2 Fpass" data-toggle="modal" data-dismiss="modal"
                                         data-target="#exampleModal2" href="forgot">Forgot Password?</a></small>
                             </div>
                             <div>
-                                <button type="submit" id='signInBtn'
-                                    class="form-control btn w-50 offset-3 btn-success">Sign
+                                <button type="submit" id='signInBtn' class="form-control btn w-50 offset-3 btn-success">Sign
                                     in</button><br>
                                 <small>
                                     <div class="font-weight-light text-center mt-3">
@@ -103,7 +88,8 @@
                             </div>
                         </form>
                     </div>
-                    {{!-- <div class="alert alert-danger" role="alert" style="display: none;">
+                    {{!--
+                    <div class="alert alert-danger" role="alert" style="display: none;">
                         Incorrect Email Id or Password!
                     </div> --}}
                 </div>
@@ -112,8 +98,7 @@
     </div>
 
     {{!-- modal for forgot password --}}
-    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,8 +110,7 @@
                 <div class="modal-body">
                     <p class="text-center font-weight-light">Enter your Username / Registered Email address.</p>
                     <div class="row mb-3">
-                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp"
-                            placeholder="Username / Email" required>
+                        <input type="email" class="form-control w-75 col-6 offset-2 mr-2" id="resInp" placeholder="Username / Email" required>
                         <button id="reset" class="btn btn-primary col-2">Reset</button>
                     </div>
                 </div>
@@ -135,13 +119,11 @@
     </div>
 
     {{!-- modal for signup --}}
-     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-dark">
-                    <h5 class="modal-title text-white" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white"
-                            aria-hidden="true"></i>Sign up</h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel"><i class="fa fa-sign-in mr-1 text-white" aria-hidden="true"></i>Sign up</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -151,31 +133,20 @@
                         <form class="form-group" action="/signupuser" method="POST">
                             <div class="Username">
                                 <div class="form-group">
-                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn"
-                                        placeholder="Username" name="usn" required
-                                        oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")'
-                                        oninput="setCustomValidity('')">
+                                    <input type="text" pattern="^[A-Za-z0-9]{3,}$" class="form-control m-1" id="usn" placeholder="Username" name="usn" required oninvalid='this.setCustomValidity(usn.value.length < 3 ? "Username should have minimum 3 characters!" : "Enter a valid Usn")' oninput="setCustomValidity('')">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-                                    class="form-control m-1" id="email" placeholder="Enter Email" name="email" required
-                                    oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
-                                    oninput="setCustomValidity('')">
+                                <input type="email" pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$" class="form-control m-1" id="email" placeholder="Enter Email" name="email" required oninvalid="this.setCustomValidity('Please Enter A Valid Email')" oninput="setCustomValidity('')">
                             </div>
                             <div class="pwd">
                                 <div class="form-group">
-                                    <input type="password" class="form-control m-1" id="pwd"
-                                        placeholder="Enter Password" name="pwd" minlength="6" required
-                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
-                                        oninput="setCustomValidity('')">
+                                    <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" minlength="6" required oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')" oninput="setCustomValidity('')">
                                 </div>
                             </div>
                             <div class="cpwd">
                                 <div class="form-group">
-                                    <input type="password" class="form-control m-1" id="cpwd"
-                                        placeholder="Re-enter Password" name="cpwd" required
-                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                                    <input type="password" class="form-control m-1" id="cpwd" placeholder="Re-enter Password" name="cpwd" required oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
                                 </div>
                             </div>
                             <button class="btn btn-primary form-control w-50 offset-3" type="submit">Sign
@@ -194,11 +165,8 @@
             <div class="col-md-3 bg-light shadow rounded ml-1">
                 <div class="container" id="AdBlock">
                     ads
-                    <img class="adImg mt-1"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ9V3_c06_uBfcnE8PLPFvLFUHYzevEjKf0A2c3eMGekef_7QEZ"
-                        alt="">
-                    <img class="adImg mt-3" src="https://i.kym-cdn.com/photos/images/facebook/000/326/434/34c.jpg"
-                        alt="">
+                    <img class="adImg mt-1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ9V3_c06_uBfcnE8PLPFvLFUHYzevEjKf0A2c3eMGekef_7QEZ" alt="">
+                    <img class="adImg mt-3" src="https://i.kym-cdn.com/photos/images/facebook/000/326/434/34c.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -219,8 +187,11 @@
             <div class="row">
                 <div class="col-4 border-right SloginDiv">
                     <small class="text-white offset-3"><strong>Follow</strong></small>
-                    <div class="Slogin mt-2"><a href="https://www.facebook.com/Quiz-Corner-110405373841100/?modal=admin_todo_tour" class="sBtn fa fa-facebook"></a><a href="#"
-                            class="sBtn fa fa-google"></a><a href="https://twitter.com/CornerQuiz" class="sBtn fa fa-twitter"></a></div>
+                    <div class="Slogin mt-2">
+                        <a href="https://www.facebook.com/Quiz-Corner-110405373841100/?modal=admin_todo_tour" class="sBtn fa fa-facebook"></a>
+                        <a href="#" class="sBtn fa fa-google"></a>
+                        <a href="https://twitter.com/CornerQuiz" class="sBtn fa fa-twitter"></a>
+                    </div>
                 </div>
                 <div class="col-4 text-center border-right">
                     <small class="text-white">Welcome to Quiz Corner, We've put together the best quiz games
@@ -239,36 +210,31 @@
     <footer class="text-center"> <small class="text-secondary"><strong> &copy; 2020 Quiz Corner. All Rights Reserved.
             </strong></small></footer>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {{!--
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css"> --}}
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/script.js"></script>
-    {{!-- <script src="/js/root.js"></script> --}}
+    {{!--
+    <script src="/js/root.js"></script> --}}
     <script src="/js/game_main.js"></script>
-      {{!-- {{#if imgQ}}
+    {{!-- {{#if imgQ}}
     <script src="/js/img_quiz.js"></script>
+    {{else}} {{#if clr}}
+    <script src="/js/colorista.js"></script>
     {{else}}
-        {{#if clr}}
-        <script src="/js/colorista.js"></script>
-        {{else}}
-        <script src="/js/question.js"></script>
-        {{/if}}
-    {{/if}} --}}
-    {{#switch gameId}}
-        {{#case '1'}} <script src="/js/question.js"></script> {{/case}}
-        {{#case '2'}} <script src="/js/img_quiz.js"></script> {{/case}}
-        {{#case '3'}} <script src="/js/img_quiz.js"></script> {{/case}}
-        {{#case '4'}} <script src="/js/colorista.js"></script> {{/case}}
-        {{#default}} <script src="/js/question.js"></script>{{/default}}
+    <script src="/js/question.js"></script>
+    {{/if}} {{/if}} --}} 
+    {{#switch gameId}} 
+        {{#case '1'}}<script src="/js/question.js"></script> {{/case}}
+        {{#case '2'}}<script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '3'}}<script src="/js/img_quiz.js"></script> {{/case}}
+        {{#case '4'}}<script src="/js/colorista.js"></script> {{/case}} 
+        {{#default}}<script src="/js/question.js"></script>{{/default}}
     {{/switch}}
 </body>
 

@@ -93,6 +93,22 @@ body {
     background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
 
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                    supported by Chrome, Opera and Firefox */
+}
+
 
 /* For responsive */
 
@@ -102,19 +118,15 @@ body {
         overflow-x: hidden;
         height: 100%!important;
     }
-
     #GameName {
         margin-left: 0!important;
     }
-
     #GameInfo {
         margin-left: 0!important;
     }
-
     #Rules {
         margin-left: 0!important;
     }
-
     .navbar {
         background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
     }
@@ -148,12 +160,10 @@ body {
         position: relative;
         left: 8%;
     }
-
     .SloginDiv {
         padding-right: 10px;
         padding-left: 10px;
     }
-
     .sBtn {
         padding: 6px;
         font-size: 13px;
@@ -189,7 +199,6 @@ body {
         height: 15%!important;
         background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
     }
-
     .row {
         padding-right: 0;
         margin: 0%;

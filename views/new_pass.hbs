@@ -2,24 +2,25 @@
 <div class="container-fluid col-md-12">
     <div class="jumbotron w-50 offset-3 bg-light shadow">
         <h3 class="text-center text-secondary"><small> Password Reset! Enter your new password.</small></h3>
-        <form class="needs-validation" action="/pwd" method="POST"> 
-        <div id="inpBox" class="row offset-1">
-            <input type="text" name="usn" value={{this.usn}} hidden>
-        <div class="m-2">
-                <input type="password" class="form-control" id="pwd" placeholder="New Password" name="pwd"
-                    minlength="6" required
-                    oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
-                    oninput="setCustomValidity('')">
-            </div>
-            <div class="m-2">
-                <input type="password" class="form-control" id="cpwd" placeholder="Confirm Password"
-                    name="cpwd" required
-                    oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'
-                    oninput="setCustomValidity('')">
-            </div>
-            <div class="m-2">
-            <button id="ConfirmBtn" class="btn btn-primary" type="submit">Confirm</button>
-            </div>
+        <form class="needs-validation" action="/pwd" method="POST">
+            <div id="inpBox" class="text-center">
+                <input type="text" id="fpusn" name="usn" value={{this.usn}} hidden>
+                <div class="row text-center">
+                    <div class="col ml-4">
+                        <input type="password" class="d-inline-block form-control" id="fppwd" placeholder="New Password" name="pwd" minlength="6" required oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')" oninput="setCustomValidity('')">
+                        <small id='cperr' style="display: none;"></small>
+                    </div>
+                    <div class="col mr-4">
+                        <input type="password" class="d-inline-block form-control" id="fpcpwd" placeholder="Confirm Password" name="cpwd" required oninvalid='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")' oninput="setCustomValidity('')">
+                        <small id='cperrc' style="display: none;"></small>
+                    </div>
+                </div>
+                <div class="m-4">
+                    <button id="ConfirmBtn" class="btn btn-primary" type="button">Confirm</button>
+                </div>
+                <div class="text-center">
+                    <small id='pChangeAlert' style="display: none;"></small>
+                </div>
             </div>
             <div style="display:none" class="alert alert-success alert-dismissible show col-8 offset-2 mt-4">
                 <button type="button" class="close" onclick="resetPass()" data-dismiss="alert">&times;</button>

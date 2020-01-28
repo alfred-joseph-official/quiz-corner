@@ -1,216 +1,205 @@
- <div class="container col-md-9 p-1">
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Email not verified!</strong> Please check your Inbox.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<div class="container col-md-9 p-1">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Email not verified!</strong> Please check your Inbox.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
+    </div>
 </div>
+<div class="container col-md-9 proCon w-75 w-100 bg-white shadow-lg rounded">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="dpDiv">
+                <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1 ">&#xf030;</i>Edit
+                </div>
+                <img src={{imglink}} alt="new pic" class="centerimg img-thumbnail">
+            </div>
+        </div>
+        <div id="infoDiv" class="col-md-8 mt-3 p-0">
+            <div class="col-md-12">
+                <h3 class="ml-3 ml-2">{{sessionuser}}</h3>
+                <form action="/updateprofile" method="POST" enctype="multipart/form-data">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td><b>Name</b></td>
+                                <td class="text-secondary"><small>{{name}}</small></td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" id="inputname" data-toggle="modal" data-target="#inputnamemodal"></i></td>
+                            </tr>
+                            <tr>
+                                <td><b>Password</b> </td>
+                                <td class="text-secondary"><small>{{password}}</small> </td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputpassmodal"></i></td>
+                            </tr>
+                            <tr>
+                                <td><b>Age</b> </td>
+                                <td class="text-secondary">{{age}}</td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputagemodal"></i></td>
+                            </tr>
+                            <tr>
+                                <td><b>Gender</b></td>
+                                <td class="text-secondary">{{gender}}</td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputgendermodal"></i></td>
+                            </tr>
+                            <tr>
+                                <td><b>E-mail</b> </td>
+                                <td class="text-secondary">{{email}}</td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputmailmodal"></i></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <input type="file" name="profilepic" id="profilepicid" hidden="true">
+                    <button type="submit" id="updatebtn" hidden=true>Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-    <div class="container col-md-9 proCon w-75 w-100 bg-white shadow-lg rounded">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="dpDiv">
-                  <div id="editDP" onclick="setProfilePic()" class="text-center py-2"><i style="font-size:18px" class="fa mr-1 ">&#xf030;</i>Edit
+
+<div class="container col-md-9 SocialDiv">
+    <div class="row bg-danger">
+        <h3 id="h3" class="text-white mt-2 offset-4"><i class="fa fa-facebook ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-google-plus ml-3 mr-5" aria-hidden="true"></i>
+            <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3" aria-hidden="true"></i>
+        </h3>
+    </div>
+</div><br><br><br> {{!-- input name --}}
+<div class="modal" id="inputnamemodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please enter name</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <form action="updateprofile" method="post">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control">
                     </div>
-                    <img src={{imglink}} alt="new pic" class="centerimg img-thumbnail">
-                </div>
+                    <button type="" id="checkbtn" class="btn btn-primary" onclick="$('.toast').toast('show');">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </form>
             </div>
-            <div id="infoDiv" class="col-md-8 mt-3 p-0">
-                <div class="col-md-12">
-                    <h3 class="ml-3 ml-2">{{sessionuser}}</h3>
-                    <form action="/updateprofile" method="POST" enctype="multipart/form-data">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td><b>Name</b></td>
-                                    <td class="text-secondary"><small>{{name}}</small></td>                                   
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" id="inputname"  data-toggle="modal" data-target="#inputnamemodal"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Password</b> </td>
-                                    <td class="text-secondary"><small>{{password}}</small> </td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputpassmodal"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Age</b> </td>
-                                    <td class="text-secondary">{{age}}</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputagemodal"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><b>Gender</b></td>
-                                    <td class="text-secondary">{{gender}}</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputgendermodal"></i></td>
-                                </tr>
-                                <tr>
-                                    <td><b>E-mail</b> </td>
-                                    <td class="text-secondary">{{email}}</td>
-                                    <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputmailmodal"></i></td>
-                                </tr>
-                               
-                            </tbody>
-                        </table>
-                        <input type="file" name="profilepic" id="profilepicid" hidden="true">
-                        <button type="submit" id="updatebtn" hidden=true>Update</button>
-                    </form>
-                </div>
-            </div>
+
         </div>
     </div>
 
-    <div class="container col-md-9 SocialDiv">
-        <div class="row bg-danger">
-            <h3 id="h3" class="text-white mt-2 offset-4"><i class="fa fa-facebook ml-3 mr-5" aria-hidden="true"></i><i
-                    class="fa fa-google-plus ml-3 mr-5" aria-hidden="true"></i>
-                <i class="fa fa-instagram ml-3 mr-5" aria-hidden="true"></i><i class="fa fa-twitter ml-3"
-                    aria-hidden="true"></i>
-            </h3>
-        </div>
-    </div><br><br><br>
-    
-      
-{{!-- input name --}}
-    <div class="modal" id="inputnamemodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please enter name</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="name"  class="form-control" >
-            </div>
-            <button type="" id="checkbtn" class="btn btn-primary" onclick="$('.toast').toast('show');">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
 </div>
 {{!-- input pass --}}
-   <div class="modal" id="inputpassmodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please Enter Your Password</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal" id="inputpassmodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please Enter Your Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="pwd">
-                                <div class="form-group">
-                                    <input type="password" class="form-control m-1" id="pwd"
-                                        placeholder="Enter Password" name="pwd" minlength="6" required
-                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
-                                        oninput="setCustomValidity('')">
-                                </div>
-                            </div>
-                            <div class="cpwd">
-                                <div class="form-group">
-                                    <input type="password" class="form-control m-1" id="cpwd"
-                                        placeholder="Re-enter Password" name="cpwd" required
-                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
-                                </div>
-                            </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
+            </div>
+            <div class="modal-body">
+                <form action="updateprofile" method="post">
+                    <div class="pwd">
+                        <div class="form-group">
+                            <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" minlength="6" required oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')" oninput="setCustomValidity('')">
+                        </div>
+                    </div>
+                    <div class="cpwd">
+                        <div class="form-group">
+                            <input type="password" class="form-control m-1" id="cpwd" placeholder="Re-enter Password" name="cpwd" required oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                        </div>
+                    </div>
+                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+
+        </div>
     </div>
-  </div>
-  
+
 </div>
 
 {{!-- input age --}}
- <div class="modal" id="inputagemodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please enter your age</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<div class="modal" id="inputagemodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please enter your age</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="age"  class="form-control">
             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
+            <div class="modal-body">
+                <form action="updateprofile" method="post">
+                    <div class="form-group">
+                        <input type="text" name="age" class="form-control">
+                    </div>
+                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                </form>
+            </div>
+
+        </div>
     </div>
-  </div>
-  
+
 </div>
-    {{!-- input gender --}}
-        <div class="modal" id="inputgendermodal" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Please Select Gender</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+{{!-- input gender --}}
+<div class="modal" id="inputgendermodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please Select Gender</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="updateprofile" method="post">
-                            <div class="form-group">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputGroupSelect01">Select</label>
-                                    </div>
-                                    <select class="custom-select" name="gender" id="inputGroupSelect01" onchange="this.form.submit();">
+            </div>
+            <div class="modal-body">
+                <form action="updateprofile" method="post">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputGroupSelect01">Select</label>
+                            </div>
+                            <select class="custom-select" name="gender" id="inputGroupSelect01" onchange="this.form.submit();">
                                         <option value="">Choose Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-                                </div>
-                            </div>
-                            
-                        </form>
+                        </div>
                     </div>
 
-                </div>
+                </form>
             </div>
 
         </div>
+    </div>
+
+</div>
 {{!-- inputmail --}}
 <div class="modal" id="inputmailmodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please enter your email</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Please enter your email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-      </div>
-      <div class="modal-body">
-        <form action="updateprofile" method="post">
-            <div class="form-group">
-                <input type="text" name="email"  class="form-control">
             </div>
-            <button type="" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            
-        </form>
-      </div>
-      
-    </div>
-  </div>
-  
-</div>
+            <div class="modal-body">
+                <form action="updateprofile" method="post">
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control">
+                    </div>
+                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>
