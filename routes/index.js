@@ -571,6 +571,10 @@ routes.get("/uniq", function(req, res) {
             DB.collection('Knowme').findOne({ token: req.query.t }, function(err, result) {
                 if (err) res.status(400).end();
 
+                console.log(req.session.user);
+                console.log((result.usn));
+
+
                 if (req.session.user != result.usn) {
                     result.list.forEach(function(item) {
                         if (item.usn == req.session.user) {
