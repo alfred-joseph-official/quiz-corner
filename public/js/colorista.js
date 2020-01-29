@@ -8,6 +8,7 @@ var score = 0;
 const cpool = ["Yellow", "Red", "Purple", "Blue", "Green", "Black", "Orange"];
 
 var wordList = [];
+var timerVar;
 
 function getRandom(n) {
     return Math.floor((Math.random() * n));
@@ -134,21 +135,19 @@ $('document').ready(function() {
     });
     setTimeout(() => {
         $('#spinner').hide('slow');
+        startTimer();
     }, 1500);
 });
 
 function getNext() {
-    if (quesId < 15) {
-        quesId++;
-        question = generateQuestion();
-        setData();
-    } else {
-        showResult();
-        // postPlayerData();
-    }
+    quesId++;
+    question = generateQuestion();
+    setData();
+    // postPlayerData();
 }
 
 function showResult() {
+    stopTimer();
     postToServer();
     gameDiv.hide();
     endCard.fadeIn('slow', function() {
@@ -194,4 +193,40 @@ function restart() {
     getNext()
     $('#score').text(score);
     gameDiv.fadeIn();
+    startTimer();
 };
+
+function stopTimer() {
+    clearInterval(timerVar);
+}
+
+function startTimer() {
+    var start = Date.now(),
+        r = $('#timer');
+    // qUrl = "/dotd_time?time=" + start;
+    // $.ajax({
+    //     type: "GET",
+    //     url: qUrl,
+    //     success: function(response) {
+    //         start = response;
+    (function f() {
+        var diff = Date.now() - start,
+            ns = (((0.6e5 - diff) / 1e3) >> 0),
+            m = (ns / 60) >> 0,
+            s = ns - m * 60;
+        r.text(m + ':' + (('' + s).length > 1 ? '' : '0') + s);
+        if (m == 0 && s == 0) {
+
+            showResult();
+            start = Date.now();
+            clearInterval(timerVar);
+        }
+        timerVar = setTimeout(f, .9e3);
+    })();
+    //     // },
+    //     error: function(request, status, error) {
+    //         console.log(request.responseText);
+    //     }
+    // });
+
+}

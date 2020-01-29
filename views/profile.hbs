@@ -1,3 +1,4 @@
+{{#unless ev}}
 <div class="container col-md-9 p-1">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
         <strong>Email not verified!</strong> Please check your Inbox.
@@ -6,6 +7,7 @@
   </button>
     </div>
 </div>
+{{/unless}}
 <div class="container col-md-9 proCon w-75 w-100 bg-white shadow-lg rounded">
     <div class="row">
         <div class="col-md-4">
@@ -44,7 +46,7 @@
                             <tr>
                                 <td><b>E-mail</b> </td>
                                 <td class="text-secondary">{{email}}</td>
-                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputmailmodal"></i></td>
+                                <td><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="modal" data-target="#inputgendermodal" hidden></i></td>
                             </tr>
 
                         </tbody>
@@ -74,11 +76,13 @@
         </button>
             </div>
             <div class="modal-body">
-                <form action="updateprofile" method="post">
+                <form action="/updateprofile" method="post">
                     <div class="form-group">
-                        <input type="text" name="name" class="form-control">
+                         <input type="text" name="name" placeholder="Full name" minlength="4"  class="form-control"
+                oninvalid="this.setCustomValidity('Name should be more than 4 character')"
+                oninput="setCustomValidity('')" required>
                     </div>
-                    <button type="" id="checkbtn" class="btn btn-primary" onclick="$('.toast').toast('show');">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>
@@ -102,15 +106,20 @@
                 <form action="updateprofile" method="post">
                     <div class="pwd">
                         <div class="form-group">
-                            <input type="password" class="form-control m-1" id="pwd" placeholder="Enter Password" name="pwd" minlength="6" required oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')" oninput="setCustomValidity('')">
+                            <input type="password" class="form-control m-1" id="pwd"
+                                        placeholder="Enter Password" name="pwd" minlength="6" required
+                                        oninvalid="this.setCustomValidity('Password should have minimum 6 characters!')"
+                                        oninput="setCustomValidity('')" required>
                         </div>
                     </div>
                     <div class="cpwd">
                         <div class="form-group">
-                            <input type="password" class="form-control m-1" id="cpwd" placeholder="Re-enter Password" name="cpwd" required oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")'>
+                            <input type="password" class="form-control m-1" id="cpwd"
+                                        placeholder="Re-enter Password" name="cpwd" required
+                                        oninput='this.setCustomValidity(cpwd.value != pwd.value ? "Passwords do not match." : "")' required>
                         </div>
                     </div>
-                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>
@@ -134,9 +143,10 @@
             <div class="modal-body">
                 <form action="updateprofile" method="post">
                     <div class="form-group">
-                        <input type="text" name="age" class="form-control">
+                         <input type="number" name="age"  class="form-control" 
+                oninput='this.setCustomValidity(age.value == 0 || age.value < 7? "Age cannot be 0 or less than 7" : "")' required>
                     </div>
-                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>
@@ -191,9 +201,12 @@
             <div class="modal-body">
                 <form action="updateprofile" method="post">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control">
+                        <input type="email" name="email"  class="form-control"
+                pattern="^[a-zA-Z0-9_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+                oninvalid="this.setCustomValidity('Please Enter A Valid Email')"
+                oninput="setCustomValidity('')" required>
                     </div>
-                    <button type="" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>

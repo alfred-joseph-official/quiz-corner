@@ -119,13 +119,12 @@ routes.post("/signupuser", function(req, res) {
         slt: pwdObj.slt,
         dp: dDP,
         age: "",
-        top_score: [],
-        fb_auth: ""
+        verified: false,
+        top_score: []
     }
 
     DB.collection('Users').findOne({ $or: [{ email: data.email }, { usn: data.usn }] }, function(err, userObj) {
         console.log(userObj);
-
         if (userObj) {
             if (userObj.usn == data.usn) {
                 res.status(409).send("Username Taken!");
@@ -138,7 +137,8 @@ routes.post("/signupuser", function(req, res) {
                 var obj = {
                     'user': data.usn,
                     'loggedin': true,
-                    'imglink': data.dp
+                    'imglink': data.dp,
+                    'ev': true
                 };
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).status(200).send('Success!');
             });
@@ -158,7 +158,8 @@ routes.post('/login', function(req, res) {
                 var obj = {
                     'user': result.usn,
                     'loggedin': true,
-                    'imglink': result.dp
+                    'imglink': result.dp,
+                    'ev': result.verified
                 };
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 }).status(200).send('Success!');
             } else {
@@ -234,6 +235,20 @@ routes.post("/forgot", function(req, res) {
 
 routes.get("/reset/token/:t", function(req, res) {
     var tkn = req.params.t
+    DB.collection('ResetLinks').findOne({ token: tkn }, function(err, resetObj) {
+        if (err || !resetObj) {
+            res.send("Link Not Found!"); // give 404
+        } else if (resetObj.expire_time < Date.now()) {
+            //delete resetObj from db
+            res.send("Link Expired!");
+        } else {
+            res.render('new_pass', { layout: 'no_ad', pp: false, usn: resetObj.usn });
+        }
+    });
+});
+
+routes.get("/verify/email/:t", function(req, res) {
+    let tkn = req.params.t
     DB.collection('ResetLinks').findOne({ token: tkn }, function(err, resetObj) {
         if (err || !resetObj) {
             res.send("Link Not Found!"); // give 404
@@ -788,7 +803,8 @@ routes.get("/profile", function(req, res) {
                 var obj = {
                     'user': result.usn,
                     'loggedin': true,
-                    'imglink': result.dp
+                    'imglink': result.dp,
+                    'ev': result.verified
                 };
                 res.cookie('user', obj, { signed: true, maxAge: 1000 * 60 * 600 });
                 //console.log(result)
@@ -803,7 +819,8 @@ routes.get("/profile", function(req, res) {
                     age: result.age,
                     gender: result.gender,
                     sessionuser: req.session.user,
-                    imglink: result.dp
+                    imglink: result.dp,
+                    ev: result.verified
                 })
             }
         })
@@ -852,8 +869,13 @@ routes.post("/updateprofile", function(req, res) {
 
     }
     if (req.body.name) {
+        let text = req.body.name;
+        text = text.toLowerCase()
+            .split(' ')
+            .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+            .join(' ');
         //console.log(req.body.name)
-        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": req.body.name } }, function(err, result) {
+        DB.collection('Users').findOneAndUpdate({ "usn": req.session.user }, { $set: { "name": text } }, function(err, result) {
             if (!err) {
                 res.redirect('/profile')
             }
