@@ -591,6 +591,7 @@ routes.get("/uniq", function(req, res) {
                     } else {
                         //TODO RENDER CANT PLAY! YOU've ALREADY PLAYED THIS GAME! // LeaderBoardPage
                         res.render('leaderboard', {
+                            user: req.signedCookies['user'],
                             top: result.list,
                             lb: true,
                             op: false
@@ -598,6 +599,7 @@ routes.get("/uniq", function(req, res) {
                     }
                 } else {
                     res.render('leaderboard', {
+                        user: req.signedCookies['user'],
                         top: result.list,
                         lb: (result.list.length > 0) ? true : false,
                         op: true
