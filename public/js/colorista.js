@@ -108,6 +108,7 @@ $('document').ready(function() {
     resetBtn = $('#reset_btn');
     // questNo = $('#questno');
     questDiv = $('#quesDiv');
+    r = $('#timer');
     optionsDiv.push($('#option-a'));
     optionsDiv.push($('#option-b'));
     optionsDiv.push($('#option-c'));
@@ -193,8 +194,7 @@ function stopTimer() {
 }
 
 function startTimer() {
-    var start = Date.now(),
-        r = $('#timer');
+    var start = Date.now();
     (function f() {
         var diff = Date.now() - start,
             ns = (((0.6e5 - diff) / 1e3) >> 0),
@@ -206,8 +206,7 @@ function startTimer() {
             showResult();
             start = Date.now();
             clearInterval(timerVar);
-        }
-        timerVar = setTimeout(f, .9e3);
+        } else timerVar = setTimeout(f, 1e3);
     })();
 
 }
