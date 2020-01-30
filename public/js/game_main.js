@@ -14,15 +14,11 @@ function getGamesList() {
                 //     $('#spinner').hide('slow');
                 // }, 3000);
                 gameData = response;
-                // console.log(gameData)
                 setGameInfo();
 
 
             },
-            error: function(response) {
-                // console.log(response);
-                console.log('error');
-            }
+            error: function(response) {}
         });
     }
 }

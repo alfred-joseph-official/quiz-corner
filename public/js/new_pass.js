@@ -25,12 +25,10 @@ $('document').ready(function() {
                 url: "/pwd",
                 data: fdata,
                 success: function(response) {
-                    // console.log(response)
                     setAlert(response, $('#pChangeAlert'), 'text-success');
                     btnLoadingAnim(cnfmBtn, false, 'Confirm');
                 },
                 error: function(response) {
-                    // console.log(response);
                     setAlert(response.responseText, $('#pChangeAlert'), 'text-danger');
                     btnLoadingAnim(cnfmBtn, false, 'Confirm');
                     cnfmBtn.prop('disabled', false);

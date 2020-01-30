@@ -1,9 +1,7 @@
 var gameId = 4;
 var quesId = 1;
-// var url = "/getques/?id=" + gameId + "&ques=" + quesId;
 var questDiv, optionsDiv = [];
 var ans;
-// var data = [];
 var score = 0;
 const cpool = ["Yellow", "Red", "Purple", "Blue", "Green", "Black", "Orange"];
 
@@ -77,8 +75,6 @@ function generateQuestion() {
 }
 
 question = generateQuestion();
-// console.log(question);
-
 
 function setData() {
     // questNo.text("Question " + quesId + ".");
@@ -161,13 +157,9 @@ function postToServer() {
         url: "/result",
         data: { gameId: gameId, score: score == "" ? 0 : score },
         success: function(response) {
-            // console.log(response);
             if (response.length > 0) loadRanks(response);
-            console.log('success');
         },
-        error: function(response) {
-            console.log('error');
-        }
+        error: function(response) {}
     });
 }
 
@@ -203,12 +195,6 @@ function stopTimer() {
 function startTimer() {
     var start = Date.now(),
         r = $('#timer');
-    // qUrl = "/dotd_time?time=" + start;
-    // $.ajax({
-    //     type: "GET",
-    //     url: qUrl,
-    //     success: function(response) {
-    //         start = response;
     (function f() {
         var diff = Date.now() - start,
             ns = (((0.6e5 - diff) / 1e3) >> 0),
@@ -223,10 +209,5 @@ function startTimer() {
         }
         timerVar = setTimeout(f, .9e3);
     })();
-    //     // },
-    //     error: function(request, status, error) {
-    //         console.log(request.responseText);
-    //     }
-    // });
 
 }

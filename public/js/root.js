@@ -1,10 +1,4 @@
 $('document').ready(function() {
-    // $('#signInBtn').click(function() {
-    //     var data = {
-    //         usn: $('#loginusn').val().trim(),
-    //         pwd: $('#loginpwd').val().trim()
-    //     }
-    //     console.log(data);
     var redirIp = $('#redir');
     if (redirIp.val()) {
         $('#modalBtn')[0].click();
@@ -39,12 +33,10 @@ $('document').ready(function() {
                 url: "/login",
                 data: data,
                 success: function(response) {
-                    // console.log(response)
                     setAlert(response, $('#errorMsg'), 'text-success');
                     btnLoadingAnim(signInBtn, false, 'Success!');
                 },
                 error: function(response) {
-                    // console.log(response);
                     setAlert(response.responseText, $('#errorMsg'), 'text-danger');
                     btnLoadingAnim(signInBtn, false, 'Sign In');
                     signInBtn.prop('disabled', false);
@@ -87,12 +79,10 @@ $('document').ready(function() {
                 url: "/signupuser",
                 data: data,
                 success: function(response) {
-                    // console.log(response)
                     setAlert(response, $('#suemsg'), 'text-success');
                     btnLoadingAnim(signUpBtn, false, 'Sign Up');
                 },
                 error: function(response) {
-                    // console.log(response);
                     setAlert(response.responseText, $('#suemsg'), 'text-danger');
                     btnLoadingAnim(signUpBtn, false, 'Sign Up');
                     signUpBtn.prop('disabled', false);
@@ -120,12 +110,10 @@ $('document').ready(function() {
                 url: "/forgot",
                 data: data,
                 success: function(response) {
-                    // console.log(response)
                     setAlert(response, $('#resetAlert'), 'text-success');
                     btnLoadingAnim(resetBtn, false, 'Reset');
                 },
                 error: function(response) {
-                    // console.log(response);
                     setAlert(response.responseText, $('#resetAlert'), 'text-danger');
                     btnLoadingAnim(resetBtn, false, 'Reset');
                     resetBtn.prop('disabled', false);
@@ -166,10 +154,6 @@ function setAlert(str, doc, clss) {
         doc.hide('slow');
         if (clss == 'text-success') {
             var redir = $.urlParam('redirect');
-            // console.log(decodeURI(window.location.search));
-
-            console.log(redir);
-
             window.location.href = redir != false ? redir : '/';
         };
     }, 2000);

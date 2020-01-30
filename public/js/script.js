@@ -1,10 +1,4 @@
 $('document').ready(function() {
-    // console.log($('auth').val());
-
-    // if ($('auth').val()) {
-    //     $('#exampleModal').modal('show')
-    // }
-
     $('#reset').click(function() {
 
         var email = $('#resInp').val();
@@ -13,13 +7,9 @@ $('document').ready(function() {
             url: "/forgot",
             data: { 'field': email },
             success: function(response) {
-                // console.log(response);
-                console.log('success');
 
             },
             error: function(response) {
-                // console.log(response);
-                console.log('error');
 
             }
         });
@@ -31,12 +21,7 @@ function setProfilePic() {
     $('#profilepicid').on('change', function() {
         $('#updatebtn').click();
     })
-
 }
-
-// $('.btn-save').click(function() {
-//     $(".toast").toast("show")
-// });
 
 var i = 0;
 

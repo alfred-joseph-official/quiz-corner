@@ -1,14 +1,10 @@
 var gameId = 2;
 var quesId = 1;
-// var url = "/getques/?id=" + gameId + "&ques=" + quesId;
 var questDiv, optionsDiv = [];
 var ans;
 var flag = false;
 var data = [];
 var score = 0;
-// var fbShare1 = "https://www.facebook.com/sharer/sharer.php?u=",
-//     fbShare2 = "%2F&amp;src=sdkpreparse",
-//     twitterShare = "https://twitter.com/intent/tweet?text=";
 
 $('document').ready(function() {
     gameId = parseInt($('#game_id').val());
@@ -42,44 +38,9 @@ function remBondAnim() {
     $('.bond-container').removeClass('bond-meter-loaded');
 }
 
-// function fetchQuestion() {
-//     $.ajax({
-//         type: "GET",
-//         url: url,
-//         success: function(response) {
-//             // console.log(response);
-//             // console.log('success');
-//             setData(response);
-//         },
-//         error: function(response) {
-//             // console.log(response);
-//             console.log('error');
-
-//         }
-//     });
-// }
-
-// function postPlayerData() {
-//     $.ajax({
-//         type: "POST",
-//         url: "/img_quiz",
-//         data: { gameId: gameId, score: score },
-//         success: function(response) {
-//             // console.log(response);
-//             // $("#uniqueLink").val(response);
-//             console.log('success');
-//         },
-//         error: function(response) {
-//             // console.log(response);
-//             console.log('error');
-//         }
-//     });
-// }
-
 function getNext() {
     if (quesId < 15) {
         quesId++;
-        // url = "/getques/?id=" + gameId + "&ques=" + quesId;
         setData()
     } else {
         showResult()
@@ -87,8 +48,6 @@ function getNext() {
 }
 
 function setData() {
-    // questNo.text("Question " + data.questions[quesId - 1].number + ".");
-
     questDiv.attr('src', data.questions[quesId - 1].question);
     for (let i = 0; i < 4; i++) {
         optionsDiv[i].text(data.questions[quesId - 1].options[i].option);
@@ -122,11 +81,8 @@ function postToServer() {
         data: { gameId: gameId, score: score == "" ? 0 : score },
         success: function(response) {
             if (response.length > 0) loadRanks(response);
-            // console.log('success');
         },
-        error: function(response) {
-            console.log('error');
-        }
+        error: function(response) {}
     });
 }
 
@@ -147,26 +103,20 @@ function loadRanks(ranks) {
 
 function fetchData() {
     if (data.length > 0) {
-        console.log(gameId);
         setData()
-    }
-    else {
+    } else {
         $.ajax({
             type: "POST",
             url: "/getques",
             data: { gameId: gameId },
             success: function(response) {
-                console.log(response);
                 setTimeout(() => {
                     $('#spinner').hide('slow');
                 }, 1500);
                 data = response;
                 setData();
             },
-            error: function(response) {
-                // console.log(response);
-                console.log('error');
-            }
+            error: function(response) {}
         });
     }
 }

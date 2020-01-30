@@ -30,7 +30,7 @@ mongoDB.MongoClient.connect(mongoUrl, {
     useUnifiedTopology: true
 }, function(err, server) {
     if (err) {
-        console.log(err)
+        // console.log(err)
     } else {
         DB = server.db(dbNAME)
         DB.collection("server").findOne({}, function(err, result) {
@@ -124,7 +124,7 @@ routes.post("/signupuser", function(req, res) {
     }
 
     DB.collection('Users').findOne({ $or: [{ email: data.email }, { usn: data.usn }] }, function(err, userObj) {
-        console.log(userObj);
+        // console.log(userObj);
         if (userObj) {
             if (userObj.usn == data.usn) {
                 res.status(409).send("Username Taken!");
@@ -263,7 +263,8 @@ routes.get("/verify/email/:t", function(req, res) {
 
 routes.get('/linkexpired', function(req, res) {
     res.render('expiredpage', {
-        layout: 'no_ad'
+        layout: 'no_ad',
+        user: req.signedCookies['user']
     })
 })
 
@@ -569,13 +570,14 @@ routes.get("/uniq", function(req, res) {
     if (req.query.game_id) {
         if (req.query.t) {
             DB.collection('Knowme').findOne({ token: req.query.t }, function(err, result) {
-                if (err) res.status(400).end();
-
-                console.log(req.session.user);
-                console.log((result.usn));
-
-
-                if (req.session.user != result.usn) {
+                if (err || result == null) res.render("404", {
+                    layout: 'no_ad',
+                    user: req.signedCookies['user']
+                });
+                // else if(result == null)
+                // console.log(req.session.user);
+                // console.log((result.usn));
+                else if (req.session.user != result.usn) {
                     result.list.forEach(function(item) {
                         if (item.usn == req.session.user) {
                             cPFlag = false;
@@ -739,7 +741,11 @@ routes.post('/result', function(req, res) {
 });
 
 routes.get('/leaderboard', function(req, res) {
-    res.render('leaderboard', { top: result });
+    res.render('leaderboard', {
+        layout: 'nod_ad',
+        top: result,
+        user: req.signedCookies['user']
+    });
 })
 
 function bondUpdate(req, res, upFlag) {
@@ -775,25 +781,47 @@ function updateScore(req, res, lowestScore) {
         if (err) res.status(500).end();
         else {
             let tr = [];
+            let temp = {};
             var upObj = {};
+            let newScoreFlag = false;
             if (parseInt(req.body.score) >= lowestScore) {
-                tr.push({
+                temp = {
                     usn: req.session.user,
                     score: parseInt(req.body.score)
-                });
-                upFlag = true;
+                }
+                newScoreFlag = true
             }
 
             if (result != null) {
-                tr.push(...result.list);
+                if (temp != null) {
+                    result.list.forEach(function(item) {
+                        if (temp.usn == item.usn) {
+                            if (temp.score > item.score) {
+                                tr.push(temp);
+                                upFlag = true;
+                            } else tr.push(item);
+                            newScoreFlag = false;
+                        } else {
+                            tr.push(item);
+                        }
+                    });
+                    if (newScoreFlag) {
+                        tr.push(temp);
+                        upFlag = true;
+                    }
+                } else {
+                    tr.push(...result.list);
+                }
                 tr.sort(function(a, b) {
                     return b.score - a.score;
                 });
                 if (tr.length > 10) tr.pop();
-
+            } else {
+                tr.push(temp);
             }
             upObj = { $set: { 'list': tr } };
             res.json(tr);
+
             if (upFlag) DB.collection('Tops').updateOne({ '_id': req.body.gameId }, upObj, { upsert: true }, function(err, result) { upFlag = false });
         }
     });

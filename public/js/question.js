@@ -118,19 +118,12 @@ function postCreaterData() {
         url: "/bond_post",
         data: { gameId: gameId, data: JSON.stringify(data) },
         success: function(response) {
-            // console.log(response);
             $("#uniqueLink").val(response);
-            // console.log(fbshare1 + response + fbshare2);
-            // console.log(twitterShare + response);
 
             // $('#fbs').attr('href', fbShare1 + response + fbShare2);
             // $('#tws').attr('href', encodeURIComponent(twitterShare + response));
-            // console.log('success');
         },
-        error: function(response) {
-            // console.log(response);
-            console.log('error');
-        }
+        error: function(response) {}
     });
 }
 
@@ -140,15 +133,9 @@ function postPlayerData() {
         url: "/result",
         data: { gameId: gameId, token: data.token, score: score, player: data.player },
         success: function(response) {
-            console.log(response);
-            // $("#uniqueLink").val(response);
             if (response.length > 0) loadRanks(response);
-            console.log('success');
         },
-        error: function(response) {
-            // console.log(response);
-            console.log('error');
-        }
+        error: function(response) {}
     });
 }
 
@@ -176,8 +163,6 @@ function fetchData() {
             url: url,
             data: { gameId: gameId },
             success: function(response) {
-                console.log(response);
-                console.log('success');
                 setTimeout(() => {
                     $('#spinner').hide('slow');
                 }, 1500);
@@ -185,10 +170,7 @@ function fetchData() {
                 setData();
 
             },
-            error: function(response) {
-                // console.log(response);
-                console.log('error');
-            }
+            error: function(response) {}
         });
     }
 }
